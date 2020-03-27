@@ -43,7 +43,7 @@ class HomePage extends StatelessWidget {
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: TextFormField(
                           style: TextStyle(
-                            color: Colors.redAccent,
+                            color: Colors.red,
                           ),
                           decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
