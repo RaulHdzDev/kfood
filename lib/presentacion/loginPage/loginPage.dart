@@ -77,7 +77,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 5),
                   child: RichText(
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.center,
                     text: TextSpan(children: [
                       TextSpan(
                           text: "¿Olvidaste tu contraseña?.",
@@ -108,7 +108,7 @@ class HomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
-                    color: Color(0xffff2d55),
+                    color: Colors.red,
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
@@ -116,6 +116,7 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50)),
                   ),
                 ),
+                
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
@@ -135,7 +136,7 @@ class HomePage extends StatelessWidget {
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
-                    textColor: Colors.redAccent,
+                    textColor: Colors.red,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                       side: BorderSide(color: Colors.redAccent, width: 2.0),
