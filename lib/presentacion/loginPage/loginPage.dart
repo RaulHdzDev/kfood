@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 
 class HomePage extends StatelessWidget {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +46,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: TextFormField(
+                          controller: usernameController,
                           style: TextStyle(
                             color: Colors.redAccent,
                           ),
@@ -58,6 +63,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: passwordController,
                         obscureText: true,
                         style: TextStyle(color: Colors.redAccent),
                         decoration: InputDecoration(
@@ -99,7 +105,7 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {logIn(usernameController.text,passwordController.text);},
                     child: Text(
                       'INICIAR SESIÓN',
                       style: TextStyle(
