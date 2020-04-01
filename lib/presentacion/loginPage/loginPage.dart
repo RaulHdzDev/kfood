@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                               enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.redAccent)),
-                              labelText: 'Nombre de usuario',
+                              labelText: 'Matricula',
                               labelStyle: TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'SFUIDisplay',
@@ -184,10 +184,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
-
-
               ],
             ),
           ),
