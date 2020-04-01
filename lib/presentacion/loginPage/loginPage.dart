@@ -80,6 +80,10 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+
+
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 5),
                   child: RichText(
@@ -102,6 +106,10 @@ class HomePage extends StatelessWidget {
                     ]),
                   ),
                 ),
+
+
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
@@ -112,9 +120,10 @@ class HomePage extends StatelessWidget {
                           fontSize: 15,
                           fontFamily: 'SFUIDisplay',
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Colors.white
+                          ),
                     ),
-                    color: Colors.red,
+                    color: Color.fromRGBO(248, 64, 0, 1),
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
@@ -123,6 +132,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 
+
+
+              
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
@@ -149,6 +161,10 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+
+
+
               ],
             ),
           ),
