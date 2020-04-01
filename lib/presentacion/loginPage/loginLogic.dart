@@ -1,6 +1,7 @@
 import 'dart:convert';
-
 import 'package:firebase_database/firebase_database.dart';
+
+
 
 Future<bool> logIn(String user, String pass) async {
   bool respuesta = false;
@@ -22,6 +23,8 @@ Future<bool> logIn(String user, String pass) async {
   return respuesta;
 }
 
+
+
 bool checkUser(List<Map<String,dynamic>> completeDB, String user, String pass){
   bool respuesta = false;
   for (var i = 0; i<completeDB.length; i++){
@@ -39,6 +42,9 @@ bool checkUser(List<Map<String,dynamic>> completeDB, String user, String pass){
   return respuesta;
 }
 
+
+
+
 bool checkPass(List<Map<String,dynamic>> completeDB, String pass, int index){
   bool respuesta = false;
   if(completeDB[index]["contraseña"] == pass){
@@ -49,6 +55,9 @@ bool checkPass(List<Map<String,dynamic>> completeDB, String pass, int index){
   }
   return respuesta;
 }
+
+
+
 
 //Formatea la respuesta de Firebase a algo que jsonDecoder pueda comprender
 String textFormarter(String s){
@@ -91,6 +100,9 @@ String textFormarter(String s){
   return s;
 }
 
+
+
+
 //Todo: Eliminar cuando este terminada la implementación
 getData(){
   FirebaseDatabase.instance
@@ -103,6 +115,9 @@ getData(){
     print(ds.value['contraseña']);
   });
 }
+
+
+
 
 Future<List> getUsersList() async{
   List<Map<String,dynamic>> completeDB = new List();
@@ -119,4 +134,7 @@ Future<List> getUsersList() async{
     });
   });
   return completeDB;
+
+
+  
 }
