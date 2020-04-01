@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
+import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
+import 'package:kfood_app/presentacion/loginPage/registrar.dart';
+
 
 class HomePage extends StatelessWidget {
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -113,7 +117,18 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {logIn(usernameController.text,passwordController.text);},
+                    onPressed: () {
+
+                      //logIn(usernameController.text,passwordController.text);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=> RecuperarContrasena(),
+                          )
+
+                      );
+                      },
+                      
                     child: Text(
                       'INICIAR SESIÓN',
                       style: TextStyle(
@@ -138,7 +153,15 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=> Registrar(),
+                          )
+
+                      );
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
