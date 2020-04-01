@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
+import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
+import 'package:kfood_app/presentacion/loginPage/registrar.dart';
+
 
 class HomePage extends StatelessWidget {
+  final usernameController = TextEditingController();
+  final passwordController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +50,7 @@ class HomePage extends StatelessWidget {
                       Padding(
                         padding: EdgeInsets.fromLTRB(0, 20, 0, 20),
                         child: TextFormField(
+                          controller: usernameController,
                           style: TextStyle(
                             color: Colors.red,
                           ),
@@ -58,6 +67,7 @@ class HomePage extends StatelessWidget {
                         ),
                       ),
                       TextFormField(
+                        controller: passwordController,
                         obscureText: true,
                         style: TextStyle(color: Colors.redAccent),
                         decoration: InputDecoration(
@@ -74,10 +84,14 @@ class HomePage extends StatelessWidget {
                     ],
                   ),
                 ),
+
+
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 20, bottom: 5),
                   child: RichText(
-                    textAlign: TextAlign.end,
+                    textAlign: TextAlign.center,
                     text: TextSpan(children: [
                       TextSpan(
                           text: "¿Olvidaste tu contraseña?.",
@@ -96,19 +110,35 @@ class HomePage extends StatelessWidget {
                     ]),
                   ),
                 ),
+
+
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+
+                      //logIn(usernameController.text,passwordController.text);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=> RecuperarContrasena(),
+                          )
+
+                      );
+                      },
+                      
                     child: Text(
                       'INICIAR SESIÓN',
                       style: TextStyle(
                           fontSize: 15,
                           fontFamily: 'SFUIDisplay',
                           fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                          color: Colors.white
+                          ),
                     ),
-                    color: Color(0xffff2d55),
+                    color: Color.fromRGBO(248, 64, 0, 1),
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
@@ -116,10 +146,22 @@ class HomePage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50)),
                   ),
                 ),
+                
+
+
+              
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=> Registrar(),
+                          )
+
+                      );
+                    },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -135,13 +177,17 @@ class HomePage extends StatelessWidget {
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
-                    textColor: Colors.redAccent,
+                    textColor: Colors.red,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(50),
                       side: BorderSide(color: Colors.redAccent, width: 2.0),
                     ),
                   ),
                 ),
+
+
+
+
               ],
             ),
           ),
