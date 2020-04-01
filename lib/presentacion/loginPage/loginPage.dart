@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
 import 'package:kfood_app/presentacion/loginPage/registrar.dart';
+import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -123,7 +124,7 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=> RecuperarContrasena(),
+                          builder: (context)=> MenuPrincipal(),
                           )
 
                       );
