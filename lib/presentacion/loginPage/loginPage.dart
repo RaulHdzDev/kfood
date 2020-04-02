@@ -13,18 +13,20 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+
       decoration: BoxDecoration(
           image: DecorationImage(
         image: AssetImage('assets/images/backHome.png'),
         fit: BoxFit.cover,
       )),
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        
         body: Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.transparent,
+            image: DecorationImage(
+              image: AssetImage('assets/images/backHome.png')
+              )
           ),
           child: Padding(
             padding: EdgeInsets.all(23),
@@ -131,9 +133,9 @@ class HomePage extends StatelessWidget {
                       },
                       
                     child: Text(
-                      'INICIAR SESIÓN',
+                      'Iniciar sesión',
                       style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 18,
                           fontFamily: 'SFUIDisplay',
                           fontWeight: FontWeight.bold,
                           color: Colors.white
@@ -168,9 +170,9 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
                         Text(
-                          'REGISTRATE AHORA',
+                          'Registrate ahora',
                           style: TextStyle(
-                              fontSize: 15, fontFamily: 'SFUIDisplay'),
+                              fontSize: 18, fontFamily: 'SFUIDisplay',fontWeight: FontWeight.bold),
                         )
                       ],
                     ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
-import 'package:kfood_app/presentacion/pantallaCarga/splash.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
@@ -46,6 +45,7 @@ class SplashScreen extends State<Splash> {
       },
     );
   }
+
 
 
   @override
