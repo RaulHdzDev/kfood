@@ -53,13 +53,13 @@ class HomePage extends StatelessWidget {
                         child: TextFormField(
                           controller: usernameController,
                           style: TextStyle(
-                            color: Colors.redAccent,
+                            color: Colors.red,
                           ),
                           decoration: InputDecoration(
                               enabledBorder: UnderlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Colors.redAccent)),
-                              labelText: 'Nombre de usuario',
+                              labelText: 'Matricula',
                               labelStyle: TextStyle(
                                   fontSize: 15,
                                   fontFamily: 'SFUIDisplay',
@@ -185,10 +185,6 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
-
-
-
-
               ],
             ),
           ),
