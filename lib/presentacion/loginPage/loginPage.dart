@@ -4,6 +4,8 @@ import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
 import 'package:kfood_app/presentacion/loginPage/registrar.dart';
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 
+import '../../Animation/FadeAnimation.dart';
+
 
 class HomePage extends StatelessWidget {
   final usernameController = TextEditingController();
@@ -21,7 +23,7 @@ class HomePage extends StatelessWidget {
       )),
       child: Scaffold(
         
-        body: Container(
+        body: FadeAnimation(.5,  Container(
           width: MediaQuery.of(context).size.width,
           decoration: BoxDecoration(
             image: DecorationImage(
@@ -190,6 +192,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+        ),
         ),
       ),
     );
