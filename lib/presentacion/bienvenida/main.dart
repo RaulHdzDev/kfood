@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
+
+import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 
 
 void main() => runApp(MyApp());
@@ -35,13 +38,22 @@ class SplashScreen extends State<Splash> {
     super.initState();
     Timer(
       Duration(seconds: 4),
-      () {
-        Navigator.push(
-          this.context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(),
-          ),
-        );
+      () async {
+        if(! await existUser()){
+          Navigator.push(
+            this.context,
+            MaterialPageRoute(
+              builder: (context) => HomePage(),
+            ),
+          );
+        }else{
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context)=> MenuPrincipal(),
+            )
+          );
+        }
       },
     );
   }

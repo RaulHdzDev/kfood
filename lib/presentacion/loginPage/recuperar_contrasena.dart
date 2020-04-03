@@ -1,9 +1,11 @@
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
-import 'package:kfood_app/presentacion/loginPage/registrar.dart';
+
+import 'loginLogic.dart';
 
  
 class RecuperarContrasena extends StatelessWidget {
+  final emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -151,6 +153,7 @@ class RecuperarContrasena extends StatelessWidget {
 	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
 	                          ),
 	                          child: TextField(
+                              controller: emailController,
                               textAlign: TextAlign.center,
 	                            decoration: InputDecoration(
 	                              border: InputBorder.none,
@@ -179,13 +182,7 @@ class RecuperarContrasena extends StatelessWidget {
                   padding: EdgeInsets.only(top: 270),
                   child: MaterialButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=> Registrar(),
-                          )
-
-                      );
+                      restorePassword(emailController.text);
                     },
                     child: Text(
                       'Recuperar',

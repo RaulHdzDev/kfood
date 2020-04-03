@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
-import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
 import 'package:kfood_app/presentacion/loginPage/registrar.dart';
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 
@@ -122,16 +121,16 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {
-
-                      //logIn(usernameController.text,passwordController.text);
+                    onPressed: () async {
+                      if(await logIn(usernameController.text,passwordController.text)){
                       Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=> MenuPrincipal(),
-                          )
+                      context,
+                      MaterialPageRoute(
+                      builder: (context)=> MenuPrincipal(),
+                      )
 
                       );
+                      }
                       },
                       
                     child: Text(
