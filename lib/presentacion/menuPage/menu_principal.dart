@@ -9,11 +9,10 @@ class MenuPrincipal extends StatelessWidget {
 
     return MaterialApp(
       title: 'Material App',
-
       home: Scaffold(
         appBar: AppBar(
           title: Text('Inicio'),
-          backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+          backgroundColor: Colors.white,
         ),
         body: Center(
           child: Container(
