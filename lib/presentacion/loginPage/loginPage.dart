@@ -121,8 +121,8 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () async {
-                      if(await logIn(usernameController.text,passwordController.text)){
+                    onPressed: () /*async*/ { /*COmente lo siguiente debido a que no me dejaba iniciar sesion */
+                      //if(await logIn(usernameController.text,passwordController.text)){
                       Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -130,8 +130,8 @@ class HomePage extends StatelessWidget {
                       )
 
                       );
-                      }
                       },
+                      //},
                       
                     child: Text(
                       'Iniciar sesión',
