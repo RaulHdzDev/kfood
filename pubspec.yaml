@@ -21,6 +21,9 @@ environment:
 
 dependencies:
   font_awesome_flutter: ^8.5.0 #for facebook icon
+  fancy_bottom_navigation: ^0.1.0
+  intl: 0.15.7
+  fluttertoast: ^4.0.0
   flutter:
     sdk: flutter
   firebase_database: ^3.0.7
@@ -75,6 +78,7 @@ flutter:
     - family: SFUIDisplay
       fonts:
         - asset: assets/fonts/sf-ui-display-light.otf
+        - asset: assets/fonts/RobotoSlab-Light.ttf
   #       - asset: fonts/Schyler-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic

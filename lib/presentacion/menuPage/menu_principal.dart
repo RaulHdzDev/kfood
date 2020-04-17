@@ -1,22 +1,16 @@
-
 import 'package:flutter/material.dart';
- 
- 
-class MenuPrincipal extends StatelessWidget {
+import 'package:kfood_app/presentacion/menuPage/shop_page.dart';
 
+class MenuPrincipal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     return MaterialApp(
-      title: 'Material App',
+      title: 'Shop Kfood',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('Inicio'),
-          backgroundColor: Colors.white,
-        ),
+        
         body: Center(
-          child: Container(
-          ),
+          child: HomeShop(),
         ),
       ),
     );
