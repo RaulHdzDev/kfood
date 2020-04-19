@@ -142,7 +142,7 @@ class HomePage extends StatelessWidget {
                           color: Colors.white
                           ),
                     ),
-                    color: Color.fromRGBO(248, 64, 0, 1),
+                    color: Color.fromRGBO(248, 64, 0, 1),                         
                     elevation: 0,
                     minWidth: 350,
                     height: 60,
@@ -151,7 +151,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 
-
+ 
 
               
                 Padding(
@@ -188,6 +188,9 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
                 ),
+
+
+
               ],
             ),
           ),
