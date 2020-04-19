@@ -50,7 +50,7 @@ class _HomeState extends State<Registrar> {
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
-                            fontFamily: "CaviarDreams",
+                            fontFamily: 'SFUIDisplay',
                             fontSize: 40),
                       )),
                 
@@ -59,10 +59,10 @@ class _HomeState extends State<Registrar> {
                   FadeAnimation(
                       1.3,
                       Text(
-                        "Registrar usuarios          ",
+                        "Registrar usuarios           ",
                         style: TextStyle(
                             color: Colors.white,
-                            fontFamily: "CaviarDreams",
+                            fontFamily: 'SFUIDisplay',
                             fontSize: 18),
                       )),
                 ],
@@ -111,7 +111,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Nombre",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -137,7 +137,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Apellido paterno",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                           fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -163,7 +163,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Apellido materno",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -189,7 +189,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Matricula",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -213,7 +213,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Semestre",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -239,7 +239,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Carrera",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -265,7 +265,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Correo institucional",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),
@@ -290,7 +290,7 @@ class _HomeState extends State<Registrar> {
                                       decoration: InputDecoration(
                                         labelText: "Contraseña",                                    
                                         labelStyle: TextStyle(
-                                            fontFamily: "CaviarDreams",
+                                            fontFamily: 'SFUIDisplay',
                                             fontSize: 18),
                                         border: OutlineInputBorder(
                                             borderSide: BorderSide(),

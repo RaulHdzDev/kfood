@@ -9,7 +9,7 @@ class FoodPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.redAccent,
+        backgroundColor:  Color.fromRGBO(248, 64, 0, 1),
         //backgroundColor: new Color.fromRGBO(240, 240, 240,90.0),
         body: SafeArea(
             bottom: true,

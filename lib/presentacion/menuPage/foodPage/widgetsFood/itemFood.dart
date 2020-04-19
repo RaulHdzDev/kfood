@@ -53,14 +53,14 @@ class HomeView extends StatelessWidget {
                             padding:
                                 EdgeInsets.only(top: 5, left: 5, bottom: 5),
                             child: Row(children: <Widget>[
-                              Icon(Icons.fastfood, color: Colors.redAccent, size: 15,),
+                              Icon(Icons.fastfood, color:  Color.fromRGBO(248, 64, 0, 1), size: 15,),
                               Text(
                                 "  " + trip.comida,
                                 style: new TextStyle(
                                     fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.red),
+                                    color: Color.fromRGBO(248, 64, 0, 1)),
                               )
                             ]),
                           )
@@ -146,7 +146,7 @@ void showFancyCustomDialog(BuildContext context) {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.redAccent,
+                    color:  Color.fromRGBO(248, 64, 0, 1),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),

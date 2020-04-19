@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
+import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
 import 'package:kfood_app/presentacion/loginPage/registrar.dart';
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 

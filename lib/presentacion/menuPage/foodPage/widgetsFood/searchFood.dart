@@ -33,11 +33,11 @@ class _SearcherFoodPageState extends State<SearcherFoodPage> {
           ),
           contentPadding: EdgeInsets.all(20),
           focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.redAccent),
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
             borderRadius: BorderRadius.circular(25.7),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: BorderSide(color: Colors.redAccent),
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
             borderRadius: BorderRadius.circular(25.7),
           ),
         ),

@@ -51,6 +51,7 @@ class RecuperarContrasena extends StatelessWidget {
                         child: Center(
                           child: Text("Recuperar",
                           style: TextStyle(
+                            fontFamily: 'SFUIDisplay',
                             fontSize: 30,
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
@@ -70,6 +71,7 @@ class RecuperarContrasena extends StatelessWidget {
                         child: Center(
                           child: Text("Contraseña",
                           style: TextStyle(
+                            fontFamily: 'SFUIDisplay',
                             fontSize: 50,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
@@ -89,6 +91,7 @@ class RecuperarContrasena extends StatelessWidget {
                         child: Center(
                           child: Text("Su contraseña se enviara al siguiente correo:",
                           style: TextStyle(
+                            fontFamily: 'SFUIDisplay',
                             fontSize: 12,
                             color: Colors.white,
                             fontWeight: FontWeight.normal,
@@ -125,53 +128,45 @@ class RecuperarContrasena extends StatelessWidget {
 
 
 
-
-	                  FadeAnimation(1, Container(
-                      width: 500,
-                      height: 85,
-	                    padding: EdgeInsets.all(10),
-	                    decoration: BoxDecoration(
-	                      color: Colors.white,
-	                      borderRadius: BorderRadius.circular(35),
-
-	                      boxShadow: [
-	                        BoxShadow(
-	                          color: Color.fromRGBO(100, 100, 0, .3),
-	                          blurRadius: 20.0,
-	                          offset: Offset(0, 5)
-	                        )
-	                      ]
-
-	                    ),
-	                    child: Column(
-	                      children: <Widget>[
+                     FadeAnimation(
+                              1.4,
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
 
 
-	                        Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                              controller: emailController,
-                              textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Correo Institucional",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 20,
-                                  )
-	                            ),
-	                          ),
-	                        ),
+                                    
+                                    TextFormField(
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Correo institucional",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 25),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(15))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.white,
+                                      ),
+                                    ),
 
 
 
+                                  ]
+                                )
+                              )
+                     ),
 
-	                      ],
-	                    ),
-	                  )),
+
 
 
 
