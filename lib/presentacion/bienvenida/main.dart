@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
@@ -30,7 +31,6 @@ class Splash extends StatefulWidget {
 }
 
 
-
 class SplashScreen extends State<Splash> {
  @override
   void initState() {
@@ -43,7 +43,8 @@ class SplashScreen extends State<Splash> {
           Navigator.push(
             this.context,
             MaterialPageRoute(
-              builder: (context) => HomePage(),
+              builder: (context) => Presentacion1(),
+              //builder: (context) => HomePage(),
             ),
           );
         }else{
@@ -51,6 +52,7 @@ class SplashScreen extends State<Splash> {
             context,
             MaterialPageRoute(
               builder: (context)=> MenuPrincipal(),
+              //builder: (context)=> MenuPrincipal(),
             )
           );
         }
@@ -125,11 +127,6 @@ class SplashScreen extends State<Splash> {
 
                       ),
 	                  ),
-
-                    
-
-	                 
-
 
 
 	                ],

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
-import 'package:kfood_app/presentacion/bienvenida/p_bienvenida2.dart';
+import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 
 
 
-class Presentacion1 extends StatelessWidget {
+class Presentacion3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -15,7 +15,7 @@ class Presentacion1 extends StatelessWidget {
         height: height,
         width: width,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/imagenP1.png'),
+          image: DecorationImage(image: AssetImage('assets/images/imagenP3.png'),
           fit: BoxFit.cover),
           gradient: LinearGradient(
               begin: Alignment.topRight,
@@ -39,13 +39,13 @@ class Presentacion1 extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context)=> Presentacion2(),
+                          builder: (context)=> HomePage(),
                           )
 
                       );
                     },
                     child: Text(
-                      'Siguiente',
+                      'Iniciar',
                       style: TextStyle(
                           fontSize: 18,
                           fontFamily: 'SFUIDisplay',
@@ -80,10 +80,3 @@ class Presentacion1 extends StatelessWidget {
     );
   }
 }
-             
-
-             
-
-
-
-

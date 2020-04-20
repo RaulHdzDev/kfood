@@ -17,8 +17,6 @@ class RecuperarContrasena extends StatelessWidget {
           child: Column(
             children: <Widget>[
              
-
-
              Container(
                width: 500,
                height: 300,
@@ -26,9 +24,6 @@ class RecuperarContrasena extends StatelessWidget {
                child: Stack(
                  children: <Widget>[
 
-
-
-                   
 	                  Positioned(
 	                    left: 180,
 	                    width: 350,
@@ -107,27 +102,15 @@ class RecuperarContrasena extends StatelessWidget {
                ),
              ),
 
-
-             
-
-
-
+      
              Padding(
 	              padding: EdgeInsets.all(20.0),
 	              child: Column(
 	                children: <Widget>[
-
-
-
-
 	            Padding(
 	              padding: EdgeInsets.all(20.0),
 	              child: Column(
 	                children: <Widget>[
-
-
-
-
                      FadeAnimation(
                               1.4,
                               Container(
@@ -168,12 +151,8 @@ class RecuperarContrasena extends StatelessWidget {
 
 
 
-
-
-
-
                     //**Boton Recuperar* */
-                   Padding(
+             Padding(
                   padding: EdgeInsets.only(top: 270),
                   child: MaterialButton(
                     onPressed: () {
@@ -196,19 +175,6 @@ class RecuperarContrasena extends StatelessWidget {
                         borderRadius: BorderRadius.circular(50)),
                   ),
                 ),
-                        
-
-
-
-
-
-
-               
-
-
-
-
-
 
                 
 	                ],
@@ -216,27 +182,12 @@ class RecuperarContrasena extends StatelessWidget {
 	            )
 
 
-
-                
-                
-
-
                   ]
                 )
               )
 
-
-
-
-               
-
-
-
             ],
           ),
-
-
-
 
 
         ),
