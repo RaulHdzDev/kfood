@@ -91,31 +91,27 @@ class HomePage extends StatelessWidget {
                 ),
 
 
+        FlatButton(
+              padding: EdgeInsets.all(0),
+               onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context)=> RecuperarContrasena(),
+                          )
 
-
-                Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 5),
-                  child: RichText(
-                    textAlign: TextAlign.center,
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: "¿Olvidaste tu contraseña?.",
-                          style: TextStyle(
-                            fontFamily: 'SFUIDisplay',
-                            color: Colors.black,
-                            fontSize: 15,
-                          )),
-                      TextSpan(
-                          text: "Clic aqui.",
-                          style: TextStyle(
-                            fontFamily: 'SFUIDisplay',
-                            color: Color(0xffff2d55),
-                            fontSize: 15,
-                          ))
-                    ]),
-                  ),
+                      );
+                    },
+              child: Text(
+                '¿Olvidaste tu contraseña? Clic aqui.',
+                style: TextStyle(
+                  color: Color.fromRGBO(248, 64, 0, 1),
                 ),
+                textAlign: TextAlign.right,
+              ),
+            ),
 
+                
 
 
 
