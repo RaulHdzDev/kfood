@@ -1,7 +1,8 @@
-import 'package:kfood_app/animation/FadeAnimation.dart';
+import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:kfood_app/presentacion/loginPage/registrarLogic.dart';
 
 class Registrar extends StatefulWidget {
   Registrar({Key key}) : super(key: key);
@@ -11,7 +12,14 @@ class Registrar extends StatefulWidget {
 }
 
 class _HomeState extends State<Registrar> {
- 
+  final nameController = TextEditingController();
+  final psurnameController = TextEditingController();
+  final msurnameController = TextEditingController();
+  final enrollmentController = TextEditingController();
+  final semesterController = TextEditingController();
+  final careerController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
 
     @override
   Widget build(BuildContext context) {
@@ -102,6 +110,7 @@ class _HomeState extends State<Registrar> {
 
 
                                     TextFormField(
+                                      controller: nameController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -128,6 +137,7 @@ class _HomeState extends State<Registrar> {
 
                                     SizedBox( height: 10),
                                     TextFormField(
+                                      controller: psurnameController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -154,6 +164,7 @@ class _HomeState extends State<Registrar> {
                                     
                                     SizedBox( height: 10),
                                     TextFormField(
+                                      controller: msurnameController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -180,6 +191,7 @@ class _HomeState extends State<Registrar> {
 
                                     SizedBox( height: 10),
                                     TextFormField(
+                                      controller: enrollmentController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -204,6 +216,7 @@ class _HomeState extends State<Registrar> {
 
                                     SizedBox( height: 10),
                                     TextFormField(
+                                      controller: semesterController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -230,6 +243,7 @@ class _HomeState extends State<Registrar> {
 
                                      SizedBox( height: 10),
                                     TextFormField(
+                                      controller: careerController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -256,6 +270,7 @@ class _HomeState extends State<Registrar> {
                                     
                                     SizedBox( height: 10),
                                     TextFormField(
+                                      controller: emailController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -281,6 +296,7 @@ class _HomeState extends State<Registrar> {
 
                                       SizedBox( height: 10),
                                     TextFormField(
+                                      controller: passController,
                                       style: TextStyle(color: Colors.black),
                                       autofocus: true,
                                       textAlign: TextAlign.left,
@@ -324,8 +340,18 @@ class _HomeState extends State<Registrar> {
               Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-                    onPressed: () {
-                    
+                    onPressed: () async {
+
+                      if(emailController.text.length>1 && nameController.text.length>1 && psurnameController.text.length>1 && msurnameController.text.length>1 &&
+                      careerController.text.length>1 && enrollmentController.text.length>1 && semesterController.text.length>0 && passController.text.length>1){
+                        String valueReturned = await signIn(emailController.text, nameController.text, psurnameController.text, msurnameController.text, careerController.text,
+                        enrollmentController.text, semesterController.text, passController.text);
+                        print(valueReturned);
+                        if (valueReturned == "exito"){
+                          Navigator.pop(context);
+                        }
+                      }
+
                     },
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
