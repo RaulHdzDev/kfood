@@ -3,7 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/widgetsFood/datos_Comida.dart';
 
 class HomeView extends StatelessWidget {
-  final List<DatosComida> tripsList = [
+  final List<DatosComida> listFood = [
     DatosComida("Hamburguesa", 25.00),
     DatosComida("Taco de Maiz", 7.00),
     DatosComida("Migada",  25.00),
@@ -15,19 +15,19 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: new ListView.builder(
-          itemCount: tripsList.length,
+          itemCount: listFood.length,
           itemBuilder: (BuildContext context, int index) =>
               buildTripCard(context, index)),
     );
   }
 
   Widget buildTripCard(BuildContext context, int index) {
-    final trip = tripsList[index];
+    final item = listFood[index];
     return new Container(
       child: InkWell(
       splashColor: Colors.black,
       onTap: () async {
-      print("tapped" + trip.comida);  
+      print("tapped" + item.comida);
       showFancyCustomDialog(context);
       },
       child: Card(
@@ -55,7 +55,7 @@ class HomeView extends StatelessWidget {
                             child: Row(children: <Widget>[
                               Icon(Icons.fastfood, color: Colors.redAccent, size: 15,),
                               Text(
-                                "  " + trip.comida,
+                                "  " + item.comida,
                                 style: new TextStyle(
                                     fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
@@ -79,7 +79,7 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "\$${trip.precio.toStringAsFixed(2)}",
+                      "\$${item.precio.toStringAsFixed(2)}",
                       style: new TextStyle(fontSize: 30.0, fontFamily: "SFUIDisplay"),
                     ),
                   ],
