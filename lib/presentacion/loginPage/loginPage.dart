@@ -118,13 +118,8 @@ class HomePage extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
-<<<<<<< HEAD
                     onPressed: () async { /*COmente lo siguiente debido a que no me dejaba iniciar sesion */
                       if(await logIn(usernameController.text,passwordController.text)){
-=======
-                    onPressed: () /*async*/ { /*COmente lo siguiente debido a que no me dejaba iniciar sesion */
-                      //if(await logIn(usernameController.text,passwordController.text)){
->>>>>>> adfe044fd7febb2b2f99439fe3ede6d36fae17bc
                       Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -132,13 +127,8 @@ class HomePage extends StatelessWidget {
                       )
 
                       );
-<<<<<<< HEAD
                       }
                       },
-=======
-                      },
-                      //},
->>>>>>> adfe044fd7febb2b2f99439fe3ede6d36fae17bc
                       
                     child: Text(
                       'Iniciar sesión',
