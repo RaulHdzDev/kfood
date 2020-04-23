@@ -1,6 +1,118 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:kfood_app/presentacion/menuPage/foodPage/widgetsFood/datos_Comida.dart';
+import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
+import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisos.dart';
+
+
+class FoodPage extends StatelessWidget {
+  const FoodPage({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor:  Color.fromRGBO(248, 64, 0, 1),
+        //backgroundColor: new Color.fromRGBO(240, 240, 240,90.0),
+        body: SafeArea(
+            bottom: true,
+            child: Container(
+              child: Column(children: <Widget>[
+                _headerFoodPage(),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 25.0, left: 10.0, right: 10.0, bottom: 20.0),
+                  child: _searcherFoodPage(context),
+                ),
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: HomeView(),
+                  ),
+                  flex: 1,
+                )
+              ]),
+            )));
+  }
+
+
+
+ Widget _headerFoodPage() {
+  return Container(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 25),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Elige tu comida",
+                style: TextStyle(
+                  fontSize: 38,
+                  fontFamily: 'SFUIDisplay',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 5),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  " ¿Qué comeremos hoy?",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.white70),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
+
+Widget _searcherFoodPage(BuildContext context) {
+  return Theme(
+      data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+      child: TextField(
+        autofocus: false,
+        cursorColor: Colors.white,
+        style: TextStyle(
+          fontSize: 22.0,
+          fontFamily: 'SFUIDisplay',
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(244, 67, 54, 90.0),
+          hintText: 'Tacos, Sopes, Migadas, ...',
+          hintStyle: TextStyle(
+            color: Colors.white30,
+          ),
+          suffixIcon: Icon(
+            Icons.search,
+            color: Colors.white70,
+          ),
+          contentPadding: EdgeInsets.all(20),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
+            borderRadius: BorderRadius.circular(25.7),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
+            borderRadius: BorderRadius.circular(25.7),
+          ),
+        ),
+      ),
+    );
+  }
+
+}
+
+
+
 
 class HomeView extends StatelessWidget {
   final List<DatosComida> tripsList = [
@@ -10,6 +122,8 @@ class HomeView extends StatelessWidget {
     DatosComida("Platillo", 35.00),
     DatosComida("Taco de Harina", 7.00),
   ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,15 +135,32 @@ class HomeView extends StatelessWidget {
     );
   }
 
+
+
   Widget buildTripCard(BuildContext context, int index) {
     final trip = tripsList[index];
     return new Container(
       child: InkWell(
       splashColor: Colors.black,
       onTap: () async {
-      print("tapped" + trip.comida);  
-      showFancyCustomDialog(context);
+        /*
+        Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context)=> Guisos(),
+                          )
+                      );
+                      */
+
+                      
+      /*print("tapped" + trip.comida);  
+      detallespedido(context);
+      */
       },
+
+
+
+
       child: Card(
         color: Colors.white,
         borderOnForeground: true,
@@ -93,7 +224,9 @@ class HomeView extends StatelessWidget {
   }
 
 
-void showFancyCustomDialog(BuildContext context) {
+
+
+void detallespedido(BuildContext context) {
     Dialog fancyDialog = Dialog(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12.0),
@@ -136,6 +269,9 @@ void showFancyCustomDialog(BuildContext context) {
                 ),
               ),
             ),
+
+
+
             Align(
               alignment: Alignment.bottomCenter,
               child: InkWell(
@@ -165,6 +301,9 @@ void showFancyCustomDialog(BuildContext context) {
                 ),
               ),
             ),
+
+
+
             Align(
         // These values are based on trial & error method
               alignment: Alignment(1.05, -1.05),
@@ -194,3 +333,6 @@ void showFancyCustomDialog(BuildContext context) {
 
 
 }
+
+
+
