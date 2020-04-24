@@ -1,4 +1,4 @@
-<<<<<<< HEAD:lib/presentacion/menuPage/foodPage/widgetsFood/itemFood.dart
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -10,20 +10,53 @@ import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
-import 'package:kfood_app/presentacion/menuPage/foodPage/widgetsFood/datos_Comida.dart';
-=======
+import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisos.dart';
 
 
-class FoodPage extends StatelessWidget {
-  const FoodPage({Key key}) : super(key: key);
+// ---------------------------------------------------------------------------------
+// CAMBIOS DE MONO ARRIBA
 
+
+
+class ItemFood extends StatefulWidget {
   @override
+  _ItemFoodState createState() => _ItemFoodState();
+}
+
+class _ItemFoodState extends State<ItemFood> {
+  final List<DatosComida> tripsList = [];
+  static int vari = 0;
+  @override
+  void initState() { 
+    super.initState();
+    Timer(new Duration(milliseconds: 1), abrirPag);
+  }
+
+  void imprimirLista(Comidas lista){
+    for (Comida item in lista.comidas) {
+      if(item.estado == 'Disponible'){
+        tripsList.add(DatosComida(item.nombreComida, double.parse(item.precioUnitario)));
+      }
+    }
+    setState(() {
+      
+    });
+  }
+
+@override
   Widget build(BuildContext context) {
+    return Container(
+      child: new ListView.builder(
+          itemCount: tripsList.length,
+          itemBuilder: (BuildContext context, int index) =>
+              buildTripCard(context, index)),
+    );
     return Scaffold(
+      
         backgroundColor:  Color.fromRGBO(248, 64, 0, 1),
         //backgroundColor: new Color.fromRGBO(240, 240, 240,90.0),
         body: SafeArea(
@@ -40,7 +73,7 @@ class FoodPage extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     padding: EdgeInsets.only(bottom: 20),
-                    child: HomeView(),
+                    child: ItemFood(),
                   ),
                   flex: 1,
                 )
@@ -48,9 +81,7 @@ class FoodPage extends StatelessWidget {
             )));
   }
 
-
-
- Widget _headerFoodPage() {
+  Widget _headerFoodPage() {
   return Container(
       child: Column(
         children: <Widget>[
@@ -87,6 +118,7 @@ class FoodPage extends StatelessWidget {
   }
 
 
+  
 Widget _searcherFoodPage(BuildContext context) {
   return Theme(
       data: Theme.of(context).copyWith(splashColor: Colors.transparent),
@@ -123,55 +155,6 @@ Widget _searcherFoodPage(BuildContext context) {
     );
   }
 
-}
-
-
-
->>>>>>> ff7027797a3af9aef3b3f5dead29d06e6c811787:lib/presentacion/menuPage/foodPage/comida/foodPage.dart
-
-
-<<<<<<< HEAD:lib/presentacion/menuPage/foodPage/widgetsFood/itemFood.dart
-class ItemFood extends StatefulWidget {
-  @override
-  _ItemFoodState createState() => _ItemFoodState();
-}
-
-class _ItemFoodState extends State<ItemFood> {
-  final List<DatosComida> tripsList = [];
-  static int vari = 0;
-  @override
-  void initState() { 
-    super.initState();
-    Timer(new Duration(milliseconds: 1), abrirPag);
-  }
-
-  void imprimirLista(Comidas lista){
-    for (Comida item in lista.comidas) {
-      if(item.estado == 'Disponible'){
-        tripsList.add(DatosComida(item.nombreComida, double.parse(item.precioUnitario)));
-      }
-    }
-    setState(() {
-      
-    });
-  }
-=======
-
-
->>>>>>> ff7027797a3af9aef3b3f5dead29d06e6c811787:lib/presentacion/menuPage/foodPage/comida/foodPage.dart
-  @override
-  Widget build(BuildContext context) {
-    
-    print('Hola ${vari++}');
-    return Container(
-      child: new ListView.builder(
-          itemCount: tripsList.length,
-          itemBuilder: (BuildContext context, int index) =>
-              buildTripCard(context, index)),
-    );
-  }
-
-
 
   Widget buildTripCard(BuildContext context, int index) {
 
@@ -180,11 +163,9 @@ class _ItemFoodState extends State<ItemFood> {
       child: InkWell(
       splashColor: Colors.black,
       onTap: () async {
-<<<<<<< HEAD:lib/presentacion/menuPage/foodPage/widgetsFood/itemFood.dart
+
       print("tapped" + trip.comida);  
-      showFancyCustomDialog(context);
-      
-=======
+      // showFancyCustomDialog(context);
         /*
         Navigator.push(
                         context,
@@ -198,7 +179,6 @@ class _ItemFoodState extends State<ItemFood> {
       /*print("tapped" + trip.comida);  
       detallespedido(context);
       */
->>>>>>> ff7027797a3af9aef3b3f5dead29d06e6c811787:lib/presentacion/menuPage/foodPage/comida/foodPage.dart
       },
 
 

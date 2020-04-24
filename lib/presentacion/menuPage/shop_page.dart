@@ -15,11 +15,11 @@ class HomeShop extends StatefulWidget {
 class _BottomNavBarState extends State<HomeShop> {
   int pageindex = 1;
 
-  Widget _showPage = new ProfilePage();
+  Widget _showPage = new ItemFood();
   Widget _pageChooser(int page) {
     switch (page) {
       case 0:
-        return FoodPage();
+        return ItemFood();
         break;
       case 1:
         return OrderPage();

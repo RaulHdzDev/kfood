@@ -14,7 +14,7 @@ Future<void> traerComida(Comidas innerComidas) async{
   return solicitarComida().then((value){
     final decodedData = json.decode(value);
     innerComidas.fromJsonList(decodedData['comida']);
-    print(value);
+    
   });
   
 }
