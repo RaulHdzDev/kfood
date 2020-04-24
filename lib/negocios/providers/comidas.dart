@@ -3,8 +3,8 @@ import 'package:kfood_app/negocios/class/comida.dart';
 
 class Comidas with ChangeNotifier{
 
-  List<Comida> _comidas = new List<Comida>();
-
+  //separa las comidas del json y las almacena en una lista
+  List<Comida> _comidas = new List<Comida>();  
   fromJsonList(List<dynamic> jsonList){
     if(jsonList == null )return;
     for(var item in jsonList){
