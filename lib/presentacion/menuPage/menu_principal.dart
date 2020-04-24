@@ -9,9 +9,11 @@ class MenuPrincipal extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         
+        
         body: Center(
           child: HomeShop(),
         ),
+        
       ),
     );
   }

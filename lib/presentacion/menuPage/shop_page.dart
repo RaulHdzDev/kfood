@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/orderPage.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePage.dart';
 
-import 'foodPage/foodPage.dart';
+import 'foodPage/comida/foodPage.dart';
 
 class HomeShop extends StatefulWidget {
   const HomeShop({Key key}) : super(key: key);
