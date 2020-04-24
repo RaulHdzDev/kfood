@@ -25,7 +25,7 @@ class FoodPage extends StatelessWidget {
                   child: Container(
                     color: Colors.white,
                     padding: EdgeInsets.only(bottom: 20),
-                    child: HomeView(),
+                    child: ItemFood(),
                   ),
                   flex: 1,
                 )

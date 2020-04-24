@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
@@ -6,6 +7,7 @@ import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
+import 'package:provider/provider.dart';
 
 
 void main() => runApp(MyApp());
@@ -14,11 +16,16 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-      body: Splash(),
-    ),
-      debugShowCheckedModeBanner: false,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(builder: (context) => Comidas(),)
+      ],
+          child: MaterialApp(
+        home: Scaffold(
+        body: Splash(),
+      ),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

@@ -1,18 +1,45 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
+import 'package:kfood_app/negocios/menuComida.dart';
+import 'package:provider/provider.dart';
+
+import 'package:kfood_app/negocios/class/comida.dart';
+import 'package:kfood_app/negocios/providers/comidas.dart';
+import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/widgetsFood/datos_Comida.dart';
 
-class HomeView extends StatelessWidget {
-  final List<DatosComida> tripsList = [
-    DatosComida("Hamburguesa", 25.00),
-    DatosComida("Taco de Maiz", 7.00),
-    DatosComida("Migada",  25.00),
-    DatosComida("Platillo", 35.00),
-    DatosComida("Taco de Harina", 7.00),
-  ];
 
+class ItemFood extends StatefulWidget {
+  @override
+  _ItemFoodState createState() => _ItemFoodState();
+}
+
+class _ItemFoodState extends State<ItemFood> {
+  final List<DatosComida> tripsList = [];
+  static int vari = 0;
+  @override
+  void initState() { 
+    super.initState();
+    Timer(new Duration(milliseconds: 1), abrirPag);
+  }
+
+  void imprimirLista(Comidas lista){
+    for (Comida item in lista.comidas) {
+      if(item.estado == 'Disponible'){
+        tripsList.add(DatosComida(item.nombreComida, double.parse(item.precioUnitario)));
+      }
+    }
+    setState(() {
+      
+    });
+  }
   @override
   Widget build(BuildContext context) {
+    
+    print('Hola ${vari++}');
     return Container(
       child: new ListView.builder(
           itemCount: tripsList.length,
@@ -22,6 +49,7 @@ class HomeView extends StatelessWidget {
   }
 
   Widget buildTripCard(BuildContext context, int index) {
+
     final trip = tripsList[index];
     return new Container(
       child: InkWell(
@@ -29,6 +57,7 @@ class HomeView extends StatelessWidget {
       onTap: () async {
       print("tapped" + trip.comida);  
       showFancyCustomDialog(context);
+      
       },
       child: Card(
         color: Colors.white,
@@ -92,6 +121,17 @@ class HomeView extends StatelessWidget {
     );
   }
 
+  _abrirPaginaComidas(BuildContext context) async{
+
+    final Comidas comidas = Provider.of<Comidas>(context);
+    await traerComida(comidas);
+    imprimirLista(comidas);
+
+  }
+
+void abrirPag(){
+  _abrirPaginaComidas(context);
+}
 
 void showFancyCustomDialog(BuildContext context) {
     Dialog fancyDialog = Dialog(
@@ -191,6 +231,7 @@ void showFancyCustomDialog(BuildContext context) {
     showDialog(
         context: context, builder: (BuildContext context) => fancyDialog);
  }
+
 
 
 }
