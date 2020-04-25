@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/orderPage.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePage.dart';
 
-import 'foodPage/foodPage.dart';
+import 'foodPage/comida/foodPage.dart';
 
 class HomeShop extends StatefulWidget {
   const HomeShop({Key key}) : super(key: key);
@@ -44,8 +44,8 @@ class _BottomNavBarState extends State<HomeShop> {
         bottomNavigationBar: FancyBottomNavigation(
           barBackgroundColor: Colors.white70,
           activeIconColor: Colors.white,
-          inactiveIconColor: Colors.redAccent,
-          circleColor: Colors.redAccent,
+          inactiveIconColor: Color.fromRGBO(248, 64, 0, 1),
+          circleColor:  Color.fromRGBO(248, 64, 0, 1),
           tabs: [
             TabData(iconData: Icons.fastfood, title: "Menu"),
             TabData(iconData: Icons.shopping_cart, title: "Orden"),

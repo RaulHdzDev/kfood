@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kfood_app/presentacion/bienvenida/p_bienvenida3.dart';
+import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 
 
@@ -11,14 +12,14 @@ import '../menuPage/menu_principal.dart';
 
 
 
-class Presentacion2 extends StatefulWidget {
+class Presentacion3 extends StatefulWidget {
   @override
   Login createState() => Login();
 }
 
 
 
-class Login extends State<Presentacion2> {
+class Login extends State<Presentacion3> {
   bool _rememberMe = false;
 
  
@@ -38,7 +39,7 @@ class Login extends State<Presentacion2> {
                 height: double.infinity,
                 width: double.infinity,
                decoration: BoxDecoration(
-                 image: DecorationImage(image: AssetImage('assets/images/imagenP2.png'),
+                 image: DecorationImage(image: AssetImage('assets/images/imagenP3.png'),
                    fit: BoxFit.cover),
                      gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -86,7 +87,7 @@ class Login extends State<Presentacion2> {
           Navigator.push(
                         context,
                         CupertinoPageRoute(
-                          builder: (context)=> Presentacion3(),
+                          builder: (context)=> HomePage(),
                           )
                       );
         },
@@ -96,7 +97,7 @@ class Login extends State<Presentacion2> {
         ),
          color: Colors.white,
         child: Text(
-          'Siguiente',
+          'Iniciar',
           style: TextStyle(
             color: Color.fromRGBO(248, 64, 0, 1),
             letterSpacing: 1.0,

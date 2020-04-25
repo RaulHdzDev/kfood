@@ -1,353 +1,396 @@
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
-import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import 'package:kfood_app/presentacion/loginPage/registrarLogic.dart';
 
+class Registrar extends StatefulWidget {
+  Registrar({Key key}) : super(key: key);
 
-class Registrar extends StatelessWidget {
   @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Registrar> {
+  final nameController = TextEditingController();
+  final psurnameController = TextEditingController();
+  final msurnameController = TextEditingController();
+  final enrollmentController = TextEditingController();
+  final semesterController = TextEditingController();
+  final careerController = TextEditingController();
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+
+    @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: SingleChildScrollView(
+      body: Container(
+        width: double.infinity,
 
 
-      	child: Container(
-	        child: Column(
-          
-	          children: <Widget>[
+        decoration: BoxDecoration(
+            gradient: LinearGradient(begin: Alignment.topCenter, colors: [
+          Color.fromRGBO(248, 64, 0, 1),
+          Color.fromRGBO(248, 64, 0, .8),
+          Color.fromRGBO(248, 64, 0, .7)
+        ])),
 
 
-
-	            Container(
-	              height: 195,
-
-                
-	              decoration: BoxDecoration(
-	                image: DecorationImage(
-	                  image: AssetImage('assets/images/fondoKfood.png'),
-	                  fit: BoxFit.fill
-	                )
-	              ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            SizedBox(
+              height: 60,
+            ),
 
 
 
-	              child: Stack(
-	                children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
 
-
-
-	                  Positioned(
-	                    left: 20,
-	                    width: 80,
-                      top: -80,
-	                    height: 200,
-	                    child: FadeAnimation(.4, Container(
-	                      decoration: BoxDecoration(
-	                        image: DecorationImage(
-	                          image: AssetImage('assets/images/light-1.png')
-	                        )
-	                      ),
-	                    )),
-	                  ),
-
-
-
-
-
-	                  Positioned(
-	                    left: 140,
-	                    width: 50,
-	                    height: 150,
-	                    child: FadeAnimation(.8, Container(
-	                      decoration: BoxDecoration(
-	                        image: DecorationImage(
-	                          image: AssetImage('assets/images/light-2.png')
-	                        )
-	                      ),
-	                    )),
-	                  ),
-
-
-
-
-
-	                  Positioned(
-	                    right: 150,
-	                    top: 50,
-	                    child: FadeAnimation(1.2, Container(
-	                    margin: EdgeInsets.only(top: 50),
-                      child: Center(
-                        child: Text("Registrar", style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 60,
-                          fontWeight: FontWeight.bold
-                        ),),
-                      ),
+                  
+                  FadeAnimation(1,
+                      Text(
+                        "Bienvenido",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'SFUIDisplay',
+                            fontSize: 40),
                       )),
-	                  ),
+                
+
+
+                  FadeAnimation(
+                      1.3,
+                      Text(
+                        "Registrar usuarios           ",
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'SFUIDisplay',
+                            fontSize: 18),
+                      )),
+                ],
+              ),
+            ),
+
+ 
+
+            SizedBox(height: 20),
+            Expanded(
+              child: Container(
+
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(60),
+                          topRight: Radius.circular(60))),
+
+
+
+                  child: SingleChildScrollView(
+                    child: Padding(
+                      padding: EdgeInsets.all(30),
+                      child: Column(
+                        children: <Widget>[
+                          SizedBox(
+                            height: 10,
+                          ),
+
+
+                          FadeAnimation(
+                              1.4,
+                              Container(
+                                child: Column(
+                                  children: <Widget>[
+
+
+
+                                    TextFormField(
+                                      controller: nameController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Nombre",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+
+                                    SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: psurnameController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Apellido paterno",                                    
+                                        labelStyle: TextStyle(
+                                           fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+                                    
+                                    SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: msurnameController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Apellido materno",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+
+                                    SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: enrollmentController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Matricula",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+                                    SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: semesterController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Semestre",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+
+                                     SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: careerController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Carrera",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+                                    
+                                    SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: emailController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Correo institucional",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
+
+
+                                      SizedBox( height: 10),
+                                    TextFormField(
+                                      controller: passController,
+                                      style: TextStyle(color: Colors.black),
+                                      autofocus: true,
+                                      textAlign: TextAlign.left,
+                                      autocorrect: true,
+                                      cursorColor:  Colors.black,
+                                      cursorRadius: Radius.circular(10),
+                                      decoration: InputDecoration(
+                                        labelText: "Contraseña",                                    
+                                        labelStyle: TextStyle(
+                                            fontFamily: 'SFUIDisplay',
+                                            fontSize: 18),
+                                        border: OutlineInputBorder(
+                                            borderSide: BorderSide(),
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(10))),
+                                        hintStyle:
+                                            TextStyle(color: Color.fromRGBO(248, 64, 0, 1)),
+                                        filled: true,
+                                        fillColor: Colors.transparent,
+                                      ),
+                                    ),
 
 
 
 
 
-	                  Positioned(
-                      right: 255,
-                      top: 110,
-	                    child: FadeAnimation(1.6, Container(
-	                      margin: EdgeInsets.only(top: 50),
-	                      child: Center(
-	                        child: Text("Usuarios", style: TextStyle(
-                            color: Colors.black, 
-                            fontSize: 35, 
-                            fontWeight: FontWeight.normal
-                            ),),
-	                      ),
-	                    )),
-	                  )
+
+                                  ],
+                                ),
+                              )),
 
 
 
-	                ],
-	              ),
-	            ),
+                          SizedBox(
+                            height: 10,
+                          ),
 
 
 
 
-
-
-	            Padding(
-	              padding: EdgeInsets.all(20.0),
-	              child: Column(
-	                children: <Widget>[
-
-
-	                  FadeAnimation(1, Container(
-	                    padding: EdgeInsets.all(10),
-	                    decoration: BoxDecoration(
-	                      color: Colors.white,
-	                      borderRadius: BorderRadius.circular(30),
-
-	                      boxShadow: [
-	                        BoxShadow(
-	                          color: Color.fromRGBO(248, 64, 0, .3),
-	                          blurRadius: 20.0,
-	                          offset: Offset(0, 5)
-	                        )
-	                      ]
-
-
-	                    ),
-	                    child: Column(
-	                      children: <Widget>[
-
-
-
-
-                  //*****Apartado para los TextField*****//
-	                        Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                              textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Nombre",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-                           Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                              textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Apellido Paterno",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-
-                          Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                              textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Apellido Materno",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-                          Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                             textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Matricula",
-	                              hintStyle: TextStyle(color: Colors.grey[400])
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-                          Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                             textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Semestre",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-
-                          Container(
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                             textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Carrera",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-
-
-
-
-                             Container( 
-	                          padding: EdgeInsets.all(8),
-	                          decoration: BoxDecoration(
-	                            border: Border(bottom: BorderSide(color: Colors.grey[100]))
-	                          ),
-	                          child: TextField(
-                             textAlign: TextAlign.center,
-	                            decoration: InputDecoration(
-	                              border: InputBorder.none,
-	                              hintText: "Correo Institucional",
-	                              hintStyle: TextStyle(
-                                  color: Colors.grey[400],
-                                  fontSize: 18,
-                                  )
-	                            ),
-	                          ),
-	                        ),
-
-
-                        
-
-
-	                      ],
-	                    ),
-	                  )),
-
-
-
-               
-                       Padding(
-                  padding: EdgeInsets.only(top: 30),
+              Padding(
+                  padding: EdgeInsets.only(top: 20),
                   child: MaterialButton(
+                    onPressed: () async {
 
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context)=> RecuperarContrasena(),
-                          )
+                      if(emailController.text.length>1 && nameController.text.length>1 && psurnameController.text.length>1 && msurnameController.text.length>1 &&
+                      careerController.text.length>1 && enrollmentController.text.length>1 && semesterController.text.length>0 && passController.text.length>1){
+                        String valueReturned = await signIn(emailController.text, nameController.text, psurnameController.text, msurnameController.text, careerController.text,
+                        enrollmentController.text, semesterController.text, passController.text);
+                        print(valueReturned);
+                        if (valueReturned == "exito"){
+                          Navigator.pop(context);
+                        }
+                      }
 
-                      );
                     },
-                    
-                    child: Text(
-                      'Registrar',
-                      style: TextStyle(
-                          fontSize: 18,
-                          fontFamily: 'SFUIDisplay',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        Text(
+                          'Registrate ahora',
+                          style: TextStyle(
+                              fontSize: 18, fontFamily: 'SFUIDisplay',fontWeight: FontWeight.bold),
+                        )
+                      ],
                     ),
-                    color: Color.fromRGBO(248, 64, 0, 1),
-                    elevation: 10,
-                    minWidth: 250,
-                    height: 50,
+                    color: Colors.white,
+                    elevation: 0,
+                    minWidth: 350,
+                    height: 60,
+                    textColor: Colors.red,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
+                      borderRadius: BorderRadius.circular(50),
+                      side: BorderSide(color: Color.fromRGBO(248, 64, 0, 1), width: 2.0),
+                    ),
                   ),
-                ), 
-
-
-
-
-	                ],
-	              ),
-	            )
+                ),
 
 
 
 
 
+                        ],
+                      ),
+                    ),
+                  )),
 
-	          ],
-	        ),
-	      ),
-      )
+
+            )
+          ],
+        ),
+      ),
     );
+
   }
 }

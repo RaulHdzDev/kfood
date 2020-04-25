@@ -1,33 +1,152 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
-import 'package:kfood_app/presentacion/menuPage/foodPage/widgetsFood/datos_Comida.dart';
+import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/datos_Guisos.dart';
 
-class HomeView extends StatelessWidget {
-  final List<DatosComida> listFood = [
-    DatosComida("Hamburguesa", 25.00),
-    DatosComida("Taco de Maiz", 7.00),
-    DatosComida("Migada",  25.00),
-    DatosComida("Platillo", 35.00),
-    DatosComida("Taco de Harina", 7.00),
+class Guisos extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        backgroundColor:  Color.fromRGBO(248, 64, 0, 1),
+        //backgroundColor: new Color.fromRGBO(240, 240, 240,90.0),
+        body: SafeArea(
+            bottom: true,
+            child: Container(
+              child: Column(children: <Widget>[
+                _headerGuisoPage(),
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: 25.0, left: 10.0, right: 10.0, bottom: 20.0),
+                  child: _searcherGuisoPage(context),
+                ),
+
+                Expanded(
+                  child: Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.only(bottom: 20),
+                    child: HomeViewGuiso(),
+                  ),
+                  flex: 1,
+                )
+              ]),
+            )));
+  }
+
+
+
+
+ Widget _headerGuisoPage() {
+ return Container(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 25),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "A continuación",
+                style: TextStyle(
+                  fontSize: 38,
+                  fontFamily: 'SFUIDisplay',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 5),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  " Elige el guiso",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.white70),
+                )),
+          )
+        ],
+      ),
+    );
+  }
+
+
+
+
+
+ Widget _searcherGuisoPage(BuildContext context) {
+   return Theme(
+      data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+      child: TextField(
+        autofocus: false,
+        cursorColor: Colors.white,
+        style: TextStyle(
+          fontSize: 22.0,
+          fontFamily: 'SFUIDisplay',
+          color: Colors.white,
+        ),
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Color.fromRGBO(244, 67, 54, 90.0),
+          hintText: 'Huevo verde, Asado, Frijoles, ...',
+          hintStyle: TextStyle(
+            color: Colors.white30,
+          ),
+          suffixIcon: Icon(
+            Icons.search,
+            color: Colors.white70,
+          ),
+          contentPadding: EdgeInsets.all(20),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
+            borderRadius: BorderRadius.circular(25.7),
+          ),
+          enabledBorder: UnderlineInputBorder(
+            borderSide: BorderSide(color:  Color.fromRGBO(248, 64, 0, 1)),
+            borderRadius: BorderRadius.circular(25.7),
+          ),
+        ),
+      ),
+    );
+  }
+
+
+
+
+}
+
+
+
+
+
+
+class HomeViewGuiso extends StatelessWidget {
+  final List<DatosGuiso> tripsList = [
+    DatosGuiso("Huevo verde", 25.00),
+    DatosGuiso("Bistek ranchero", 7.00),
+    DatosGuiso("Picadillo",  25.00),
+    DatosGuiso("Asado", 35.00),
+    DatosGuiso("Chicharrón", 7.00),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: new ListView.builder(
-          itemCount: listFood.length,
+          itemCount: tripsList.length,
           itemBuilder: (BuildContext context, int index) =>
               buildTripCard(context, index)),
     );
   }
 
+
   Widget buildTripCard(BuildContext context, int index) {
-    final item = listFood[index];
+    final trip = tripsList[index];
     return new Container(
       child: InkWell(
       splashColor: Colors.black,
       onTap: () async {
-      print("tapped" + item.comida);
+      print("tapped" + trip.guiso);  
       showFancyCustomDialog(context);
       },
       child: Card(
@@ -53,15 +172,14 @@ class HomeView extends StatelessWidget {
                             padding:
                                 EdgeInsets.only(top: 5, left: 5, bottom: 5),
                             child: Row(children: <Widget>[
-                              Icon(Icons.fastfood, color: Colors.redAccent, size: 15,),
+                              Icon(Icons.fastfood, color:  Color.fromRGBO(248, 64, 0, 1), size: 15,),
                               Text(
-                                "  " + item.comida,
+                                "  " + trip.guiso,
                                 style: new TextStyle(
                                     fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.red),
-                                    /*Comentario para cambbios */
+                                    color: Color.fromRGBO(248, 64, 0, 1)),
                               )
                             ]),
                           )
@@ -79,7 +197,7 @@ class HomeView extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "\$${item.precio.toStringAsFixed(2)}",
+                      "\$${trip.precioguiso.toStringAsFixed(2)}",
                       style: new TextStyle(fontSize: 30.0, fontFamily: "SFUIDisplay"),
                     ),
                   ],
@@ -92,6 +210,8 @@ class HomeView extends StatelessWidget {
       )
     );
   }
+
+
 
 
 void showFancyCustomDialog(BuildContext context) {
@@ -147,7 +267,7 @@ void showFancyCustomDialog(BuildContext context) {
                   width: double.infinity,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.redAccent,
+                    color:  Color.fromRGBO(248, 64, 0, 1),
                     borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(12),
                       bottomRight: Radius.circular(12),
