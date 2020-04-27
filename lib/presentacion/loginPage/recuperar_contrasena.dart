@@ -3,32 +3,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 
-
 import '../menuPage/menu_principal.dart';
+import 'loginLogic.dart';
 import 'loginPage.dart';
 import 'recuperar_contrasena.dart';
 import 'registrar.dart';
-
-
-
-
 
 class RecuperarContrasena extends StatefulWidget {
   @override
   Login createState() => Login();
 }
 
-
-
 class Login extends State<RecuperarContrasena> {
   bool _rememberMe = false;
+  final emailController = TextEditingController();
 
-
-
-
-@override
+  @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -40,15 +32,15 @@ class Login extends State<RecuperarContrasena> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-               decoration: BoxDecoration(
-                 image: DecorationImage(image: AssetImage('assets/images/backHome.png'),
-                   fit: BoxFit.cover),
-                     gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                     end: Alignment.bottomLeft,
-                    colors: [Colors.white, Colors.white]
-                       ),
-        ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/backHome.png'),
+                      fit: BoxFit.cover),
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [Colors.white, Colors.white]),
+                ),
               ),
               Container(
                 height: double.infinity,
@@ -87,11 +79,6 @@ class Login extends State<RecuperarContrasena> {
     );
   }
 
-
-
-
-
-
   Widget _correo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,6 +93,7 @@ class Login extends State<RecuperarContrasena> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               fontFamily: 'OpenSans',
@@ -126,23 +114,18 @@ class Login extends State<RecuperarContrasena> {
     );
   }
 
-
-
-
-
   Widget _recuperar() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 10.0,
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context)=> HomePage(),
-                          )
-                      );
+              context,
+              CupertinoPageRoute(
+                builder: (context) => HomePage(),
+              ));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -162,8 +145,4 @@ class Login extends State<RecuperarContrasena> {
       ),
     );
   }
-
-
-
-
 }

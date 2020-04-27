@@ -1,5 +1,7 @@
+
 import 'package:flutter/material.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/datos_Guisos.dart';
+import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 
 class Guisos extends StatelessWidget {
 
@@ -119,24 +121,30 @@ class Guisos extends StatelessWidget {
 
 
 
-
 class HomeViewGuiso extends StatelessWidget {
-  final List<DatosGuiso> tripsList = [
-    DatosGuiso("Huevo verde", 25.00),
-    DatosGuiso("Bistek ranchero", 7.00),
-    DatosGuiso("Picadillo",  25.00),
-    DatosGuiso("Asado", 35.00),
-    DatosGuiso("Chicharrón", 7.00),
-  ];
+  final List<DatosGuiso> tripsList = [];
+
+  Future<void> setTrips(List<DatosGuiso> trips) async{
+    for (var item in trips){
+      tripsList.add(item);
+    }
+
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: new ListView.builder(
-          itemCount: tripsList.length,
-          itemBuilder: (BuildContext context, int index) =>
-              buildTripCard(context, index)),
+    return FutureBuilder(
+      future: loadGuisos(),
+      builder: (context, AsyncSnapshot snapshot){
+        return Container(
+          child: new ListView.builder(
+              itemCount: tripsList.length,
+              itemBuilder: (BuildContext context, int index) =>
+                  buildTripCard(context, index)),
+        );
+      },
     );
+
   }
 
 
@@ -197,7 +205,8 @@ class HomeViewGuiso extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
-                      "\$${trip.precioguiso.toStringAsFixed(2)}",
+                      //"\$${trip.precioguiso.toStringAsFixed(2)}",
+                      "",
                       style: new TextStyle(fontSize: 30.0, fontFamily: "SFUIDisplay"),
                     ),
                   ],
@@ -209,6 +218,13 @@ class HomeViewGuiso extends StatelessWidget {
       ),
       )
     );
+  }
+
+  Future loadGuisos() async {
+    print("Inicio la carga");
+    await setTrips(await getGuisosList());
+    print("Termino la carga");
+    return;
   }
 
 
