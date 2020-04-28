@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-=======
-
->>>>>>> master
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -12,11 +8,7 @@ import 'package:provider/provider.dart';
 
 import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
-<<<<<<< HEAD
-
-=======
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
->>>>>>> master
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -36,7 +28,6 @@ class _ItemFoodState extends State<ItemFood> {
     Timer(new Duration(milliseconds: 1), abrirPag);
   }
 
-<<<<<<< HEAD
   void imprimirLista(Comidas lista) {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
@@ -46,12 +37,10 @@ class _ItemFoodState extends State<ItemFood> {
     }
     setState(() {});
   }
-=======
 // ---------------------------------------------------------------------------------
 // CAMBIOS DE MONO ARRIBA
 
 
->>>>>>> master
 
 class ItemFood extends StatefulWidget {
   @override
@@ -81,28 +70,6 @@ class _ItemFoodState extends State<ItemFood> {
 @override
   Widget build(BuildContext context) {
     return Container(
-<<<<<<< HEAD
-      child: Column(
-        children: <Widget>[_headerFoodPage(), _listaComida()],
-      ),
-    );
-  }
-
-  Widget _listaComida() {
-    return Expanded(
-        child: ListView.builder(
-      scrollDirection: Axis.vertical,
-      shrinkWrap: true,
-      itemCount: tripsList.length,
-      itemBuilder: (BuildContext context, int index) =>
-          buildTripCard(context, index),
-    ));
-  }
-
-  Widget _headerFoodPage() {
-    return Container(
-      color: Colors.red,
-=======
       child: new ListView.builder(
           itemCount: tripsList.length,
           itemBuilder: (BuildContext context, int index) =>
@@ -136,7 +103,6 @@ class _ItemFoodState extends State<ItemFood> {
 
   Widget _headerFoodPage() {
   return Container(
->>>>>>> master
       child: Column(
         children: <Widget>[
           Padding(
@@ -171,8 +137,6 @@ class _ItemFoodState extends State<ItemFood> {
     );
   }
 
-<<<<<<< HEAD
-=======
 
   
 Widget _searcherFoodPage(BuildContext context) {
@@ -212,17 +176,12 @@ Widget _searcherFoodPage(BuildContext context) {
   }
 
 
->>>>>>> master
   Widget buildTripCard(BuildContext context, int index) {
 
     final trip = tripsList[index];
     return new Container(
         child: InkWell(
       splashColor: Colors.black,
-<<<<<<< HEAD
-      onTap: () {
-        _onPressComida(trip.comida, trip.precio.ceil());
-=======
       onTap: () async {
 
       print("tapped" + trip.comida);  
@@ -240,7 +199,6 @@ Widget _searcherFoodPage(BuildContext context) {
       /*print("tapped" + trip.comida);  
       detallespedido(context);
       */
->>>>>>> master
       },
       child: Card(
         color: Colors.white,
@@ -308,14 +266,6 @@ Widget _searcherFoodPage(BuildContext context) {
     ));
   }
 
-<<<<<<< HEAD
-  _abrirPaginaComidas(BuildContext context) async {
-    final Comidas comidas = Provider.of<Comidas>(context);
-    comidas.limpiarLista();
-    await traerComida(comidas);
-    imprimirLista(comidas);
-  }
-=======
   _abrirPaginaComidas(BuildContext context) async{
 
     final Comidas comidas = Provider.of<Comidas>(context);
@@ -327,7 +277,6 @@ Widget _searcherFoodPage(BuildContext context) {
 void abrirPag(){
   _abrirPaginaComidas(context);
 }
->>>>>>> master
 
   void abrirPag() {
     _abrirPaginaComidas(context);
@@ -595,19 +544,6 @@ class GuisosDatos {
 
   GuisosDatos(this.id, this.name);
 
-<<<<<<< HEAD
-  static List<GuisosDatos> getGuisos() {
-    return <GuisosDatos>[
-      GuisosDatos(1, 'Huevo Verde'),
-      GuisosDatos(2, 'Picadillo'),
-      GuisosDatos(3, 'Frijoles'),
-      GuisosDatos(4, 'Requeson'),
-      GuisosDatos(5, 'Chicharrón'),
-    ];
-  }
-=======
-
->>>>>>> master
 }
 
 class GuisosDropDownState extends State<GuisosDropDown> {
