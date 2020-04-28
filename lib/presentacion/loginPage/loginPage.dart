@@ -1,37 +1,29 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 
 import '../menuPage/menu_principal.dart';
+import 'loginLogic.dart';
 import 'recuperar_contrasena.dart';
 import 'registrar.dart';
-
-
-
-
 
 class HomePage extends StatefulWidget {
   @override
   Login createState() => Login();
 }
 
-
-
 class Login extends State<HomePage> {
   bool _rememberMe = false;
+  final userController = TextEditingController();
+  final passwordController = TextEditingController();
 
-
-
- 
-
-
-
-@override
+  @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
@@ -42,15 +34,15 @@ class Login extends State<HomePage> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-               decoration: BoxDecoration(
-                 image: DecorationImage(image: AssetImage('assets/images/backHome.png'),
-                   fit: BoxFit.cover),
-                     gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                     end: Alignment.bottomLeft,
-                    colors: [Colors.white, Colors.white]
-                       ),
-        ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/backHome.png'),
+                      fit: BoxFit.cover),
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [Colors.white, Colors.white]),
+                ),
               ),
               Container(
                 height: double.infinity,
@@ -61,10 +53,10 @@ class Login extends State<HomePage> {
                     vertical: 100.0,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: <Widget>[
                       Text(
-                        'Iniciar sesión',
+                        'Bienvenido',
                         style: TextStyle(
                           color: Colors.black,
                           fontFamily: 'OpenSans',
@@ -81,7 +73,7 @@ class Login extends State<HomePage> {
                       _recuperarcontra(),
                       _recuerdame(),
                       _iniciarsesion(),
-                     // _botonesredessociales(),
+                      // _botonesredessociales(),
                       _crearcuenta(),
                     ],
                   ),
@@ -93,13 +85,6 @@ class Login extends State<HomePage> {
       ),
     );
   }
-
-
-
-
-
-
-
 
   Widget _matricula() {
     return Column(
@@ -115,6 +100,7 @@ class Login extends State<HomePage> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: userController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               fontFamily: 'OpenSans',
@@ -135,12 +121,6 @@ class Login extends State<HomePage> {
     );
   }
 
-
-
-
-
-
-
   Widget _contrasena() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -155,6 +135,7 @@ class Login extends State<HomePage> {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passwordController,
             obscureText: true,
             style: TextStyle(
               color: Colors.black,
@@ -176,25 +157,16 @@ class Login extends State<HomePage> {
     );
   }
 
-
-
-
-
-
-
-
   Widget _recuperarcontra() {
     return Container(
       alignment: Alignment.centerRight,
       child: FlatButton(
-        onPressed: (){
+        onPressed: () {
           Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context)=> RecuperarContrasena(),
-                          )
-
-                      );
+              context,
+              CupertinoPageRoute(
+                builder: (context) => RecuperarContrasena(),
+              ));
         },
         padding: EdgeInsets.only(right: 0.0),
         child: Text(
@@ -204,13 +176,6 @@ class Login extends State<HomePage> {
       ),
     );
   }
-
-
-
-
-
-
-
 
   Widget _recuerdame() {
     return Container(
@@ -239,34 +204,35 @@ class Login extends State<HomePage> {
     );
   }
 
-
-
-
-
-
   Widget _iniciarsesion() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: (){
-          Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context)=> MenuPrincipal(),
-                          )
-                      );
+        onPressed: () async {
+          if (await logIn(userController.text, passwordController.text)) {
+            Navigator.push(
+                context,
+                CupertinoPageRoute(
+                  builder: (context) => MenuPrincipal(),
+                ));
+          } else {
+            Fluttertoast.showToast(
+              msg: "Usuario/Contraseña incorrecta",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+            );
+          }
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-         color: Color.fromRGBO(248, 64, 0, 1),
+        color: Color.fromRGBO(248, 64, 0, 1),
         child: Text(
           'INICIAR SESIÓN',
           style: TextStyle(
-        
             color: Colors.white,
             letterSpacing: 1.5,
             fontSize: 18.0,
@@ -277,10 +243,6 @@ class Login extends State<HomePage> {
       ),
     );
   }
-
-
-
-
 
   Widget _buildSocialBtn(Function onTap, AssetImage logo) {
     return GestureDetector(
@@ -306,29 +268,23 @@ class Login extends State<HomePage> {
     );
   }
 
-
-
-
-
   Widget _crearcuenta() {
     return GestureDetector(
-      onTap: (){
-          Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context)=> Registrar(),
-                          )
-
-                      );
-        },
+      onTap: () {
+        Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => Registrar(),
+            ));
+      },
       child: RichText(
         text: TextSpan(
           children: [
             TextSpan(
-              text: '¿No tienes una cuenta?',
+              text: '¿No tienes una cuenta? ',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 18.0,
+                fontSize: 16.0,
                 fontWeight: FontWeight.w400,
               ),
             ),
@@ -336,7 +292,7 @@ class Login extends State<HomePage> {
               text: 'Registrate aquí',
               style: TextStyle(
                 color: Colors.black,
-                fontSize: 18.0,
+                fontSize: 17.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -344,14 +300,8 @@ class Login extends State<HomePage> {
         ),
       ),
     );
-  }  
+  }
 }
-
-
-
-
-
-
 
 //ESTE ES EL CODIGO ANTERIOR DE LOGIN
 

@@ -12,9 +12,12 @@ class Comidas with ChangeNotifier{
       _comidas.add(comida);
     }
     notifyListeners();
-    
   } 
   
+  void limpiarLista(){
+    _comidas.clear();
+    notifyListeners();
+  }
 
   get comidas {
     return _comidas;
