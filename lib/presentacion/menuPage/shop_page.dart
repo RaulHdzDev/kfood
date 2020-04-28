@@ -59,7 +59,7 @@ class _BottomNavBarState extends State<HomeShop> {
         ),
         body: Container(
           color: Colors.white,
-          child: Center(
+          child: Container(
             child: _showPage,
           ),
         ));

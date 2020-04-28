@@ -8,12 +8,9 @@ class MenuPrincipal extends StatelessWidget {
       title: 'Shop Kfood',
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        
-        
         body: Center(
           child: HomeShop(),
         ),
-        
       ),
     );
   }
