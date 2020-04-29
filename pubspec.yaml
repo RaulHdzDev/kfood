@@ -19,6 +19,7 @@ version: 1.0.0+1
 
 
 
+
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -40,17 +41,10 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 
-
-
-
 dev_dependencies:
   
   flutter_test:
     sdk: flutter
-
-
-
-    
 
 
 # For information on the generic Dart part of this file, see the
