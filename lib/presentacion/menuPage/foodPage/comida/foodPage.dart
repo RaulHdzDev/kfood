@@ -1,19 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:intl/intl.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
 import 'package:provider/provider.dart';
-
 import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
-
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
-
+  
 class ItemFood extends StatefulWidget {
   @override
   _ItemFoodState createState() => _ItemFoodState();
@@ -38,6 +32,8 @@ class _ItemFoodState extends State<ItemFood> {
     setState(() {});
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -46,6 +42,8 @@ class _ItemFoodState extends State<ItemFood> {
       ),
     );
   }
+
+
 
   Widget _listaComida() {
     return Expanded(
@@ -58,9 +56,11 @@ class _ItemFoodState extends State<ItemFood> {
         ));
   }
 
+
+
   Widget _headerFoodPage() {
     return Container(
-      color: Colors.red,
+      color: Color.fromRGBO(248, 64, 0, 1),
       child: Column(
         children: <Widget>[
           Padding(
@@ -94,6 +94,9 @@ class _ItemFoodState extends State<ItemFood> {
       ),
     );
   }
+
+
+
 
   Widget buildTripCard(BuildContext context, int index) {
     final trip = tripsList[index];
@@ -169,6 +172,7 @@ class _ItemFoodState extends State<ItemFood> {
         ));
   }
 
+
   _abrirPaginaComidas(BuildContext context) async {
     final Comidas comidas = Provider.of<Comidas>(context);
     comidas.limpiarLista();
@@ -176,9 +180,14 @@ class _ItemFoodState extends State<ItemFood> {
     imprimirLista(comidas);
   }
 
+
+
   void abrirPag() {
     _abrirPaginaComidas(context);
   }
+
+
+
 
   void _onPressComida(String comida, int precio) {
     int _count = 1;
@@ -195,6 +204,7 @@ class _ItemFoodState extends State<ItemFood> {
                   topLeft: const Radius.circular(10),
                   topRight: const Radius.circular(10),
                 )),
+
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -213,9 +223,12 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
+
                 Divider(
                   thickness: 4,
                 ),
+
+
                 Padding(
                   padding: EdgeInsets.only(
                     top: 20,
@@ -252,6 +265,8 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
+
+
                 Padding(
                   padding: EdgeInsets.only(
                     top: 20,
@@ -375,7 +390,13 @@ class _ItemFoodState extends State<ItemFood> {
           );
         });
   }
+
+
+
+
 }
+
+
 
 class Contador extends StatefulWidget {
   @override
@@ -426,6 +447,8 @@ class _ContadorState extends State {
     );
   }
 }
+
+
 
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
@@ -485,18 +508,23 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     });
   }
 
+
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
+        
         children: <Widget>[
           DropdownButton(
             value: _selectGuiso,
             items: _dropdownMenuItems,
             onChanged: onChangeDropdownItem,
           ),
+
         ],
       ),
     );

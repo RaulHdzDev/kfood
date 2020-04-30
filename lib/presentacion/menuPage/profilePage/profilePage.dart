@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
-import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
+ import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
+ 
+     
 
 
+class ProfilePage extends StatefulWidget {
+  @override
+  _Perfil createState() => _Perfil();
+}
 
-class ProfilePage extends StatelessWidget {
-  const ProfilePage({Key key}) : super(key: key);
-
-
-
+class _Perfil extends State<ProfilePage> {
+ 
 @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
-    final width = MediaQuery.of(context).size.width;
-    return Scaffold(
+      return Scaffold(
+       backgroundColor: Colors.white,
+       appBar: AppBar(
+        elevation: 10,
+        title: Text("Perfil"),
+        backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+        automaticallyImplyLeading: false,
+      ),
+      
       body: AnnotatedRegion<SystemUiOverlayStyle>(
         value: SystemUiOverlayStyle.light,
         child: GestureDetector(
@@ -31,7 +34,7 @@ class ProfilePage extends StatelessWidget {
                 height: double.infinity,
                 width: double.infinity,
                decoration: BoxDecoration(
-                 image: DecorationImage(image: AssetImage('assets/images/perfilSesion.png'),
+                 image: DecorationImage(image: AssetImage('assets/images/backHome.png'),
                    fit: BoxFit.cover),
                      gradient: LinearGradient(
                     begin: Alignment.topRight,
@@ -45,35 +48,19 @@ class ProfilePage extends StatelessWidget {
                 child: SingleChildScrollView(
                   physics: AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
-                    horizontal: 40.0,
-                    vertical: 90.0,
+                    horizontal: 35.0,
+                    vertical: 50.0,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Perfil',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'OpenSans',
-                          fontSize: 35.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(height: 90.0),
-                      _matricula(),
+                       _pedidos(),
+                       SizedBox(height: 20.0),
+                      _datos(),
                       SizedBox(
                         height: 20.0,
-                      ),
-                      _correo(),
-                      SizedBox(
-                        height: 20.0,
-                      ),
-                      _contrasena(),
-
-                      _cerrarsesion(),
-     
-           
+                      ),        
+                      _cerrarsesion(context),
                     ],
                   ),
                 ),
@@ -87,16 +74,107 @@ class ProfilePage extends StatelessWidget {
 
 
 
+Widget _pedidos() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[ 
+        Row( 
+          children: <Widget>[  
+             Text("Matricula:",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay"),),
+            SizedBox(height: 4,),
+            Text("1701F0163" ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay") ),
+            SizedBox(height: 16,),
+          ],
+        ),
+
+         SizedBox(height: 16,),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: <Widget>[
+            Column(
+              children: <Widget>[ 
+             Text("Pedidos:",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay"),),
+            SizedBox(height: 4,),
+            Text("45" ,style: TextStyle(fontSize: 13,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay") ),
+            SizedBox(height: 16,),
+              ],
+            ),
+         SizedBox(height: 16,),
+             Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+             Text("Comida favorita:", style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold)),
+            SizedBox(height: 4,),
+            Text("Hamburguesa",style: TextStyle(fontSize: 13,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay") ),
+            SizedBox(height: 16,),
+              ],
+            )
+          ],
+        ),
+
+        SizedBox(height: 16,),
+             Row(
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+             Text("Tienda favorita:", style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 4,),
+            Text("Dulce como la miel",style: TextStyle(fontSize: 13,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 16,),
+              ],
+            )
+          ],
+        ),
+
+          ],
+        ),
+            Divider(color: Colors.grey)
+      ],
+    );
+  }
 
 
 
+ 
 
-  Widget _matricula() {
+  Widget _datos() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        
+        
+            Text("Nombre:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 4,),
+            Text("Jesus Emmanuel De Leon Lerma",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 16),
+
+
+            Text("Correo:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 4,),
+            Text("deleon.lerma.17163@itsmante.edu.mx",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 16,),
+
+            Text("Contraseña:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 4,),
+            Text("***********",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            SizedBox(height: 16,),
+
+          
+            Divider(color: Colors.grey,)
+
+      ],
+    );
+  }
+
+
+
+    Widget _nombre() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Nombre',
+          'Nombre:',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -107,13 +185,13 @@ class ProfilePage extends StatelessWidget {
           child: TextField(
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
-              fontFamily: 'OpenSans',
+              fontFamily: "SFUIDisplay",
             ),
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
-                Icons.email,
+                Icons.person,
                 color: Colors.black,
               ),
               hintText: 'Su nombre es',
@@ -126,13 +204,15 @@ class ProfilePage extends StatelessWidget {
   }
 
 
+
+
   
   Widget _correo() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Correo',
+          'Correo:',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -162,17 +242,14 @@ class ProfilePage extends StatelessWidget {
   }
 
 
-
-
-
-
+ 
 
   Widget _contrasena() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          'Contraseña',
+          'Contraseña:',
           style: kLabelStyle,
         ),
         SizedBox(height: 10.0),
@@ -204,37 +281,134 @@ class ProfilePage extends StatelessWidget {
  
  
 
-  Widget _cerrarsesion() {
+  Widget _cerrarsesion(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
-      width: double.infinity,
+       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
         onPressed: (){
-           
+           _abrirActualizar();
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30.0),
+          borderRadius: BorderRadius.circular(20.0),
         ),
          color: Color.fromRGBO(248, 64, 0, 1),
         child: Text(
-          'CERRAR SESIÓN',
-          style: TextStyle(
-        
+          'Editar',
+          style: TextStyle( 
             color: Colors.white,
             letterSpacing: 1.5,
             fontSize: 18.0,
             fontWeight: FontWeight.bold,
             fontFamily: 'OpenSans',
           ),
-        ),
-      ),
+        ), 
+      ), 
     );
   }
 
 
+
+Widget _guardar(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 20.0),
+       width: double.infinity,
+      child: RaisedButton(
+        elevation: 5.0,
+        onPressed: (){
+         },
+        padding: EdgeInsets.all(15.0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+         color: Color.fromRGBO(248, 64, 0, 1),
+        child: Text(
+          'Guardar',
+          style: TextStyle( 
+            color: Colors.white,
+            letterSpacing: 1.5,
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'OpenSans',
+          ),
+        ), 
+      ), 
+    );
+  }
+
+
+
   
- 
+
+  void _abrirActualizar( ) {
+    showBottomSheet(
+      context: context,
+         builder: (context) {
+          return Container(
+            padding: EdgeInsets.symmetric(
+                    horizontal: 35.0,
+                    vertical: 50.0,
+                  ),
+            alignment: Alignment.topLeft,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height - 90,
+            decoration: BoxDecoration(
+                color: Theme.of(context).canvasColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
+                )),
+
+
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.only(top: 35, bottom: 20),
+                  child: Container(
+                    child: Text(
+                      "Editar información",
+                      style: TextStyle(
+                        color: Color.fromRGBO(248, 64, 0, 1),
+                        letterSpacing: 1.0,
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'OpenSans',
+                      ),
+                    ),
+                  ),
+                ),
+          
+                Divider(
+                  thickness: 2,
+                ),
+
+                _nombre(),
+                SizedBox(
+                  width: 20,
+                ),
+                _correo(),
+                 SizedBox(
+                  width: 20,
+                ),
+                _contrasena(),
+
+                 SizedBox(
+                  width: 20,
+                ),
+                    _guardar(context)
+              
+              ],
+            ),
+          );
+        });
+  }
+
+
+
+
+
 }
 
