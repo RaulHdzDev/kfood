@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
  import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
+import 'package:kfood_app/presentacion/menuPage/profilePage/datos_Profile.dart';
+import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
  
      
 
@@ -12,7 +14,28 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _Perfil extends State<ProfilePage> {
- 
+  String matricula = "0000F0000";
+  String nombre = "";
+  String correo = "";
+  changeText(String mat, String nom, String corr) {
+    setState(() {
+      matricula = "$mat";
+      nombre = "$nom";
+      correo = "$corr";
+    });
+  }
+  getProfile() async{
+    print("Running");
+    List<DatosProfile> datos = await getProfileData();
+    changeText("${datos[0].matricula}","${datos[0].nombre} ${datos[0].apaterno} ${datos[0].amaterno}", "${datos[0].correo}");
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getProfile();
+  }
+
 @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -82,7 +105,7 @@ Widget _pedidos() {
           children: <Widget>[  
              Text("Matricula:",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay"),),
             SizedBox(height: 4,),
-            Text("1701F0163" ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay") ),
+            Text("$matricula" ,style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay") ),
             SizedBox(height: 16,),
           ],
         ),
@@ -146,13 +169,13 @@ Widget _pedidos() {
         
             Text("Nombre:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
             SizedBox(height: 4,),
-            Text("Jesus Emmanuel De Leon Lerma",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            Text("$nombre",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
             SizedBox(height: 16),
 
 
             Text("Correo:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
             SizedBox(height: 4,),
-            Text("deleon.lerma.17163@itsmante.edu.mx",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
+            Text("$correo",style: TextStyle(fontSize: 18,fontWeight: FontWeight.normal,fontFamily: "SFUIDisplay")),
             SizedBox(height: 16,),
 
             Text("Contraseña:",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold,fontFamily: "SFUIDisplay")),
@@ -167,8 +190,8 @@ Widget _pedidos() {
     );
   }
 
-
-
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
     Widget _nombre() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -221,6 +244,7 @@ Widget _pedidos() {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: emailController,
             keyboardType: TextInputType.emailAddress,
             style: TextStyle(
               fontFamily: 'OpenSans',
@@ -258,6 +282,7 @@ Widget _pedidos() {
           decoration: kBoxDecorationStyle,
           height: 60.0,
           child: TextField(
+            controller: passController,
             obscureText: true,
             style: TextStyle(
               color: Colors.black,
@@ -318,6 +343,7 @@ Widget _guardar(BuildContext context) {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: (){
+          updateDatos(passController.text, emailController.text);
          },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
