@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
  import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/datos_Profile.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
@@ -83,7 +84,7 @@ class _Perfil extends State<ProfilePage> {
                       SizedBox(
                         height: 20.0,
                       ),        
-                      _cerrarsesion(context),
+                      _editar(context),
                     ],
                   ),
                 ),
@@ -242,7 +243,7 @@ Widget _pedidos() {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
+          height: 50.0,
           child: TextField(
             controller: emailController,
             keyboardType: TextInputType.emailAddress,
@@ -261,7 +262,7 @@ Widget _pedidos() {
             ),
           ),
         ),
-      ],
+       ],
     );
   }
 
@@ -280,7 +281,7 @@ Widget _pedidos() {
         Container(
           alignment: Alignment.centerLeft,
           decoration: kBoxDecorationStyle,
-          height: 60.0,
+          height: 50.0,
           child: TextField(
             controller: passController,
             obscureText: true,
@@ -295,7 +296,7 @@ Widget _pedidos() {
                 Icons.lock,
                 color: Colors.black,
               ),
-              hintText: 'Ingrese su contraseña',
+              hintText: 'Su contraseña es',
               hintStyle: kHintTextStyle,
             ),
           ),
@@ -306,7 +307,7 @@ Widget _pedidos() {
  
  
 
-  Widget _cerrarsesion(BuildContext context) {
+  Widget _editar(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 20.0),
        width: double.infinity,
@@ -335,6 +336,8 @@ Widget _pedidos() {
   }
 
 
+ 
+ 
 
 Widget _guardar(BuildContext context) {
     return Container(
@@ -344,6 +347,12 @@ Widget _guardar(BuildContext context) {
         elevation: 5.0,
         onPressed: (){
           updateDatos(passController.text, emailController.text);
+            Fluttertoast.showToast(
+                            msg: "Se guardo correctamente",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.BOTTOM,
+                            timeInSecForIosWeb: 1);
+
          },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
@@ -366,31 +375,22 @@ Widget _guardar(BuildContext context) {
 
 
 
-  
 
   void _abrirActualizar( ) {
     showBottomSheet(
       context: context,
          builder: (context) {
-          return Container(
-            padding: EdgeInsets.symmetric(
-                    horizontal: 35.0,
-                    vertical: 50.0,
-                  ),
-            alignment: Alignment.topLeft,
+          return Container( 
+             alignment: Alignment.topLeft,
             width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 90,
-            decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(10),
-                  topRight: const Radius.circular(10),
-                )),
-
-
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
+            height: MediaQuery.of(context).size.height-100,
+             padding: EdgeInsets.symmetric(
+                    horizontal: 35.0,
+                    vertical: 30.0,
+                  ),
+            child: SingleChildScrollView(
+              child: Column(
+               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(top: 35, bottom: 20),
                   child: Container(
@@ -406,34 +406,22 @@ Widget _guardar(BuildContext context) {
                     ),
                   ),
                 ),
-          
                 Divider(
                   thickness: 2,
                 ),
-
-                _nombre(),
-                SizedBox(
-                  width: 20,
-                ),
                 _correo(),
-                 SizedBox(
-                  width: 20,
-                ),
+                 SizedBox(width: 20,),
                 _contrasena(),
-
                  SizedBox(
                   width: 20,
                 ),
                     _guardar(context)
-              
               ],
+            ),
             ),
           );
         });
   }
-
-
-
 
 
 }
