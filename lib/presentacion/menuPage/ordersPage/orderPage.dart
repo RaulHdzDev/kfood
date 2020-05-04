@@ -1,20 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
 
 class OrderPage extends StatelessWidget{
-  List<OrderItems> orderItems = [
-    OrderItems(number: "4", text: "Tacos", secondaryText: "Huevo verde", amount: "28.00"),
-    OrderItems(number: "1", text: "Hamburguesa", secondaryText: "Chicharrón", amount: "20.00"),
-     OrderItems(number: "1", text: "Tacos", secondaryText: "Chicharrón", amount: "20.00"),
-    OrderItems(number: "1", text: "Gorditas", secondaryText: "Bistec", amount: "20.00"),
-    OrderItems(number: "1", text: "Quesadillas", secondaryText: "de queso xd", amount: "20.00"),  
- ];
+  
+  List<OrderItems> orderItems = [];
 
+  Ordenes ordenes;
+  
+  getOrders(){
+    List<OrderItems> ordenitem = new List<OrderItems>();
+    for (EsqueletoOrdenes orden in ordenes.ordenes) {
+      ordenitem.add(new OrderItems(number: orden.cantidad.toString(), text: orden.nombre, secondaryText: orden.guiso, amount: orden.total.toString()));
+    }
+    return ordenitem;
+  }
 
   @override
   Widget build(BuildContext context) {
+    ordenes = Provider.of<Ordenes>(context);
+    orderItems = getOrders();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -98,7 +106,7 @@ class OrderPage extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("Total",style: TextStyle(fontSize: 25,fontWeight: FontWeight.normal),),
-                      Text("\$25.00",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                      Text("\$${ordenes.obtenerTotal()}",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                     ],
                   ),
  
