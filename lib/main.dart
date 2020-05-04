@@ -44,7 +44,7 @@ class SplashScreen extends State<Splash> {
     // TODO: implement initState
     super.initState();
     Timer(
-      Duration(seconds: 4),
+      Duration(seconds: 3),
       () async {
         if(! await existUser()){
           Navigator.push(
@@ -55,7 +55,7 @@ class SplashScreen extends State<Splash> {
             ),
           );
         }else{
-          Navigator.push(
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(
               builder: (context)=> MenuPrincipal(),

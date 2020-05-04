@@ -5,40 +5,62 @@ import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dar
 
 class OrderPage extends StatelessWidget{
   List<OrderItems> orderItems = [
-    OrderItems(number: "4", text: "Tacos", secondaryText: "Huevo verde", amount: "28.00"),
-    OrderItems(number: "1", text: "Hamburguesa", secondaryText: "Chicharrón", amount: "20.00"),
-     OrderItems(number: "1", text: "Tacos", secondaryText: "Chicharrón", amount: "20.00"),
-    OrderItems(number: "1", text: "Gorditas", secondaryText: "Bistec", amount: "20.00"),
-    OrderItems(number: "1", text: "Quesadillas", secondaryText: "de queso xd", amount: "20.00"),  
+    OrderItems(number: "4", text: "Tacos", secondaryText: "Huevo verde", amount: "\$${28.toStringAsFixed(2)}"),
+    OrderItems(number: "1", text: "Hamburguesa", secondaryText: "Chicharrón", amount: "\$${20.toStringAsFixed(2)}"),
+    OrderItems(number: "1", text: "Tacos", secondaryText: "Chicharrón", amount: "\$${20.toStringAsFixed(2)}"),
+    OrderItems(number: "1", text: "Gorditas", secondaryText: "Bistec", amount: "\$${20.toStringAsFixed(2)}"),
+    OrderItems(number: "1", text: "Quesadillas", secondaryText: "Queso", amount: "\$${20.toStringAsFixed(2)}"),  
  ];
 
+   Widget _headerFoodPage() {
+    return Container(
+      color: Color.fromRGBO(248, 64, 0, 1),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 35),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "TU ORDEN DEL DIA",
+                style: TextStyle(
+                  fontSize: 20,
+                  fontFamily: 'SFUIDisplay',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 3, bottom: 10),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Ya casi está listo",
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.white70),
+                )),
+          )
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        elevation: 10,
-        title: Text("Orden"),
-        backgroundColor: Color.fromRGBO(248, 64, 0, 1),
-        automaticallyImplyLeading: false,
-      ),
-
-
-      body: Stack(
+    return Container(
+      child: Column(
         children: <Widget>[
+          _headerFoodPage(),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left: 16,right: 16),
+              padding: const EdgeInsets.only(left: 16,right: 16, top: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                   SizedBox(height: 10,),         
-                   Text("Lista de",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 40),),
-                  SizedBox(height: 0,),
-                  Text("comidas",style: TextStyle(fontWeight: FontWeight.normal,fontSize: 20)),
-                  SizedBox(height: 10,),
-                 SizedBox(height: 10,),  
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
@@ -47,8 +69,6 @@ class OrderPage extends StatelessWidget{
  
                     ],
                   ),
-
-
                   ListView.builder(
                     itemCount: orderItems.length,
                     shrinkWrap: true,
@@ -105,17 +125,23 @@ class OrderPage extends StatelessWidget{
             
           SafeArea(
             child: Align(
-              alignment: Alignment.bottomLeft,
+              alignment: Alignment.bottomCenter,
               child: Container(
                 height: 80,
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
+                width: MediaQuery.of(context).size.width - 80,
+                padding: EdgeInsets.only(top: 35),
                 child: FlatButton(
                   onPressed: (){},
-                  child: Text("Ordenar",style: TextStyle(color: Colors.white,fontSize: 20, fontWeight: FontWeight.normal),),
-                  color: Color.fromRGBO(248, 64, 0, 1),
+                  child: Text("Ordenar",style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),),
+                  color: Colors.white,
+                  disabledTextColor: Colors.redAccent,
+                  textColor: Colors.redAccent,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    side: BorderSide(
+                      style: BorderStyle.solid,
+                      color: Color.fromRGBO(248, 64, 0, 1),
+                    ),
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
               ),

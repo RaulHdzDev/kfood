@@ -212,7 +212,7 @@ class Login extends State<HomePage> {
         elevation: 5.0,
         onPressed: () async {
           if (await logIn(userController.text, passwordController.text)) {
-            Navigator.push(
+            Navigator.pushReplacement(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => MenuPrincipal(),
