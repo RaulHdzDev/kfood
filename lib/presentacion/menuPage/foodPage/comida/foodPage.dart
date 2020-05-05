@@ -8,9 +8,13 @@ import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
+<<<<<<< HEAD
+
+=======
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
   
+>>>>>>> master
 class ItemFood extends StatefulWidget {
   @override
   _ItemFoodState createState() => _ItemFoodState();
@@ -43,7 +47,10 @@ class _ItemFoodState extends State<ItemFood> {
     setState(() {});
   }
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> master
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,20 +60,16 @@ class _ItemFoodState extends State<ItemFood> {
     );
   }
 
-
-
   Widget _listaComida() {
     return Expanded(
         child: ListView.builder(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          itemCount: tripsList.length,
-          itemBuilder: (BuildContext context, int index) =>
-              buildTripCard(context, index),
-        ));
+      scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      itemCount: tripsList.length,
+      itemBuilder: (BuildContext context, int index) =>
+          buildTripCard(context, index),
+    ));
   }
-
-
 
   Widget _headerFoodPage() {
     return Container(
@@ -105,83 +108,79 @@ class _ItemFoodState extends State<ItemFood> {
     );
   }
 
-
-
-
   Widget buildTripCard(BuildContext context, int index) {
     final trip = tripsList[index];
     return new Container(
         child: InkWell(
-          splashColor: Colors.black,
-          onTap: () {
-            _onPressComida(trip.comida, trip.precio.ceil());
-          },
-          child: Card(
-            color: Colors.white,
-            borderOnForeground: true,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 15),
-              child: Column(
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 4.0),
-                    child: Row(children: <Widget>[
-                      Expanded(
-                        child: Container(
-                          color: Colors.white54,
-                          child: Wrap(
-                            direction: Axis.horizontal,
-                            runSpacing: 50,
-                            crossAxisAlignment: WrapCrossAlignment.start,
-                            spacing: 100,
-                            children: <Widget>[
-                              Padding(
-                                padding:
+      splashColor: Colors.black,
+      onTap: () {
+        _onPressComida(trip.comida, trip.precio.ceil());
+      },
+      child: Card(
+        color: Colors.white,
+        borderOnForeground: true,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 15),
+          child: Column(
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4.0),
+                child: Row(children: <Widget>[
+                  Expanded(
+                    child: Container(
+                      color: Colors.white54,
+                      child: Wrap(
+                        direction: Axis.horizontal,
+                        runSpacing: 50,
+                        crossAxisAlignment: WrapCrossAlignment.start,
+                        spacing: 100,
+                        children: <Widget>[
+                          Padding(
+                            padding:
                                 EdgeInsets.only(top: 5, left: 5, bottom: 5),
-                                child: Row(children: <Widget>[
-                                  Icon(
-                                    Icons.fastfood,
-                                    color: Color.fromRGBO(248, 64, 0, 1),
-                                    size: 15,
-                                  ),
-                                  Text(
-                                    "  " + trip.comida,
-                                    style: new TextStyle(
-                                        fontSize: 20.0,
-                                        fontFamily: "SFUIDisplay",
-                                        fontWeight: FontWeight.bold,
-                                        color: Color.fromRGBO(248, 64, 0, 1)),
-                                  )
-                                ]),
+                            child: Row(children: <Widget>[
+                              Icon(
+                                Icons.fastfood,
+                                color: Color.fromRGBO(248, 64, 0, 1),
+                                size: 15,
+                              ),
+                              Text(
+                                "  " + trip.comida,
+                                style: new TextStyle(
+                                    fontSize: 20.0,
+                                    fontFamily: "SFUIDisplay",
+                                    fontWeight: FontWeight.bold,
+                                    color: Color.fromRGBO(248, 64, 0, 1)),
                               )
-                            ],
-                          ),
-                        ),
+                            ]),
+                          )
+                        ],
                       ),
-                    ]),
-                  ),
-                  Divider(),
-                  Padding(
-                    padding:
-                    const EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: <Widget>[
-                        Text(
-                          "\$${trip.precio.toStringAsFixed(2)}",
-                          style: new TextStyle(
-                              fontSize: 30.0, fontFamily: "SFUIDisplay"),
-                        ),
-                      ],
                     ),
-                  )
-                ],
+                  ),
+                ]),
               ),
-            ),
+              Divider(),
+              Padding(
+                padding:
+                    const EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    Text(
+                      "\$${trip.precio.toStringAsFixed(2)}",
+                      style: new TextStyle(
+                          fontSize: 30.0, fontFamily: "SFUIDisplay"),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
-        ));
+        ),
+      ),
+    ));
   }
-
 
   _abrirPaginaComidas(BuildContext context) async {
     final Comidas comidas = Provider.of<Comidas>(context);
@@ -190,19 +189,29 @@ class _ItemFoodState extends State<ItemFood> {
     imprimirLista(comidas);
   }
 
-
-
   void abrirPag() {
     _abrirPaginaComidas(context);
     _abrirPagCantidad(context);
   }
 
+<<<<<<< HEAD
+  void _onPressComida(String comida, int precio) async {
+    final _precio = precio;
+    int _count = 1;
+
+    showModalBottomSheet(
+=======
 
   void _onPressComida(String comida, int precio) {
     // print(_ContadorState()._count);
     showBottomSheet(
+>>>>>>> master
         context: context,
         builder: (context) {
+          
+          return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+
           return Container(
             alignment: Alignment.topLeft,
             width: MediaQuery.of(context).size.width,
@@ -213,7 +222,6 @@ class _ItemFoodState extends State<ItemFood> {
                   topLeft: const Radius.circular(10),
                   topRight: const Radius.circular(10),
                 )),
-
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -232,12 +240,9 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
-
                 Divider(
                   thickness: 4,
                 ),
-
-
                 Padding(
                   padding: EdgeInsets.only(
                     top: 20,
@@ -274,8 +279,6 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
-
-
                 Padding(
                   padding: EdgeInsets.only(
                     top: 20,
@@ -300,7 +303,44 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
-                        Contador(),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (_count > 1) _count -= 1;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(),
+                                ),
+                                child: Icon(Icons.remove),
+                              ),
+                            ),
+                            SizedBox(width: 10.0),
+                            Text("$_count"),
+                            SizedBox(width: 10.0),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (_count < 10) _count += 1;
+                                });
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.all(3.0),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(),
+                                ),
+                                child: Icon(Icons.add),
+                              ),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -350,7 +390,18 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
+<<<<<<< HEAD
+                        Text(
+                          "\$${(_precio * _count).toStringAsFixed(2)}",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "SFUIDisplay"),
+                        ),
+=======
                         PrecioTotal(precio: precio,)
+>>>>>>> master
                       ],
                     ),
                   ),
@@ -391,8 +442,12 @@ class _ItemFoodState extends State<ItemFood> {
               ],
             ),
           );
+          }
+          );
         });
   }
+<<<<<<< HEAD
+=======
   agregarOrden(String nombre, int cantidad, String guiso, int total) async{
     ordenes = Provider.of<Ordenes>(context);
 
@@ -423,9 +478,8 @@ class _PrecioTotalState extends State<PrecioTotal> {
               fontFamily: "SFUIDisplay"),
            );
   }
+>>>>>>> master
 }
-
-
 
 class Contador extends StatefulWidget {
   @override
@@ -492,8 +546,6 @@ void initState() {
   }
 }
 
-
-
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
   static String selectguiso = '';
@@ -559,15 +611,12 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     return items;
   }
 
-  onChangeDropdownItem(GuisosDatos selectedCompany) {
+  onChangeDropdownItem(GuisosDatos selectedGuisos) {
     setState(() {
-      _selectGuiso = selectedCompany;
+      _selectGuiso = selectedGuisos;
     });
     GuisosDropDown.selectguiso = selectedCompany.name; 
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -575,14 +624,12 @@ class GuisosDropDownState extends State<GuisosDropDown> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
-        
         children: <Widget>[
           DropdownButton(
             value: _selectGuiso,
             items: _dropdownMenuItems,
             onChanged: onChangeDropdownItem,
           ),
-
         ],
       ),
     );
