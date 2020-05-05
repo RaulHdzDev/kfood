@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
+import 'package:kfood_app/negocios/providers/contCantidad.dart';
+import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
@@ -18,7 +20,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(builder: (context) => Comidas(),)
+        ChangeNotifierProvider(builder: (context) => Comidas(),),
+        ChangeNotifierProvider(builder: (context) => ContCantidad(),),
+        ChangeNotifierProvider(builder: (context) => Ordenes(),),
       ],
           child: MaterialApp(
         home: Scaffold(

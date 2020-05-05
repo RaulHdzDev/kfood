@@ -2,18 +2,33 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
+import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
+<<<<<<< HEAD
 
+=======
+import 'package:kfood_app/negocios/providers/contCantidad.dart';
+import 'package:kfood_app/negocios/providers/ordenes.dart';
+  
+>>>>>>> master
 class ItemFood extends StatefulWidget {
   @override
   _ItemFoodState createState() => _ItemFoodState();
 }
 
 class _ItemFoodState extends State<ItemFood> {
+
+  ContCantidad cantidad;
+  _abrirPagCantidad(BuildContext context) async{
+    cantidad = Provider.of<ContCantidad>(context);     
+  }
+  Ordenes ordenes;
+
+
   final List<DatosComida> tripsList = [];
   static int vari = 0;
   @override
@@ -32,6 +47,10 @@ class _ItemFoodState extends State<ItemFood> {
     setState(() {});
   }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> master
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -172,13 +191,21 @@ class _ItemFoodState extends State<ItemFood> {
 
   void abrirPag() {
     _abrirPaginaComidas(context);
+    _abrirPagCantidad(context);
   }
 
+<<<<<<< HEAD
   void _onPressComida(String comida, int precio) async {
     final _precio = precio;
     int _count = 1;
 
     showModalBottomSheet(
+=======
+
+  void _onPressComida(String comida, int precio) {
+    // print(_ContadorState()._count);
+    showBottomSheet(
+>>>>>>> master
         context: context,
         builder: (context) {
           
@@ -231,7 +258,7 @@ class _ItemFoodState extends State<ItemFood> {
                             children: <Widget>[
                               Icon(CupertinoIcons.info),
                               Text(
-                                " Precio unitario.",
+                                " Precio unitario",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black87,
@@ -267,7 +294,7 @@ class _ItemFoodState extends State<ItemFood> {
                             children: <Widget>[
                               Icon(CupertinoIcons.forward),
                               Text(
-                                " Cantidad.",
+                                " Cantidad",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black87,
@@ -329,7 +356,7 @@ class _ItemFoodState extends State<ItemFood> {
                             children: <Widget>[
                               Icon(CupertinoIcons.forward),
                               Text(
-                                " Guiso.",
+                                " Guiso",
                                 style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.black87,
@@ -363,6 +390,7 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
+<<<<<<< HEAD
                         Text(
                           "\$${(_precio * _count).toStringAsFixed(2)}",
                           style: TextStyle(
@@ -371,6 +399,9 @@ class _ItemFoodState extends State<ItemFood> {
                               fontWeight: FontWeight.bold,
                               fontFamily: "SFUIDisplay"),
                         ),
+=======
+                        PrecioTotal(precio: precio,)
+>>>>>>> master
                       ],
                     ),
                   ),
@@ -380,6 +411,7 @@ class _ItemFoodState extends State<ItemFood> {
                   child: Center(
                     child: MaterialButton(
                       onPressed: () {
+                        agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont);
                         Fluttertoast.showToast(
                             msg: "Se agregó a tu orden",
                             toastLength: Toast.LENGTH_SHORT,
@@ -414,6 +446,39 @@ class _ItemFoodState extends State<ItemFood> {
           );
         });
   }
+<<<<<<< HEAD
+=======
+  agregarOrden(String nombre, int cantidad, String guiso, int total) async{
+    ordenes = Provider.of<Ordenes>(context);
+
+    EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total);
+    ordenes.agregar(pedir);
+  }
+
+}
+
+class PrecioTotal extends StatefulWidget {
+  @override
+  _PrecioTotalState createState() => _PrecioTotalState();
+  var precio;
+  PrecioTotal({this.precio});
+}
+
+class _PrecioTotalState extends State<PrecioTotal> {
+  
+  @override
+  Widget build(BuildContext context) {
+    ContCantidad cantidad = Provider.of<ContCantidad>(context);
+    return Text(
+              "\$${(widget.precio * cantidad.cont).toStringAsFixed(2)}",
+              style: TextStyle(
+              fontSize: 25,
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
+              fontFamily: "SFUIDisplay"),
+           );
+  }
+>>>>>>> master
 }
 
 class Contador extends StatefulWidget {
@@ -422,17 +487,34 @@ class Contador extends StatefulWidget {
 }
 
 class _ContadorState extends State {
-  int _count = 1;
+  
+  
+  ContCantidad cantidad;
+  _abrirPagCantidad(BuildContext context) {
+    cantidad = Provider.of<ContCantidad>(context);    
+  }
+  @override
+void initState() { 
+  // _abrirPagCantidad(context);
+  super.initState();
+  // Timer(new Duration(milliseconds: 1), _abrirCantidad);
+}
+@override
+  void dispose() {
+    // TODO: implement dispose
+    cantidad.reiniciarCont();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _abrirPagCantidad(context);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         GestureDetector(
           onTap: () {
-            setState(() {
-              if (_count > 0) _count -= 1;
-            });
+            cantidad.cont = cantidad.cont - 1;
           },
           child: Container(
             padding: const EdgeInsets.all(3.0),
@@ -444,13 +526,11 @@ class _ContadorState extends State {
           ),
         ),
         SizedBox(width: 10.0),
-        Text("$_count"),
+        Text("${cantidad.cont}"),
         SizedBox(width: 10.0),
         GestureDetector(
           onTap: () {
-            setState(() {
-              if (_count < 10) _count += 1;
-            });
+            cantidad.cont = cantidad.cont + 1;
           },
           child: Container(
             padding: const EdgeInsets.all(3.0),
@@ -468,7 +548,7 @@ class _ContadorState extends State {
 
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
-
+  static String selectguiso = '';
   final String title = "Guisos disp.";
 
   @override
@@ -480,29 +560,42 @@ class GuisosDatos {
   String name;
 
   GuisosDatos(this.id, this.name);
-
-  static List<GuisosDatos> getGuisos() {
-    return <GuisosDatos>[
-      GuisosDatos(1, 'Huevo Verde'),
-      GuisosDatos(2, 'Picadillo'),
-      GuisosDatos(3, 'Frijoles'),
-      GuisosDatos(4, 'Requeson'),
-      GuisosDatos(5, 'Chicharrón'),
-    ];
+//agregar guisos de la bd
+  static Future<List<GuisosDatos>> getGuisos() async{
+    List<GuisosDatos> guisos = new List<GuisosDatos>();
+    guisos = await getGuisosList();
+    return guisos;
   }
 }
 
 class GuisosDropDownState extends State<GuisosDropDown> {
   //
-  List<GuisosDatos> _guisos = GuisosDatos.getGuisos();
+  
+  obtenerGuisos() async{
+    await getGuisosList().then((lista) {
+      setState(() {
+        _guisos = lista;
+        _dropdownMenuItems = buildDropdownMenuItems(_guisos);
+        _selectGuiso = _dropdownMenuItems[0].value;
+      });
+    });
+
+  }
+
+  void obtener(){
+    obtenerGuisos();
+  }
+
+  List<GuisosDatos> _guisos = new List<GuisosDatos>();
   List<DropdownMenuItem<GuisosDatos>> _dropdownMenuItems;
   GuisosDatos _selectGuiso;
 
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_guisos);
-    _selectGuiso = _dropdownMenuItems[0].value;
+    // _selectGuiso = _dropdownMenuItems[0].value;
     super.initState();
+    Timer(new Duration(milliseconds: 1),obtener);
   }
 
   List<DropdownMenuItem<GuisosDatos>> buildDropdownMenuItems(List guisos) {
@@ -522,6 +615,7 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     setState(() {
       _selectGuiso = selectedGuisos;
     });
+    GuisosDropDown.selectguiso = selectedCompany.name; 
   }
 
   @override

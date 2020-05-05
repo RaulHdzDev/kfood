@@ -16,7 +16,7 @@ Future<List<DatosProfile>> getProfileData() async {
   final decodedData = json.decode(response);
   print(decodedData);
   final List<DatosProfile> tripsList = [];
-  tripsList.add(DatosProfile(decodedData['matricula'], decodedData['nombre'],decodedData['ape_pat'],decodedData['ape_mat'],decodedData['email']));
+  tripsList.add(DatosProfile(decodedData['id_usuarios'], decodedData['matricula'], decodedData['nombre'],decodedData['ape_pat'],decodedData['ape_mat'],decodedData['email']));
   print(decodedData['matricula']);
   print("cantidad: ${tripsList.length}");
   return tripsList;

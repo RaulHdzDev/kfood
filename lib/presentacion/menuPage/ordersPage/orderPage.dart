@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
 
 class OrderPage extends StatelessWidget{
+<<<<<<< HEAD
   List<OrderItems> orderItems = [
     OrderItems(number: "4", text: "Tacos", secondaryText: "Huevo verde", amount: "\$${28.toStringAsFixed(2)}"),
     OrderItems(number: "1", text: "Hamburguesa", secondaryText: "Chicharrón", amount: "\$${20.toStringAsFixed(2)}"),
@@ -47,12 +50,41 @@ class OrderPage extends StatelessWidget{
         ],
       ),
     );
+=======
+  
+  List<OrderItems> orderItems = [];
+
+  Ordenes ordenes;
+  
+  getOrders(){
+    List<OrderItems> ordenitem = new List<OrderItems>();
+    for (EsqueletoOrdenes orden in ordenes.ordenes) {
+      ordenitem.add(new OrderItems(number: orden.cantidad.toString(), text: orden.nombre, secondaryText: orden.guiso, amount: orden.total.toString()));
+    }
+    return ordenitem;
+>>>>>>> master
   }
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return Container(
       child: Column(
+=======
+    ordenes = Provider.of<Ordenes>(context);
+    orderItems = getOrders();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
+        elevation: 10,
+        title: Text("Orden"),
+        backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+        automaticallyImplyLeading: false,
+      ),
+
+
+      body: Stack(
+>>>>>>> master
         children: <Widget>[
           _headerFoodPage(),
           SingleChildScrollView(
@@ -118,7 +150,7 @@ class OrderPage extends StatelessWidget{
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text("Total",style: TextStyle(fontSize: 25,fontWeight: FontWeight.normal),),
-                      Text("\$25.00",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                      Text("\$${ordenes.obtenerTotal()}",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
                     ],
                   ),
  
