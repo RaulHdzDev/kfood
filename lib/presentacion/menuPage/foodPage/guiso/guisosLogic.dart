@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/foodPage.dart';
 
 import '../../../../datos/requests.dart';
-import 'datos_Guisos.dart';
 
 Future<List<GuisosDatos>> getGuisosList() async {
   String response = await executeHttpRequest(urlFile: "/obtenerGuisos.php", requestBody: null);

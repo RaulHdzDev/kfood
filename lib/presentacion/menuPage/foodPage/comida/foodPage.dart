@@ -8,13 +8,9 @@ import 'package:kfood_app/negocios/class/comida.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dart';
 import 'package:flutter/cupertino.dart';
-<<<<<<< HEAD
-
-=======
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
   
->>>>>>> master
 class ItemFood extends StatefulWidget {
   @override
   _ItemFoodState createState() => _ItemFoodState();
@@ -47,10 +43,7 @@ class _ItemFoodState extends State<ItemFood> {
     setState(() {});
   }
 
-<<<<<<< HEAD
-=======
 
->>>>>>> master
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -94,7 +87,7 @@ class _ItemFoodState extends State<ItemFood> {
           Padding(
             padding: EdgeInsets.only(left: 10, top: 5, bottom: 15),
             child: Align(
-                alignment: Alignment.centerLeft,
+              alignment: Alignment.centerLeft,
                 child: Text(
                   "El menú del día.",
                   style: TextStyle(
@@ -194,18 +187,11 @@ class _ItemFoodState extends State<ItemFood> {
     _abrirPagCantidad(context);
   }
 
-<<<<<<< HEAD
   void _onPressComida(String comida, int precio) async {
     final _precio = precio;
     int _count = 1;
 
     showModalBottomSheet(
-=======
-
-  void _onPressComida(String comida, int precio) {
-    // print(_ContadorState()._count);
-    showBottomSheet(
->>>>>>> master
         context: context,
         builder: (context) {
           
@@ -390,7 +376,6 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
-<<<<<<< HEAD
                         Text(
                           "\$${(_precio * _count).toStringAsFixed(2)}",
                           style: TextStyle(
@@ -399,9 +384,7 @@ class _ItemFoodState extends State<ItemFood> {
                               fontWeight: FontWeight.bold,
                               fontFamily: "SFUIDisplay"),
                         ),
-=======
                         PrecioTotal(precio: precio,)
->>>>>>> master
                       ],
                     ),
                   ),
@@ -446,8 +429,6 @@ class _ItemFoodState extends State<ItemFood> {
           );
         });
   }
-<<<<<<< HEAD
-=======
   agregarOrden(String nombre, int cantidad, String guiso, int total) async{
     ordenes = Provider.of<Ordenes>(context);
 
@@ -478,7 +459,6 @@ class _PrecioTotalState extends State<PrecioTotal> {
               fontFamily: "SFUIDisplay"),
            );
   }
->>>>>>> master
 }
 
 class Contador extends StatefulWidget {
@@ -615,7 +595,7 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     setState(() {
       _selectGuiso = selectedGuisos;
     });
-    GuisosDropDown.selectguiso = selectedCompany.name; 
+    GuisosDropDown.selectguiso = selectedGuisos.name; 
   }
 
   @override
