@@ -49,81 +49,9 @@ class _ItemFoodState extends State<ItemFood> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-            backgroundColor: Color.fromRGBO(248, 64, 0, 1),
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "MENÚ PRINCIPAL",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'SFUIDisplay',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Elige tu comida del dia",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'SFUIDisplay',
-                      color: Colors.white54,
-                    ),
-                  ),
-                ),
-              ],
-            )),
-        body: Padding(
-          padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerLeft,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: <Widget>[
-                      Icon(
-                        Icons.room_service,
-                        color: Colors.black26,
-                        size: 15,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Categorías",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'SFUIDisplay',
-                          color: Colors.black54,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  children: _categorias(),
-                ),
-              ),
-              _listaComida()
-            ],
-          ),
-        ),
+    return Container(
+      child: Column(
+        children: <Widget>[_headerFoodPage(), _listaComida()],
       ),
     );
   }
@@ -139,25 +67,41 @@ class _ItemFoodState extends State<ItemFood> {
     ));
   }
 
-  List<Widget> _categorias() {
-    final List<String> reportList = ["Comidas", "Platillos", "Bebidas"];
-    String selectedChoice = "";
-    List<Widget> choices = List();
-    reportList.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
-        child: ChoiceChip(
-          label: Text(item),
-          selected: selectedChoice == item,
-          onSelected: (selected) {
-            setState(() {
-              selectedChoice = item;
-            });
-          },
-        ),
-      ));
-    });
-    return choices;
+  Widget _headerFoodPage() {
+    return Container(
+      color: Color.fromRGBO(248, 64, 0, 1),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 45),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Elige tu comida",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontFamily: 'SFUIDisplay',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 5, bottom: 15),
+            child: Align(
+              alignment: Alignment.centerLeft,
+                child: Text(
+                  "El menú del día.",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.white70),
+                )),
+          )
+        ],
+      ),
+    );
   }
 
   Widget buildTripCard(BuildContext context, int index) {
@@ -168,7 +112,7 @@ class _ItemFoodState extends State<ItemFood> {
       onTap: () {
         _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida);
       },
-    child: Card(
+      child: Card(
         color: Colors.white,
         borderOnForeground: true,
         child: Padding(
@@ -199,7 +143,7 @@ class _ItemFoodState extends State<ItemFood> {
                               Text(
                                 "  " + trip.comida,
                                 style: new TextStyle(
-                                    fontSize: 15.0,
+                                    fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
                                     fontWeight: FontWeight.bold,
                                     color: Color.fromRGBO(248, 64, 0, 1)),
@@ -215,14 +159,14 @@ class _ItemFoodState extends State<ItemFood> {
               Divider(),
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 3.0, bottom: 3.0, right: 5),
+                    const EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
                       "\$${trip.precio.toStringAsFixed(2)}",
                       style: new TextStyle(
-                          fontSize: 20.0, fontFamily: "SFUIDisplay"),
+                          fontSize: 30.0, fontFamily: "SFUIDisplay"),
                     ),
                   ],
                 ),
@@ -250,10 +194,11 @@ class _ItemFoodState extends State<ItemFood> {
 
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.transparent,
         builder: (context) {
+          
           return StatefulBuilder(
           builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+
           return Container(
             alignment: Alignment.topLeft,
             width: MediaQuery.of(context).size.width,
@@ -261,8 +206,8 @@ class _ItemFoodState extends State<ItemFood> {
             decoration: BoxDecoration(
                 color: Theme.of(context).canvasColor,
                 borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
+                  topLeft: const Radius.circular(10),
+                  topRight: const Radius.circular(10),
                 )),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -580,8 +525,7 @@ class GuisosDatos {
 }
 
 class GuisosDropDownState extends State<GuisosDropDown> {
-  //
-  
+
   obtenerGuisos() async{
     await getGuisosList().then((lista) {
       setState(() {
