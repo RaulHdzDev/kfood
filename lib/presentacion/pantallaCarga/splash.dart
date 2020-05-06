@@ -1,11 +1,5 @@
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
-import 'package:kfood_app/presentacion/loginPage/recuperar_contrasena.dart';
-
-import '../loginPage/loginPage.dart';
-import 'dart:async';
-
-
 
 class SplashScreen extends StatelessWidget {
   @override
