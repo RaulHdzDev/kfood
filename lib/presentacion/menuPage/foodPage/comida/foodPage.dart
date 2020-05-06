@@ -354,7 +354,6 @@ class _ItemFoodState extends State<ItemFood> {
                       onPressed: () {
                         ordenes = Provider.of<Ordenes>(context);
                         if(ordenes.vacio()){
-
                           getProfileData().then((value){
                              MismoPedido.idusuario = value.id_usuarios;
                              registrarPedidoInicial(MismoPedido.idusuario).then((valu){

@@ -7,6 +7,7 @@ Future<String> obtenerPedidosIncompletos(String idusuario) async{
   };
   return await executeHttpRequest(urlFile: '/obtenerPedidosIncompletos.php', requestBody: body).then((value){
     if(value != "null"){
+      print(value);
       MismoPedido.idpedido = value;
     }
     
