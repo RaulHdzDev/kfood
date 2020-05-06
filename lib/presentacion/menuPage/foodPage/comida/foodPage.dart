@@ -240,14 +240,11 @@ class _ItemFoodState extends State<ItemFood> {
     await traerComida(comidas);
     imprimirLista(comidas);
   }
-
   void abrirPag() {
     _abrirPaginaComidas(context);
     _abrirPagCantidad(context);
   }
-
   void _onPressComida(String comida, int precio, String idcomida) async {
-
     showModalBottomSheet(
         context: context,
         backgroundColor: Colors.transparent,
@@ -264,7 +261,8 @@ class _ItemFoodState extends State<ItemFood> {
                   topLeft: const Radius.circular(20),
                   topRight: const Radius.circular(20),
                 )),
-            child: Column(
+               child: SingleChildScrollView(
+              child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
@@ -375,6 +373,35 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
+
+                
+                Padding(
+                  padding: EdgeInsets.only(top: 20, right: 15, left: 15),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          child: Row(
+                            children: <Widget>[
+                              Icon(CupertinoIcons.forward),
+                              Text(
+                                " Hora a entregar",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.black87,
+                                    fontFamily: "SFUIDisplay"),
+                              ),
+                            ],
+                          ),
+                        ),
+                        HorasDropDown()
+                      ],
+                    ),
+                  ),
+                ),
+
+
                 Padding(
                   padding: EdgeInsets.only(top: 20, right: 15, left: 15),
                   child: Container(
@@ -451,6 +478,7 @@ class _ItemFoodState extends State<ItemFood> {
                 )
               ],
             ),
+               )
           );
           }
           );
@@ -557,6 +585,10 @@ void initState() {
   }
 }
 
+
+
+
+//guisos
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
   static String selectguiso = '';
@@ -651,3 +683,93 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     );
   }
 }
+
+
+
+
+//horas
+class HorasDropDown extends StatefulWidget {
+  HorasDropDown() : super();
+  final String title = "DropDown Demo";
+
+  @override
+  HorasDropDownState createState() => HorasDropDownState();
+}
+ 
+
+class Horas {
+  int id;
+  String hora;
+ 
+  Horas(this.id, this.hora);
+  static List<Horas> getHoras() {
+    return <Horas>[
+      Horas(1, '07:00-07:55'),
+      Horas(2, '07:55-08:50'),
+      Horas(3, '08:50-09:45'),
+      Horas(4, '09:45-10:40'),
+      Horas(5, '10:40-11:35'),
+      Horas(6, '11:35-12:30'),
+      Horas(7, '12:30-13:25'),
+      Horas(8, '13:25-14:20'),
+      Horas(9, '14:20-15:15'),
+      Horas(10, '15:15-16:10'),
+    ];
+  }
+}
+ 
+
+
+class HorasDropDownState extends State<HorasDropDown> {
+
+  List<Horas> _horarios = Horas.getHoras();
+  List<DropdownMenuItem<Horas>> _dropdownMenuItems;
+  Horas _selectedHoras;
+ 
+  @override
+  void initState() {
+    _dropdownMenuItems = buildDropdownMenuItems(_horarios);
+    _selectedHoras = _dropdownMenuItems[0].value;
+    super.initState();
+  }
+ 
+  List<DropdownMenuItem<Horas>> buildDropdownMenuItems(List horariosKfood) {
+    List<DropdownMenuItem<Horas>> items = List();
+    for (Horas horario in horariosKfood) {
+      items.add(
+        DropdownMenuItem(
+          value: horario,
+          child: Text(horario.hora),
+        ),
+      );
+    }
+    return items;
+  }
+ 
+  onChangeDropdownItem(Horas selectedCompany) {
+    setState(() {
+      _selectedHoras = selectedCompany;
+    });
+  }
+ 
+
+
+
+    @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          DropdownButton(
+            value: _selectedHoras,
+            items: _dropdownMenuItems,
+            onChanged: onChangeDropdownItem,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
