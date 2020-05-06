@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
 Future<bool> logIn(String user, String pass) async {
-  bool response = false;
-  if(! await existUser()){
+  bool response = await existUser();
+  if(! response){
     try{
       //Todo: implementar el login con matricula en vez de email
       await FirebaseAuth.instance.signInWithEmailAndPassword(
