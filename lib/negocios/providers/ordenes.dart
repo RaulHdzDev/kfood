@@ -4,12 +4,14 @@ class Ordenes with ChangeNotifier{
   List<EsqueletoOrdenes> _ordenes = new List<EsqueletoOrdenes>();
   
   
-  agregar(EsqueletoOrdenes orden){
+  agregar(EsqueletoOrdenes orden, String idpedcomgui){
     if(orden != null){
+      orden.idpedcomgui = idpedcomgui;
       _ordenes.add(orden);
     }
     notifyListeners();
   }
+
    vacio(){
      return _ordenes.isEmpty;
    }
@@ -34,11 +36,16 @@ class EsqueletoOrdenes{
   int cantidad;
   String guiso;
   int total;
+  String idpedido;
+  String idcomidas;
+  String idguisos;
+  String idpedcomgui;
 
-  int idUsuario;
-  String estado;
-  DateTime fecha;
-  DateTime hora;
+  EsqueletoOrdenes({this.nombre, this.cantidad, this.guiso,this.total, this.idpedido, this.idcomidas, this.idguisos});
+}
 
-  EsqueletoOrdenes({this.nombre, this.cantidad, this.guiso,this.total, this.idUsuario, this.estado, this.fecha, this.hora});
+class MismoPedido{
+  static String idusuario;
+  static String idpedido;
+  static String hora;
 }

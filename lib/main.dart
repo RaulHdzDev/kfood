@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/negocios/pedidosIncompletos.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
@@ -9,6 +10,7 @@ import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
+import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
 import 'package:provider/provider.dart';
 
 
@@ -43,6 +45,8 @@ class Splash extends StatefulWidget {
 
 
 class SplashScreen extends State<Splash> {
+
+    
  @override
   void initState() {
     // TODO: implement initState
@@ -75,6 +79,11 @@ class SplashScreen extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+     getProfileData().then((value){
+      MismoPedido.idusuario = value.id_usuarios;
+      obtenerPedidosIncompletos(MismoPedido.idusuario);
+      });
+      
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

@@ -1,5 +1,6 @@
 class DatosComida {
   final String comida;
   final double precio;
-  DatosComida(this.comida, this.precio);
+  final String idcomida;
+  DatosComida(this.comida, this.precio, this.idcomida);
 }

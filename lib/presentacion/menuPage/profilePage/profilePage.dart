@@ -27,8 +27,8 @@ class _Perfil extends State<ProfilePage> {
   }
   getProfile() async{
     print("Running");
-    List<DatosProfile> datos = await getProfileData();
-    changeText("${datos[0].matricula}","${datos[0].nombre} ${datos[0].apaterno} ${datos[0].amaterno}", "${datos[0].correo}");
+    DatosProfile datos = await getProfileData();
+    changeText("${datos.matricula}","${datos.nombre} ${datos.apaterno} ${datos.amaterno}", "${datos.correo}");
   }
 
   @override

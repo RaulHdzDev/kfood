@@ -5,21 +5,15 @@ import 'package:kfood_app/presentacion/menuPage/profilePage/datos_Profile.dart';
 
 import '../../../datos/requests.dart';
 
-Future<List<DatosProfile>> getProfileData() async {
+Future<DatosProfile> getProfileData() async {
   var user = await FirebaseAuth.instance.currentUser();
   String email = user.email;
   Map<String,String> body = {
     'email':'$email'
   };
   String response = await executeHttpRequest(urlFile: "/perfil.php", requestBody: body);
-  print(response);
   final decodedData = json.decode(response);
-  print(decodedData);
-  final List<DatosProfile> tripsList = [];
-  tripsList.add(DatosProfile(decodedData['id_usuarios'], decodedData['matricula'], decodedData['nombre'],decodedData['ape_pat'],decodedData['ape_mat'],decodedData['email']));
-  print(decodedData['matricula']);
-  print("cantidad: ${tripsList.length}");
-  return tripsList;
+  return DatosProfile(decodedData['id_usuarios'], decodedData['matricula'], decodedData['nombre'],decodedData['ape_pat'],decodedData['ape_mat'],decodedData['email']);
 }
 
 updateDatos(String newPass, String newEmail){

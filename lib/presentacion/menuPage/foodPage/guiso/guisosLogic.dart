@@ -9,7 +9,7 @@ Future<List<GuisosDatos>> getGuisosList() async {
   // print(decodedData);
   final List<GuisosDatos> tripsList = [];
   for(var item in decodedData['guiso']){
-    tripsList.add(GuisosDatos(item['id_guisos'],item['nombreGuiso']));
+    tripsList.add(GuisosDatos(item['idGuiso'],item['nombreGuiso']));
     // print(item['nombreGuiso']);
   }
   // print("cantidad: ${tripsList.length}");

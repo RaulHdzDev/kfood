@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
+import 'package:kfood_app/negocios/pedidoInicial.dart';
+import 'package:kfood_app/negocios/pedidos.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
@@ -10,6 +12,7 @@ import 'package:kfood_app/presentacion/menuPage/foodPage/comida/datos_Comida.dar
 import 'package:flutter/cupertino.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
+import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
   
 class ItemFood extends StatefulWidget {
   @override
@@ -37,7 +40,7 @@ class _ItemFoodState extends State<ItemFood> {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
         tripsList.add(
-            DatosComida(item.nombreComida, double.parse(item.precioUnitario)));
+            DatosComida(item.nombreComida, double.parse(item.precioUnitario), item.idComida));
       }
     }
     setState(() {});
@@ -107,7 +110,7 @@ class _ItemFoodState extends State<ItemFood> {
         child: InkWell(
       splashColor: Colors.black,
       onTap: () {
-        _onPressComida(trip.comida, trip.precio.ceil());
+        _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida);
       },
       child: Card(
         color: Colors.white,
@@ -187,9 +190,7 @@ class _ItemFoodState extends State<ItemFood> {
     _abrirPagCantidad(context);
   }
 
-  void _onPressComida(String comida, int precio) async {
-    final _precio = precio;
-    int _count = 1;
+  void _onPressComida(String comida, int precio, String idcomida) async {
 
     showModalBottomSheet(
         context: context,
@@ -289,44 +290,7 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (_count > 1) _count -= 1;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(3.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(),
-                                ),
-                                child: Icon(Icons.remove),
-                              ),
-                            ),
-                            SizedBox(width: 10.0),
-                            Text("$_count"),
-                            SizedBox(width: 10.0),
-                            GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  if (_count < 10) _count += 1;
-                                });
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(3.0),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  border: Border.all(),
-                                ),
-                                child: Icon(Icons.add),
-                              ),
-                            ),
-                          ],
-                        )
+                        Contador() 
                       ],
                     ),
                   ),
@@ -357,7 +321,7 @@ class _ItemFoodState extends State<ItemFood> {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 40, right: 15, left: 15),
+                  padding: EdgeInsets.only(top: 20, right: 15, left: 15),
                   child: Container(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -376,30 +340,38 @@ class _ItemFoodState extends State<ItemFood> {
                             ],
                           ),
                         ),
-                        Text(
-                          "\$${(_precio * _count).toStringAsFixed(2)}",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              fontFamily: "SFUIDisplay"),
-                        ),
+                        //NO agreges el TEXT
+                        //La clase PrecioTotal muestra ese TEXT
                         PrecioTotal(precio: precio,)
                       ],
                     ),
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(top: 60),
+                  padding: EdgeInsets.only(top: 40),
                   child: Center(
                     child: MaterialButton(
                       onPressed: () {
-                        agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont);
+                        ordenes = Provider.of<Ordenes>(context);
+                        if(ordenes.vacio()){
+
+                          getProfileData().then((value){
+                             MismoPedido.idusuario = value.id_usuarios;
+                             registrarPedidoInicial(MismoPedido.idusuario).then((valu){
+                              agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );       
+                             });
+                          });
+                        }
+                        else{
+                          agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );
+                        }
+                        
                         Fluttertoast.showToast(
                             msg: "Se agregó a tu orden",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.BOTTOM,
                             timeInSecForIosWeb: 1);
+                        Navigator.pop(context);
                       },
                       textColor: Colors.black54,
                       height: 55,
@@ -429,12 +401,16 @@ class _ItemFoodState extends State<ItemFood> {
           );
         });
   }
-  agregarOrden(String nombre, int cantidad, String guiso, int total) async{
+  agregarOrden(String nombre, int cantidad, String guiso, int total, String idpedido, String idcomida, String idguiso) async{
     ordenes = Provider.of<Ordenes>(context);
-
-    EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total);
-    ordenes.agregar(pedir);
+    EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total, idpedido: idpedido, idcomidas: idcomida, idguisos: idguiso);
+    registrarPedido(idpedido, idcomida, idguiso, cantidad.toString()).then((value){
+      
+      ordenes.agregar(pedir, value);
+    });
+    
   }
+
 
 }
 
@@ -529,6 +505,7 @@ void initState() {
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
   static String selectguiso = '';
+  static String selectidguiso = '';
   final String title = "Guisos disp.";
 
   @override
@@ -536,7 +513,7 @@ class GuisosDropDown extends StatefulWidget {
 }
 
 class GuisosDatos {
-  int id;
+  String id;
   String name;
 
   GuisosDatos(this.id, this.name);
@@ -558,6 +535,8 @@ class GuisosDropDownState extends State<GuisosDropDown> {
         _dropdownMenuItems = buildDropdownMenuItems(_guisos);
         _selectGuiso = _dropdownMenuItems[0].value;
       });
+      GuisosDropDown.selectguiso = lista.first.name;
+      GuisosDropDown.selectidguiso = lista.first.id.toString();
     });
 
   }
@@ -594,8 +573,10 @@ class GuisosDropDownState extends State<GuisosDropDown> {
   onChangeDropdownItem(GuisosDatos selectedGuisos) {
     setState(() {
       _selectGuiso = selectedGuisos;
+      
     });
     GuisosDropDown.selectguiso = selectedGuisos.name; 
+    GuisosDropDown.selectidguiso = selectedGuisos.id.toString();
   }
 
   @override
