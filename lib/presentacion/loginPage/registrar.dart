@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:kfood_app/presentacion/loginPage/registrarLogic.dart';
 
+import 'loginLogic.dart';
+
 class Registrar extends StatefulWidget {
   Registrar({Key key}) : super(key: key);
 
@@ -348,6 +350,7 @@ class _HomeState extends State<Registrar> {
                         enrollmentController.text, semesterController.text, passController.text);
                         print(valueReturned);
                         if (valueReturned == "exito"){
+                          signOut();
                           Navigator.pop(context);
                         }
                       }
