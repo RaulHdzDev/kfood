@@ -55,7 +55,7 @@ class SplashScreen extends State<Splash> {
       Duration(seconds: 3),
       () async {
         if(! await existUser()){
-          Navigator.push(
+          Navigator.pushReplacement(
             this.context,
             MaterialPageRoute(
               builder: (context) => Presentacion1(),
@@ -79,11 +79,12 @@ class SplashScreen extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    
      getProfileData().then((value){
       MismoPedido.idusuario = value.id_usuarios;
       obtenerPedidosIncompletos(MismoPedido.idusuario);
       });
-      
+          
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(

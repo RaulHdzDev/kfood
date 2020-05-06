@@ -4,28 +4,19 @@ import 'package:flutter/services.dart';
 import 'package:kfood_app/presentacion/bienvenida/p_bienvenida2.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 
-
 import '../menuPage/menu_principal.dart';
- 
-
-
-
 
 class Presentacion1 extends StatefulWidget {
   @override
   Login createState() => Login();
 }
 
-
-
 class Login extends State<Presentacion1> {
   bool _rememberMe = false;
 
- 
-
-@override
+  @override
   Widget build(BuildContext context) {
-     double height = MediaQuery.of(context).size.height;
+    double height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       body: AnnotatedRegion<SystemUiOverlayStyle>(
@@ -37,15 +28,15 @@ class Login extends State<Presentacion1> {
               Container(
                 height: double.infinity,
                 width: double.infinity,
-               decoration: BoxDecoration(
-                 image: DecorationImage(image: AssetImage('assets/images/imagenP1.png'),
-                   fit: BoxFit.cover),
-                     gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                     end: Alignment.bottomLeft,
-                    colors: [Colors.white, Colors.white]
-                       ),
-        ),
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/imagenP1.png'),
+                      fit: BoxFit.cover),
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [Colors.white, Colors.white]),
+                ),
               ),
               Container(
                 height: double.infinity,
@@ -57,11 +48,9 @@ class Login extends State<Presentacion1> {
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[   
+                    children: <Widget>[
                       SizedBox(height: 450.0),
-                     
                       _siguiente(),
-             
                     ],
                   ),
                 ),
@@ -73,28 +62,24 @@ class Login extends State<Presentacion1> {
     );
   }
 
-
-
-
   Widget _siguiente() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 50.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 20.0,
-        onPressed: (){
-          Navigator.push(
-                        context,
-                        CupertinoPageRoute(
-                          builder: (context)=> Presentacion2(),
-                          )
-                      );
+        onPressed: () {
+          Navigator.pushReplacement(
+              context,
+              CupertinoPageRoute(
+                builder: (context) => Presentacion2(),
+              ));
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-         color: Colors.white,
+        color: Colors.white,
         child: Text(
           'Siguiente',
           style: TextStyle(
@@ -108,8 +93,4 @@ class Login extends State<Presentacion1> {
       ),
     );
   }
-
-
-
 }
-
