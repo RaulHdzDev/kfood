@@ -12,24 +12,32 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _Perfil extends State<ProfilePage> {
-  String matricula = "0000F0000";
+  String matricula = "";
   String nombre = "";
   String correo = "";
-  changeText(String mat, String nom, String corr) {
+  String pedidos = "";
+  String favorito = "_";
+  changeText(String mat, String nom, String corr, String pedidosN, String platoFav) {
     setState(() {
       matricula = "$mat";
       nombre = "$nom";
       correo = "$corr";
+      pedidos = "$pedidosN";
+      favorito = "$platoFav";
     });
   }
 
   getProfile() async {
     print("Running");
     DatosProfile datos = await getProfileData();
+    DatosActivity da = await getProfileActivity();
     changeText(
         "${datos.matricula}",
         "${datos.nombre} ${datos.apaterno} ${datos.amaterno}",
-        "${datos.correo}");
+        "${datos.correo}",
+        "${da.pedidos}",
+        "${da.plato}"
+    );
   }
 
   @override
@@ -283,14 +291,14 @@ class _Perfil extends State<ProfilePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.fastfood,
                 size: 30,
                 color: Colors.white54,
               ),
               title: Text(
-                "TACOS",
+                "$favorito",
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'SFUIDisplay',
@@ -324,14 +332,14 @@ class _Perfil extends State<ProfilePage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.insert_chart,
                 size: 40,
                 color: Colors.white54,
               ),
               title: Text(
-                "45",
+                "$pedidos",
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: 'SFUIDisplay',
