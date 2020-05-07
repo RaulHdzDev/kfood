@@ -350,7 +350,7 @@ class _HomeState extends State<Registrar> {
                         enrollmentController.text, semesterController.text, passController.text);
                         print(valueReturned);
                         if (valueReturned == "exito"){
-                          signOut();
+                          logOut();
                           Navigator.pop(context);
                         }
                       }

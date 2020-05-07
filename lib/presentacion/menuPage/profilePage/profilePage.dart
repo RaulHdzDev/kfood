@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/datos_Profile.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
+import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -146,7 +148,15 @@ class _Perfil extends State<ProfilePage> {
                   padding: EdgeInsets.only(top: 15, bottom: 8),
                   child: FlatButton(
                     onPressed: () {
-                      
+                      logOut();
+                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        this.context,
+                        MaterialPageRoute(
+                          builder: (context) => Presentacion1(),
+                          //builder: (context) => HomePage(),
+                        ),
+                      );
                     },
                     padding: EdgeInsets.only(right: 0.0),
                     child: Text(

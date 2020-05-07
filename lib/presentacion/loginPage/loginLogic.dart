@@ -50,7 +50,7 @@ Future<bool> existUser() async {
   return response;
 }
 
-signOut() async {
+logOut() async {
   await FirebaseAuth.instance.signOut();
 }
 
