@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kfood_app/negocios/class/pedComGui.dart';
+import 'package:kfood_app/negocios/providers/carritoIncompleto.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
@@ -10,12 +12,22 @@ class OrderPage extends StatelessWidget{
   List<OrderItems> orderItems = [];
 
   Ordenes ordenes;
-  
+  CarritoIncompleto carritos;
   getOrders(){
     List<OrderItems> ordenitem = new List<OrderItems>();
-    for (EsqueletoOrdenes orden in ordenes.ordenes) {
+    if(ordenitem != null){
+      for (EsqueletoOrdenes orden in ordenes.ordenes) {
+      print("OrderItem");
       ordenitem.add(new OrderItems(number: orden.cantidad.toString(), text: orden.nombre, secondaryText: orden.guiso, amount: orden.total.toString()));
+      }
     }
+    else if(carritos.vacio() == false){
+      print("carrito");
+      for(PedComGui ordenI in carritos.carritoIncompleto){
+        ordenitem.add(new OrderItems(number: ordenI.cantidad, text: ordenI.nombreComida, secondaryText: ordenI.nombreguiso, amount: ordenI.precioUnitario));
+      }
+    }
+    
     return ordenitem;
   }
 

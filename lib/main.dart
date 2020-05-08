@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:kfood_app/negocios/class/pedComGui.dart';
 import 'package:kfood_app/negocios/pedidosIncompletos.dart';
+import 'package:kfood_app/negocios/providers/carritoIncompleto.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
@@ -20,11 +22,13 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (context) => Comidas(),),
         ChangeNotifierProvider(builder: (context) => ContCantidad(),),
         ChangeNotifierProvider(builder: (context) => Ordenes(),),
+        ChangeNotifierProvider(builder: (context) => CarritoIncompleto(),),
       ],
           child: MaterialApp(
         home: Scaffold(
@@ -79,16 +83,19 @@ class SplashScreen extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
+    CarritoIncompleto ordenInicial;
+    final CarritoIncompleto carrito = Provider.of<CarritoIncompleto>(context);
      getProfileData().then((value){
       MismoPedido.idusuario = value.id_usuarios;
-      obtenerPedidosIncompletos(MismoPedido.idusuario);
+      obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
       });
+//
       
+//      
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
       	child: Container( 
-
 
 	        child: Column(
           
