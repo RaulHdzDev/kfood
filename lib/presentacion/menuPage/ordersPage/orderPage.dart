@@ -65,159 +65,235 @@ class OrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     ordenes = Provider.of<Ordenes>(context);
     orderItems = getOrders();
-    return Container(
-      child: Column(
-        children: <Widget>[
-          _headerFoodPage(),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Pedido",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.normal),
-                      ),
-                      Text(
-                        "Precio",
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.normal),
-                      ),
-                    ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+            //backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+            backgroundColor: Colors.white,
+            elevation: 0.0,
+            title: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "TU ORDEN",
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'SFUIDisplay',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black87,
+                    ),
                   ),
-                  ListView.builder(
-                    itemCount: orderItems.length,
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: <Widget>[
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: <Widget>[
-                              Container(
-                                height: 24,
-                                width: 24,
-                                decoration: BoxDecoration(
-                                    border:
-                                        Border.all(color: Colors.grey.shade300),
-                                    borderRadius: BorderRadius.circular(5)),
-                                child: Center(
-                                  child: Text(
-                                    orderItems[index].number,
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 12),
-                                  ),
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Los detalles de tu pedido",
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.black45,
+                    ),
+                  ),
+                ),
+              ],
+            )),
+        body: Padding(
+          padding: EdgeInsets.all(16),
+          child: SingleChildScrollView(
+            physics: AlwaysScrollableScrollPhysics(),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Text(
+                      "Pedido",
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
+                    Text(
+                      "Precio",
+                      style: TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.normal),
+                    ),
+                  ],
+                ),
+                ListView.builder(
+                  itemCount: orderItems.length,
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) {
+                    return Column(
+                      children: <Widget>[
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Container(
+                              height: 24,
+                              width: 24,
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.grey.shade300),
+                                  borderRadius: BorderRadius.circular(5)),
+                              child: Center(
+                                child: Text(
+                                  orderItems[index].number,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 12),
                                 ),
                               ),
-                              SizedBox(
-                                width: 8,
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: <Widget>[
-                                    Text(
-                                      orderItems[index].text,
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                    SizedBox(
-                                      height: 8,
-                                    ),
-                                    Text(
-                                      orderItems[index].secondaryText,
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey.shade500),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Text(
-                                orderItems[index].amount,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                          Divider(
-                            thickness: 1.3,
-                            color: Colors.grey.shade200,
-                            height: 1,
-                          ),
-                          SizedBox(
-                            height: 14,
-                          ),
-                        ],
-                      );
-                    },
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Text(
-                        "Total",
-                        style: TextStyle(
-                            fontSize: 25, fontWeight: FontWeight.normal),
-                      ),
-                      Text(
-                        "\$${ordenes.obtenerTotal()}",
-                        style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  SafeArea(
-                    child: Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        height: 80,
-                        width: MediaQuery.of(context).size.width - 80,
-                        padding: EdgeInsets.only(top: 35),
-                        child: FlatButton(
-                          onPressed: () {
-                            _onPressComida(context);
-                          },
-                          child: Text(
-                            "Ordenar",
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.normal),
-                          ),
-                          color: Colors.white,
-                          disabledTextColor: Colors.redAccent,
-                          textColor: Colors.redAccent,
-                          shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                              style: BorderStyle.solid,
-                              color: Color.fromRGBO(248, 64, 0, 1),
                             ),
-                            borderRadius: BorderRadius.circular(10),
+                            SizedBox(
+                              width: 8,
+                            ),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Text(
+                                    orderItems[index].text,
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.w600),
+                                  ),
+                                  SizedBox(
+                                    height: 8,
+                                  ),
+                                  Text(
+                                    orderItems[index].secondaryText,
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        color: Colors.grey.shade500),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Text(
+                              "\$${orderItems[index].amount}.00",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 14,
+                        ),
+                        Divider(
+                          thickness: 1.3,
+                          color: Colors.grey.shade200,
+                          height: 1,
+                        ),
+                        SizedBox(
+                          height: 14,
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                Container(
+                  color: Colors.white12,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        child: Row(
+                          children: <Widget>[
+                            Icon(Icons.monetization_on,
+                                color: Colors.greenAccent),
+                            Text(
+                              "Total:",
+                              style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'SFUIDisplay',
+                                fontWeight: FontWeight.w700,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Text(
+                        "\$${ordenes.obtenerTotal()}.00",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontFamily: 'SFUIDisplay',
+                          fontWeight: FontWeight.w800,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: Container(
+                          child: FlatButton(
+                            onPressed: () {
+                              _onPressComida(context);
+                            },
+                            child: Text(
+                              "Ordenar",
+                              style: TextStyle(
+                                  fontSize: 15, fontWeight: FontWeight.w700),
+                            ),
+                            color: Colors.redAccent,
+                            hoverColor: Colors.black26,
+                            disabledTextColor: Colors.white30,
+                            textColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                style: BorderStyle.solid,
+                                color: Color.fromRGBO(248, 64, 0, 1),
+                              ),
+                              borderRadius: BorderRadius.circular(5),
+                            ),
                           ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
 }
+
+// Padding(
+//             padding: const EdgeInsets.all(3.0),
+//             child: SingleChildScrollView(
+//               physics: AlwaysScrollableScrollPhysics(),
+//               padding: EdgeInsets.only(left: 16, right: 16, top: 15),
+//               child: Column(
+//                 crossAxisAlignment: CrossAxisAlignment.start,
+//                 children: <Widget>[
+
+//                   Row(
+//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                     children: <Widget>[
+//                       Text(
+//                         "Total",
+//                         style: TextStyle(
+//                             fontSize: 25, fontWeight: FontWeight.normal),
+//                       ),
+//                       Text(
+//                         "\$${ordenes.obtenerTotal()}",
+//                         style: TextStyle(
+//                             fontSize: 30, fontWeight: FontWeight.bold),
+//                       ),
+//                     ],
+//                   ),
+//                 ],
+//               ),
+//             ),
+//           ),
 
 void _onPressComida(context) async {
   showModalBottomSheet(
