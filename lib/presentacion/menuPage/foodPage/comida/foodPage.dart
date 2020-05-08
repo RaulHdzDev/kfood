@@ -36,6 +36,7 @@ class _ItemFoodState extends State<ItemFood> {
     Timer(new Duration(milliseconds: 1), abrirPag);
   }
 
+
   void imprimirLista(Comidas lista) {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
@@ -409,12 +410,11 @@ class _ItemFoodState extends State<ItemFood> {
                       onPressed: () {
                         ordenes = Provider.of<Ordenes>(context);
                         if(ordenes.vacio()){
-
                           getProfileData().then((value){
-                             MismoPedido.idusuario = value.id_usuarios;
-                             registrarPedidoInicial(MismoPedido.idusuario).then((valu){
+                              MismoPedido.idusuario = value.id_usuarios;
+                            registrarPedidoInicial(MismoPedido.idusuario).then((valu){
                               agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );       
-                             });
+                            });
                           });
                         }
                         else{
@@ -572,7 +572,6 @@ class GuisosDatos {
   String name;
 
   GuisosDatos(this.id, this.name);
-//agregar guisos de la bd
   static Future<List<GuisosDatos>> getGuisos() async{
     List<GuisosDatos> guisos = new List<GuisosDatos>();
     guisos = await getGuisosList();

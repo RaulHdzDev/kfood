@@ -211,12 +211,22 @@ class Login extends State<HomePage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () async {
+          Fluttertoast.showToast(
+            msg: "Comprobando...",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+          );
           if (await logIn(userController.text, passwordController.text)) {
             Navigator.pushReplacement(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => MenuPrincipal(),
                 ));
+            Fluttertoast.showToast(
+              msg: "Bienvenido :D",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+            );
           } else {
             Fluttertoast.showToast(
               msg: "Usuario/Contraseña incorrecta",

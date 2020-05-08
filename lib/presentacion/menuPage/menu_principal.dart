@@ -34,14 +34,26 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
     switch (page) {
       case 0:
         pageindex = 0;
+        pr.show();
+        Future.delayed(Duration(seconds: 2)).then((value) {
+          pr.hide();
+        });
         return ItemFood();
         break;
       case 1:
         pageindex = 1;
+        pr.show();
+        Future.delayed(Duration(seconds: 2)).then((value) {
+          pr.hide();
+        });
         return OrderPage();
         break;
       case 2:
         pageindex = 2;
+        pr.show();
+        Future.delayed(Duration(seconds: 2)).then((value) {
+          pr.hide();
+        });
         return ProfilePage();
         break;
       default:
@@ -59,18 +71,22 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
   Widget build(BuildContext context) {
     pr = new ProgressDialog(context);
     pr.style(
-        message: 'Por favor espere...',
+        message: 'Por favor espere. :D',
         borderRadius: 10.0,
-        backgroundColor: Colors.black54,
-        progressWidget: CircularProgressIndicator(),
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+        ),
         elevation: 10.0,
         insetAnimCurve: Curves.easeInOut,
         progress: 0.0,
         maxProgress: 100.0,
         progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+          color: Colors.black,
+          fontSize: 13.0, /*fontWeight: FontWeight.w400*/
+        ),
         messageTextStyle: TextStyle(
-            color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.w600));
+            color: Colors.black, fontSize: 15.0));
     return new Scaffold(
         bottomNavigationBar: BottomNavigationBar(
           key: _bottomNavigationKey,

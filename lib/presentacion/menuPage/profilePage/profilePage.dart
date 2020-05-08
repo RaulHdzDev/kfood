@@ -55,22 +55,27 @@ class _Perfil extends State<ProfilePage> {
     pr.style(
           message: 'Por favor espere...',
           borderRadius: 10.0,
-          backgroundColor: Colors.black54,
-          progressWidget: CircularProgressIndicator(),
+          backgroundColor: Colors.white,
+          progressWidget: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+          ),
           elevation: 10.0,
           insetAnimCurve: Curves.easeInOut,
           progress: 0.0,
           maxProgress: 100.0,
           progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+            color: Colors.black, fontSize: 13.0, /*fontWeight: FontWeight.w400*/),
           messageTextStyle: TextStyle(
-            color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.w600)
+            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600)
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-            backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+            //backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+            backgroundColor: Colors.white,
+            elevation: 0.0,
             title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -82,7 +87,7 @@ class _Perfil extends State<ProfilePage> {
                       fontSize: 15,
                       fontFamily: 'SFUIDisplay',
                       fontWeight: FontWeight.bold,
-                      color: Colors.white,
+                      color: Colors.black87,
                     ),
                   ),
                 ),
@@ -93,7 +98,7 @@ class _Perfil extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'SFUIDisplay',
-                      color: Colors.white54,
+                      color: Colors.black45,
                     ),
                   ),
                 ),
