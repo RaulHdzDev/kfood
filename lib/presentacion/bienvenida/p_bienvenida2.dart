@@ -83,7 +83,7 @@ class Login extends State<Presentacion2> {
       child: RaisedButton(
         elevation: 20.0,
         onPressed: (){
-          Navigator.push(
+          Navigator.pushReplacement(
                         context,
                         CupertinoPageRoute(
                           builder: (context)=> Presentacion3(),

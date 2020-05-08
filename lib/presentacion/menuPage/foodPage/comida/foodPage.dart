@@ -178,24 +178,20 @@ class _ItemFoodState extends State<ItemFood> {
     ));
   }
 
-
-
-
-
   _abrirPaginaComidas(BuildContext context) async {
     final Comidas comidas = Provider.of<Comidas>(context);
     comidas.limpiarLista();
     await traerComida(comidas);
     imprimirLista(comidas);
   }
+
   void abrirPag() {
     _abrirPaginaComidas(context);
     _abrirPagCantidad(context);
   }
 
-
-
   void _onPressComida(String comida, int precio, String idcomida) async {
+
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -213,8 +209,7 @@ class _ItemFoodState extends State<ItemFood> {
                   topLeft: const Radius.circular(10),
                   topRight: const Radius.circular(10),
                 )),
-               child: SingleChildScrollView(
-              child: Column(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 Padding(
@@ -325,9 +320,6 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 ),
-
-           
-
                 Padding(
                   padding: EdgeInsets.only(top: 20, right: 15, left: 15),
                   child: Container(
@@ -401,24 +393,13 @@ class _ItemFoodState extends State<ItemFood> {
                     ),
                   ),
                 )
-
-
-                
               ],
             ),
-               )
           );
           }
           );
         });
   }
-
-
-
-
-
-
-
   agregarOrden(String nombre, int cantidad, String guiso, int total, String idpedido, String idcomida, String idguiso) async{
     ordenes = Provider.of<Ordenes>(context);
     EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total, idpedido: idpedido, idcomidas: idcomida, idguisos: idguiso);
@@ -431,7 +412,6 @@ class _ItemFoodState extends State<ItemFood> {
 
 
 }
-
 
 class PrecioTotal extends StatefulWidget {
   @override
@@ -521,10 +501,6 @@ void initState() {
   }
 }
 
-
-
-
-//guisos
 class GuisosDropDown extends StatefulWidget {
   GuisosDropDown() : super();
   static String selectguiso = '';
@@ -618,8 +594,3 @@ class GuisosDropDownState extends State<GuisosDropDown> {
     );
   }
 }
-
-
-
-
- 
