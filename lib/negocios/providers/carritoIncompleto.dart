@@ -7,16 +7,6 @@ import 'ordenes.dart';
 class CarritoIncompleto with ChangeNotifier{
 
   List<PedComGui> _pedComGui = new List<PedComGui>();  
-
-  fromJsonList(List<dynamic> jsonList){
-    if(jsonList == null )return;
-    for(var item in jsonList){
-      final pedComGui = new PedComGui.jsonMapPedComGui(item);
-      print(item);
-      _pedComGui.add(pedComGui);
-    }
-    notifyListeners();
-  }
   //agrega ordenes a la lista
 
   vacio(){

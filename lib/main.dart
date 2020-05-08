@@ -12,6 +12,7 @@ import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
+import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
 import 'package:provider/provider.dart';
 
@@ -67,6 +68,7 @@ class SplashScreen extends State<Splash> {
             ),
           );
         }else{
+          _agregarPedInicial(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -83,12 +85,6 @@ class SplashScreen extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    CarritoIncompleto ordenInicial;
-    final CarritoIncompleto carrito = Provider.of<CarritoIncompleto>(context);
-     getProfileData().then((value){
-      MismoPedido.idusuario = value.id_usuarios;
-      obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
-      });
 //
       
 //      
@@ -167,4 +163,14 @@ class SplashScreen extends State<Splash> {
       )
     );
   }
+  
+  _agregarPedInicial(BuildContext context){
+    Ordenes carrito;
+    carrito = Provider.of<Ordenes>(context);
+    getProfileData().then((value){
+      MismoPedido.idusuario = value.id_usuarios;
+      obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
+    });
+  }
+   
 }

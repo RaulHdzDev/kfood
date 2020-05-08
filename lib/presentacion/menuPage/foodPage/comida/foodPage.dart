@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
 import 'package:kfood_app/negocios/pedidoInicial.dart';
 import 'package:kfood_app/negocios/pedidos.dart';
+import 'package:kfood_app/negocios/pedidosIncompletos.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
@@ -20,6 +21,15 @@ class ItemFood extends StatefulWidget {
 }
 
 class _ItemFoodState extends State<ItemFood> {
+
+  // _agregarPedInicial(BuildContext context){
+  //   Ordenes carrito;
+  //   carrito = Provider.of<Ordenes>(context);
+  //   getProfileData().then((value){
+  //     MismoPedido.idusuario = value.id_usuarios;
+  //     obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
+  //   });
+  // }
 
   ContCantidad cantidad;
   _abrirPagCantidad(BuildContext context) async{
@@ -49,6 +59,7 @@ class _ItemFoodState extends State<ItemFood> {
 
   @override
   Widget build(BuildContext context) {
+    // _agregarPedInicial(context);
     return Container(
       child: Column(
         children: <Widget>[_headerFoodPage(), _listaComida()],

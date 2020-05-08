@@ -2,36 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kfood_app/negocios/class/pedComGui.dart';
-import 'package:kfood_app/negocios/providers/carritoIncompleto.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
 
-class OrderPage extends StatelessWidget{
+class OrderPage extends StatelessWidget {
   List<OrderItems> orderItems = [];
 
   Ordenes ordenes;
-  CarritoIncompleto carritos;
-  getOrders(){
+
+  getOrders() {
     List<OrderItems> ordenitem = new List<OrderItems>();
-    if(ordenitem != null){
-      for (EsqueletoOrdenes orden in ordenes.ordenes) {
-      print("OrderItem");
-      ordenitem.add(new OrderItems(number: orden.cantidad.toString(), text: orden.nombre, secondaryText: orden.guiso, amount: orden.total.toString()));
-      }
+    for (EsqueletoOrdenes orden in ordenes.ordenes) {
+      ordenitem.add(new OrderItems(
+          number: orden.cantidad.toString(),
+          text: orden.nombre,
+          secondaryText: orden.guiso,
+          amount: orden.total.toString()));
+      // print(ordenitem.first.text);
     }
-    else if(carritos.vacio() == false){
-      print("carrito");
-      for(PedComGui ordenI in carritos.carritoIncompleto){
-        ordenitem.add(new OrderItems(number: ordenI.cantidad, text: ordenI.nombreComida, secondaryText: ordenI.nombreguiso, amount: ordenI.precioUnitario));
-      }
-    }
-    
     return ordenitem;
   }
 
-   Widget _headerFoodPage() {
+  Widget _headerFoodPage() {
     return Container(
       color: Color.fromRGBO(248, 64, 0, 1),
       child: Column(
@@ -66,10 +59,7 @@ class OrderPage extends StatelessWidget{
         ],
       ),
     );
-   }
-
-
-
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,23 +71,30 @@ class OrderPage extends StatelessWidget{
           _headerFoodPage(),
           SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(left: 16,right: 16, top: 15),
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Pedido",style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),),
-                       Text("Precio",style: TextStyle(fontSize: 15,fontWeight: FontWeight.normal),),
- 
+                      Text(
+                        "Pedido",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.normal),
+                      ),
+                      Text(
+                        "Precio",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.normal),
+                      ),
                     ],
                   ),
                   ListView.builder(
                     itemCount: orderItems.length,
                     shrinkWrap: true,
                     physics: NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index){
+                    itemBuilder: (context, index) {
                       return Column(
                         children: <Widget>[
                           Row(
@@ -107,78 +104,111 @@ class OrderPage extends StatelessWidget{
                                 height: 24,
                                 width: 24,
                                 decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey.shade300),
-                                  borderRadius: BorderRadius.circular(5)
-                                ),
+                                    border:
+                                        Border.all(color: Colors.grey.shade300),
+                                    borderRadius: BorderRadius.circular(5)),
                                 child: Center(
-                                  child: Text(orderItems[index].number,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 12),),
+                                  child: Text(
+                                    orderItems[index].number,
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 12),
+                                  ),
                                 ),
                               ),
- 
-                              SizedBox(width: 8,),
+                              SizedBox(
+                                width: 8,
+                              ),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Text(orderItems[index].text,style: TextStyle(fontWeight: FontWeight.w600),),
-                                    SizedBox(height: 8,),
-                                    Text(orderItems[index].secondaryText,style: TextStyle(fontSize: 12,color: Colors.grey.shade500),),
+                                    Text(
+                                      orderItems[index].text,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      orderItems[index].secondaryText,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          color: Colors.grey.shade500),
+                                    ),
                                   ],
                                 ),
                               ),
-                              Text(orderItems[index].amount,style: TextStyle(color: Colors.black,fontSize: 17,fontWeight: FontWeight.bold),),
+                              Text(
+                                orderItems[index].amount,
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ],
                           ),
-                          SizedBox(height: 14,),
-                          Divider(thickness: 1.3,color: Colors.grey.shade200,height: 1,),
-                          SizedBox(height: 14,),
+                          SizedBox(
+                            height: 14,
+                          ),
+                          Divider(
+                            thickness: 1.3,
+                            color: Colors.grey.shade200,
+                            height: 1,
+                          ),
+                          SizedBox(
+                            height: 14,
+                          ),
                         ],
                       );
                     },
                   ),
-                  
- 
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Text("Total",style: TextStyle(fontSize: 25,fontWeight: FontWeight.normal),),
-                      Text("\$${ordenes.obtenerTotal()}",style: TextStyle(fontSize: 30,fontWeight: FontWeight.bold),),
+                      Text(
+                        "Total",
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.normal),
+                      ),
+                      Text(
+                        "\$${ordenes.obtenerTotal()}",
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
- 
-            
-          SafeArea(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 80,
-                width: MediaQuery.of(context).size.width - 80,
-                padding: EdgeInsets.only(top: 35),
-                child: FlatButton(
-                  onPressed: (){
-                     _onPressComida(context);
-                  },
-                  child: Text("Ordenar",style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal),),
-                  color: Colors.white,
-                  disabledTextColor: Colors.redAccent,
-                  textColor: Colors.redAccent,
-                  shape: RoundedRectangleBorder(
-                    side: BorderSide(
-                      style: BorderStyle.solid,
-                      color: Color.fromRGBO(248, 64, 0, 1),
+                  SafeArea(
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 80,
+                        width: MediaQuery.of(context).size.width - 80,
+                        padding: EdgeInsets.only(top: 35),
+                        child: FlatButton(
+                          onPressed: () {
+                            _onPressComida(context);
+                          },
+                          child: Text(
+                            "Ordenar",
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.normal),
+                          ),
+                          color: Colors.white,
+                          disabledTextColor: Colors.redAccent,
+                          textColor: Colors.redAccent,
+                          shape: RoundedRectangleBorder(
+                            side: BorderSide(
+                              style: BorderStyle.solid,
+                              color: Color.fromRGBO(248, 64, 0, 1),
+                            ),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                        ),
+                      ),
                     ),
-                    borderRadius: BorderRadius.circular(10),
                   ),
-                ),
-              ),
-            ),
-          ),
-
-Row(
-  children: <Widget>[
-    Text(" ")
-  ],
-)
                 ],
               ),
             ),
@@ -189,108 +219,91 @@ Row(
   }
 }
 
-
-
-
-
-
-
-  void _onPressComida(context) async {
-    showModalBottomSheet(
-        context: context,
-        backgroundColor: Colors.transparent,
-        builder: (context) {
-          return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
+void _onPressComida(context) async {
+  showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return StatefulBuilder(builder: (BuildContext context,
+            StateSetter setState /*You can rename this!*/) {
           return Container(
-            alignment: Alignment.topLeft,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                )),
-               child: SingleChildScrollView(
-              child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 15, left: 15),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(CupertinoIcons.forward),
-                              Text(
-                                " Hora a entregar",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black87,
-                                    fontFamily: "SFUIDisplay"),
+              alignment: Alignment.topLeft,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(20),
+                    topRight: const Radius.circular(20),
+                  )),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                      padding: EdgeInsets.only(top: 20, right: 15, left: 15),
+                      child: Container(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Container(
+                              child: Row(
+                                children: <Widget>[
+                                  Icon(CupertinoIcons.forward),
+                                  Text(
+                                    " Hora a entregar",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        color: Colors.black87,
+                                        fontFamily: "SFUIDisplay"),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
+                            ),
+                            HorasDropDown()
+                          ],
                         ),
-                        HorasDropDown()
-                      ],
-                    ),
-                  ),
-                ),
-
-                 Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: MaterialButton(
-                      onPressed: () {
-                        Fluttertoast.showToast(
-                            msg: "Pedido realizado con éxito",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1);
-                        Navigator.pop(context);
-                        
-                      },
-                      textColor: Colors.black54,
-                      height: 55,
-                      minWidth: MediaQuery.of(context).size.width - 50,
-                      highlightColor: Colors.red,
-                      splashColor: Colors.red,
-                      colorBrightness: Brightness.dark,
-                      textTheme: ButtonTextTheme.accent,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: Colors.redAccent)),
-                      child: Text(
-                        "Listo",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "SFUIDisplay"),
                       ),
                     ),
-                  ),
-                )
- 
-              ],
-            ),
-               )
-          );
-          }
-          );
+                    Padding(
+                      padding: EdgeInsets.only(top: 40),
+                      child: Center(
+                        child: MaterialButton(
+                          onPressed: () {
+                            Fluttertoast.showToast(
+                                msg: "Pedido realizado con éxito",
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1);
+                            Navigator.pop(context);
+                          },
+                          textColor: Colors.black54,
+                          height: 55,
+                          minWidth: MediaQuery.of(context).size.width - 50,
+                          highlightColor: Colors.red,
+                          splashColor: Colors.red,
+                          colorBrightness: Brightness.dark,
+                          textTheme: ButtonTextTheme.accent,
+                          shape: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: BorderSide(color: Colors.redAccent)),
+                          child: Text(
+                            "Listo",
+                            style: TextStyle(
+                                fontSize: 15,
+                                color: Colors.redAccent,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "SFUIDisplay"),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ));
         });
-  }
-
-
-
-
-
-
+      });
+}
 
 //horas
 class HorasDropDown extends StatefulWidget {
@@ -300,12 +313,11 @@ class HorasDropDown extends StatefulWidget {
   @override
   HorasDropDownState createState() => HorasDropDownState();
 }
- 
 
 class Horas {
   int id;
   String hora;
- 
+
   Horas(this.id, this.hora);
   static List<Horas> getHoras() {
     return <Horas>[
@@ -321,22 +333,19 @@ class Horas {
     ];
   }
 }
- 
-
 
 class HorasDropDownState extends State<HorasDropDown> {
-
   List<Horas> _horarios = Horas.getHoras();
   List<DropdownMenuItem<Horas>> _dropdownMenuItems;
   Horas _selectedHoras;
- 
+
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_horarios);
     _selectedHoras = _dropdownMenuItems[0].value;
     super.initState();
   }
- 
+
   List<DropdownMenuItem<Horas>> buildDropdownMenuItems(List horariosKfood) {
     List<DropdownMenuItem<Horas>> items = List();
     for (Horas horario in horariosKfood) {
@@ -349,17 +358,14 @@ class HorasDropDownState extends State<HorasDropDown> {
     }
     return items;
   }
- 
+
   onChangeDropdownItem(Horas selectedCompany) {
     setState(() {
       _selectedHoras = selectedCompany;
     });
   }
- 
 
-
-
-    @override
+  @override
   Widget build(BuildContext context) {
     return Container(
       child: Column(
@@ -376,9 +382,3 @@ class HorasDropDownState extends State<HorasDropDown> {
     );
   }
 }
-
-
-
-
-
-
