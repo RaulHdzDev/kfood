@@ -55,7 +55,7 @@ class SplashScreen extends State<Splash> {
       Duration(seconds: 3),
       () async {
         if(! await existUser()){
-          Navigator.push(
+          Navigator.pushReplacement(
             this.context,
             MaterialPageRoute(
               builder: (context) => Presentacion1(),

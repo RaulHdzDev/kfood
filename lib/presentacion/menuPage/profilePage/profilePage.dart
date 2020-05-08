@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/datos_Profile.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
-import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
+import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -14,6 +14,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _Perfil extends State<ProfilePage> {
+  ProgressDialog pr;
   String matricula = "";
   String nombre = "";
   String correo = "";
@@ -50,6 +51,21 @@ class _Perfil extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    pr = new ProgressDialog(context);
+    pr.style(
+          message: 'Por favor espere...',
+          borderRadius: 10.0,
+          backgroundColor: Colors.black54,
+          progressWidget: CircularProgressIndicator(),
+          elevation: 10.0,
+          insetAnimCurve: Curves.easeInOut,
+          progress: 0.0,
+          maxProgress: 100.0,
+          progressTextStyle: TextStyle(
+            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+          messageTextStyle: TextStyle(
+            color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.w600)
+    );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -83,6 +99,7 @@ class _Perfil extends State<ProfilePage> {
                 ),
               ],
             )),
+        
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -90,7 +107,9 @@ class _Perfil extends State<ProfilePage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -148,25 +167,24 @@ class _Perfil extends State<ProfilePage> {
                   padding: EdgeInsets.only(top: 15, bottom: 8),
                   child: FlatButton(
                     onPressed: () {
-                      logOut();
-                      Navigator.pop(context);
-                      Navigator.pushReplacement(
-                        this.context,
-                        MaterialPageRoute(
-                          builder: (context) => Presentacion1(),
-                          //builder: (context) => HomePage(),
-                        ),
-                      );
+                      pr.show();
+                      Future.delayed(Duration(seconds: 3)).then((value) {
+                        pr.hide().whenComplete(() {
+                          Navigator.of(context).pushReplacement(MaterialPageRoute(
+                              builder: (BuildContext context) => HomePage()));
+                        });
+                      });
+                      signOut();
                     },
                     padding: EdgeInsets.only(right: 0.0),
                     child: Text(
                       'S A L I R',
                       style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'SFUIDisplay',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.red,
-                    ),
+                        fontSize: 15,
+                        fontFamily: 'SFUIDisplay',
+                        fontWeight: FontWeight.bold,
+                        color: Colors.red,
+                      ),
                     ),
                   ),
                 ),
