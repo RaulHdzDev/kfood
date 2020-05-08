@@ -122,6 +122,7 @@ class Login extends State<RecuperarContrasena> {
       child: RaisedButton(
         elevation: 10.0,
         onPressed: () {
+          restorePassword(emailController.text);
           if (! emailController.text.isEmpty){
           Navigator.pushReplacement(
               context,
