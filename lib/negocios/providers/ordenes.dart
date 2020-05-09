@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class Ordenes with ChangeNotifier{
   List<EsqueletoOrdenes> _ordenes = new List<EsqueletoOrdenes>();
   
+  bool showButton = false;
   
   agregar(EsqueletoOrdenes orden, String idpedcomgui){
     if(orden != null){
@@ -16,11 +17,11 @@ class Ordenes with ChangeNotifier{
   fromJsonList(List<dynamic> jsonList){
     if(jsonList == null )return;
     for(var item in jsonList){
-      print(item);
       final pedComGui = new EsqueletoOrdenes.jsonMapPedComGui(item);
       _ordenes.add(pedComGui);
     }
   }
+
 //
    vacio(){
      return _ordenes.isEmpty;
@@ -30,12 +31,17 @@ class Ordenes with ChangeNotifier{
      return _ordenes;
    }
 
-  obtenerTotal(){
+  int obtenerTotal(){
     int total = 0;
     for (EsqueletoOrdenes orden in _ordenes) {
       total += orden.total;
     }
     return total;
+  }
+
+  limpiarLista(){
+    _ordenes.clear();
+    notifyListeners();
   }
 
 }

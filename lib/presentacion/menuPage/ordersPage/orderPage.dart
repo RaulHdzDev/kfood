@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kfood_app/negocios/completarPedido.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
@@ -233,7 +234,12 @@ class OrderPage extends StatelessWidget {
                         child: Container(
                           child: FlatButton(
                             onPressed: () {
-                              _onPressComida(context);
+                              if(!ordenes.vacio()){
+                                _onPressComida(context);
+                              }else{
+                                Fluttertoast.showToast(msg: 'Registra comida');
+                              }
+
                             },
                             child: Text(
                               "Ordenar",
@@ -266,36 +272,8 @@ class OrderPage extends StatelessWidget {
   }
 }
 
-// Padding(
-//             padding: const EdgeInsets.all(3.0),
-//             child: SingleChildScrollView(
-//               physics: AlwaysScrollableScrollPhysics(),
-//               padding: EdgeInsets.only(left: 16, right: 16, top: 15),
-//               child: Column(
-//                 crossAxisAlignment: CrossAxisAlignment.start,
-//                 children: <Widget>[
-
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//                     children: <Widget>[
-//                       Text(
-//                         "Total",
-//                         style: TextStyle(
-//                             fontSize: 25, fontWeight: FontWeight.normal),
-//                       ),
-//                       Text(
-//                         "\$${ordenes.obtenerTotal()}",
-//                         style: TextStyle(
-//                             fontSize: 30, fontWeight: FontWeight.bold),
-//                       ),
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-
 void _onPressComida(context) async {
+  Ordenes ordenes = Provider.of<Ordenes>(context);
   showModalBottomSheet(
       context: context,
       backgroundColor: Colors.transparent,
@@ -346,12 +324,9 @@ void _onPressComida(context) async {
                       child: Center(
                         child: MaterialButton(
                           onPressed: () {
-                            Fluttertoast.showToast(
-                                msg: "Pedido realizado con éxito",
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.BOTTOM,
-                                timeInSecForIosWeb: 1);
-                            Navigator.pop(context);
+                            confirmarPedido(MismoPedido.idpedido, HorasDropDown.horas, ordenes.obtenerTotal(), ordenes).then((value){
+                              Navigator.pop(context);                              
+                            });
                           },
                           textColor: Colors.black54,
                           height: 55,
@@ -388,6 +363,8 @@ class HorasDropDown extends StatefulWidget {
 
   @override
   HorasDropDownState createState() => HorasDropDownState();
+
+  static String horas = '';
 }
 
 class Horas {
@@ -397,20 +374,21 @@ class Horas {
   Horas(this.id, this.hora);
   static List<Horas> getHoras() {
     return <Horas>[
-      Horas(2, '07:55-08:50'),
-      Horas(3, '08:50-09:45'),
-      Horas(4, '09:45-10:40'),
-      Horas(5, '10:40-11:35'),
-      Horas(6, '11:35-12:30'),
-      Horas(7, '12:30-13:25'),
-      Horas(8, '13:25-14:20'),
-      Horas(9, '14:20-15:15'),
-      Horas(10, '15:15-16:10'),
+      Horas(2, '07:55'),
+      Horas(3, '08:50'),
+      Horas(4, '09:45'),
+      Horas(5, '10:40'),
+      Horas(6, '11:35'),
+      Horas(7, '12:30'),
+      Horas(8, '13:25'),
+      Horas(9, '14:20'),
+      Horas(10, '15:15'),
     ];
   }
 }
 
 class HorasDropDownState extends State<HorasDropDown> {
+
   List<Horas> _horarios = Horas.getHoras();
   List<DropdownMenuItem<Horas>> _dropdownMenuItems;
   Horas _selectedHoras;
@@ -419,6 +397,7 @@ class HorasDropDownState extends State<HorasDropDown> {
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_horarios);
     _selectedHoras = _dropdownMenuItems[0].value;
+    HorasDropDown.horas = _selectedHoras.hora;  
     super.initState();
   }
 
@@ -439,6 +418,7 @@ class HorasDropDownState extends State<HorasDropDown> {
     setState(() {
       _selectedHoras = selectedCompany;
     });
+    HorasDropDown.horas = _selectedHoras.hora;
   }
 
   @override

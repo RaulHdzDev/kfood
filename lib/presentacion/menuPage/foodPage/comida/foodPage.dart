@@ -22,14 +22,6 @@ class ItemFood extends StatefulWidget {
 
 class _ItemFoodState extends State<ItemFood> {
 
-  // _agregarPedInicial(BuildContext context){
-  //   Ordenes carrito;
-  //   carrito = Provider.of<Ordenes>(context);
-  //   getProfileData().then((value){
-  //     MismoPedido.idusuario = value.id_usuarios;
-  //     obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
-  //   });
-  // }
 
   ContCantidad cantidad;
   _abrirPagCantidad(BuildContext context) async{
@@ -203,7 +195,7 @@ class _ItemFoodState extends State<ItemFood> {
   }
 
   void _onPressComida(String comida, int precio, String idcomida) async {
-
+    ordenes = Provider.of<Ordenes>(context);
     showModalBottomSheet(
         context: context,
         builder: (context) {
@@ -363,7 +355,7 @@ class _ItemFoodState extends State<ItemFood> {
                   padding: EdgeInsets.only(top: 40),
                   child: Center(
                     child: MaterialButton(
-                      onPressed: () {
+                      onPressed: ordenes.showButton ? null : () {
                         ordenes = Provider.of<Ordenes>(context);
                         if(ordenes.vacio()){
                           getProfileData().then((value){
@@ -376,7 +368,6 @@ class _ItemFoodState extends State<ItemFood> {
                         else{
                           agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );
                         }
-                        
                         Fluttertoast.showToast(
                             msg: "Se agregó a tu orden",
                             toastLength: Toast.LENGTH_SHORT,
@@ -414,9 +405,10 @@ class _ItemFoodState extends State<ItemFood> {
   }
   agregarOrden(String nombre, int cantidad, String guiso, int total, String idpedido, String idcomida, String idguiso) async{
     ordenes = Provider.of<Ordenes>(context);
+    ContCantidad cantidadActualizar = Provider.of<ContCantidad>(context);
     EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total, idpedido: idpedido, idcomidas: idcomida, idguisos: idguiso);
     registrarPedido(idpedido, idcomida, idguiso, cantidad.toString()).then((value){
-      
+      cantidadActualizar.reiniciarCont();
       ordenes.agregar(pedir, value);
     });
     
@@ -458,7 +450,7 @@ class _ContadorState extends State {
   
   ContCantidad cantidad;
   _abrirPagCantidad(BuildContext context) {
-    cantidad = Provider.of<ContCantidad>(context);    
+    cantidad = Provider.of<ContCantidad>(context);
   }
   @override
 void initState() { 
@@ -469,7 +461,6 @@ void initState() {
 @override
   void dispose() {
     // TODO: implement dispose
-    cantidad.reiniciarCont();
     super.dispose();
   }
 
@@ -544,6 +535,8 @@ class GuisosDropDownState extends State<GuisosDropDown> {
         _dropdownMenuItems = buildDropdownMenuItems(_guisos);
         _selectGuiso = _dropdownMenuItems[0].value;
       });
+      Ordenes ordenes = Provider.of<Ordenes>(context);
+      ordenes.showButton = true;
       GuisosDropDown.selectguiso = lista.first.name;
       GuisosDropDown.selectidguiso = lista.first.id.toString();
     });
@@ -561,12 +554,12 @@ class GuisosDropDownState extends State<GuisosDropDown> {
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_guisos);
-    // _selectGuiso = _dropdownMenuItems[0].value;
     super.initState();
     Timer(new Duration(milliseconds: 1),obtener);
   }
 
   List<DropdownMenuItem<GuisosDatos>> buildDropdownMenuItems(List guisos) {
+
     List<DropdownMenuItem<GuisosDatos>> items = List();
     for (GuisosDatos guiso in guisos) {
       items.add(
@@ -582,7 +575,6 @@ class GuisosDropDownState extends State<GuisosDropDown> {
   onChangeDropdownItem(GuisosDatos selectedGuisos) {
     setState(() {
       _selectGuiso = selectedGuisos;
-      
     });
     GuisosDropDown.selectguiso = selectedGuisos.name; 
     GuisosDropDown.selectidguiso = selectedGuisos.id.toString();
@@ -590,6 +582,8 @@ class GuisosDropDownState extends State<GuisosDropDown> {
 
   @override
   Widget build(BuildContext context) {
+    Ordenes ordenes = Provider.of<Ordenes>(context);
+    ordenes.showButton = false;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
