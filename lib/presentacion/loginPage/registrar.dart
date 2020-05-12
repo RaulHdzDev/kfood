@@ -1,8 +1,6 @@
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'package:flutter/material.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'package:kfood_app/presentacion/loginPage/registrarLogic.dart';
 
 import 'loginLogic.dart';
@@ -306,25 +304,34 @@ class _HomeState extends State<Registrar> {
                                     enrollmentController.text.length > 1 &&
                                     semesterController.text.length > 0 &&
                                     passController.text.length > 1) {
-                                  String valueReturned = await signIn(
-                                      emailController.text,
-                                      nameController.text,
-                                      psurnameController.text,
-                                      msurnameController.text,
-                                      careerController.text,
-                                      enrollmentController.text,
-                                      semesterController.text,
-                                      passController.text);
-                                  print(valueReturned);
-                                  if (valueReturned == "exito") {
-                                    logOut();
-                                    Navigator.pop(context);
-                                  }
-                                  Fluttertoast.showToast(
-                                    msg: "Registro completado :)",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.CENTER,
-                                  );
+                                    if(emailController.text.replaceAll(" ", "").endsWith("@itsmante.edu.mx")){
+                                      String valueReturned = await signIn(
+                                          emailController.text,
+                                          nameController.text,
+                                          psurnameController.text,
+                                          msurnameController.text,
+                                          careerController.text,
+                                          enrollmentController.text,
+                                          semesterController.text,
+                                          passController.text);
+                                      print(valueReturned);
+                                      if (valueReturned == "exito") {
+                                        logOut();
+                                        Navigator.pop(context);
+                                      }
+                                      Fluttertoast.showToast(
+                                        msg: "Registro completado :)",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    }else{
+                                      Fluttertoast.showToast(
+                                        msg: "El correo no es del itsmante",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.CENTER,
+                                      );
+                                    }
+
                                 } else {
                                   Fluttertoast.showToast(
                                     msg: "No deje campos vacios",
