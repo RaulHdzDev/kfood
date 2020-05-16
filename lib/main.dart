@@ -1,23 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:kfood_app/negocios/class/pedComGui.dart';
 import 'package:kfood_app/negocios/pedidosIncompletos.dart';
 import 'package:kfood_app/negocios/providers/carritoIncompleto.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
+import 'package:kfood_app/notificaciones/BackgroundHandler.dart';
 import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
-import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
-import 'package:kfood_app/presentacion/menuPage/ordersPage/models/orderItems.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() => runApp(MyApp());
+
+Future<void> main() async {
+  runApp(MyApp());
+  await Permission.notification.request();
+  print("Tengo permiso?: ${await Permission.notification.isGranted}");
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.requestNotificationPermissions();
+  _firebaseMessaging.configure(
+      onMessage: bh
+      ,onBackgroundMessage: bh
+  );
+  _firebaseMessaging.getToken().then((String token){
+    print("TOKEN: $token");
+  });
+}
 
 
 class MyApp extends StatelessWidget {
@@ -50,7 +64,6 @@ class Splash extends StatefulWidget {
 
 
 class SplashScreen extends State<Splash> {
-
     
  @override
   void initState() {
