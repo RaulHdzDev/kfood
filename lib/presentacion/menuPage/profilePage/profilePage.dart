@@ -74,7 +74,7 @@ class _Perfil extends State<ProfilePage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
             //backgroundColor: Color.fromRGBO(248, 64, 0, 1),
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(230, 81, 1, 1),
             elevation: 0.0,
             title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -87,7 +87,7 @@ class _Perfil extends State<ProfilePage> {
                       fontSize: 15,
                       fontFamily: 'SFUIDisplay',
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -98,7 +98,7 @@ class _Perfil extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'SFUIDisplay',
-                      color: Colors.black45,
+                      color: Colors.white70,
                     ),
                   ),
                 ),
@@ -188,7 +188,7 @@ class _Perfil extends State<ProfilePage> {
                         fontSize: 15,
                         fontFamily: 'SFUIDisplay',
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromRGBO(239, 108, 0, 1),
                       ),
                     ),
                   ),
@@ -317,9 +317,9 @@ class _Perfil extends State<ProfilePage> {
       width: (MediaQuery.of(context).size.width / 2) - 20,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        color: Colors.green,
+        color: Color.fromRGBO(239, 108, 0, 1),
         elevation: 5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -358,9 +358,9 @@ class _Perfil extends State<ProfilePage> {
       width: (MediaQuery.of(context).size.width / 2) - 20,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        color: Colors.redAccent,
+        color: Color.fromRGBO(239, 108, 0, 1),
         elevation: 5,
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -75,7 +75,7 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
         borderRadius: 10.0,
         backgroundColor: Colors.white,
         progressWidget: CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+          valueColor: new AlwaysStoppedAnimation<Color>(Color.fromRGBO(239, 108, 0, 1),),
         ),
         elevation: 10.0,
         insetAnimCurve: Curves.easeInOut,

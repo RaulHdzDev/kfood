@@ -96,7 +96,7 @@ class _ItemFoodState extends State<ItemFood> {
 
   Widget _headerFoodPage() {
     return Container(
-      color: Color.fromRGBO(248, 64, 0, 1),
+      color: Color.fromRGBO(230, 81, 0, 1),
       child: Column(
         children: <Widget>[
           Padding(
