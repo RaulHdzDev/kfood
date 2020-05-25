@@ -164,7 +164,7 @@ class _ItemFoodState extends State<ItemFood> {
                             child: Row(children: <Widget>[
                               Icon(
                                 Icons.fastfood,
-                                color: Color.fromRGBO(248, 64, 0, 1),
+                                color: Color.fromRGBO(230, 81, 0, 1),
                                 size: 15,
                               ),
                               Text(
@@ -173,7 +173,7 @@ class _ItemFoodState extends State<ItemFood> {
                                     fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromRGBO(248, 64, 0, 1)),
+                                    color: Color.fromRGBO(230, 81, 0, 1)),
                               )
                             ]),
                           )
@@ -418,18 +418,18 @@ class _ItemFoodState extends State<ItemFood> {
                         textColor: Colors.black54,
                         height: 55,
                         minWidth: MediaQuery.of(context).size.width - 50,
-                        highlightColor: Colors.red,
-                        splashColor: Colors.red,
+                        highlightColor: Color.fromRGBO(239, 108, 0, 1),
+                        splashColor: Color.fromRGBO(239, 108, 0, 1),
                         colorBrightness: Brightness.dark,
                         textTheme: ButtonTextTheme.accent,
                         shape: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.redAccent)),
+                            borderSide: BorderSide(color: Color.fromRGBO(230, 81, 0, 1),)),
                         child: Text(
                           "Agregar a orden",
                           style: TextStyle(
                               fontSize: 15,
-                              color: Colors.redAccent,
+                              color: Color.fromRGBO(230, 81, 0, 1),
                               fontWeight: FontWeight.bold,
                               fontFamily: "SFUIDisplay"),
                         ),

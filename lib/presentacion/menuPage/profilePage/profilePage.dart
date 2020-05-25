@@ -224,6 +224,7 @@ class _Perfil extends State<ProfilePage> {
               style: kLabelStyle,
             ),
           ),
+          
         ],
       ),
     );
@@ -421,7 +422,7 @@ class _Perfil extends State<ProfilePage> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.email,
-                color: Colors.black,
+                color: Color.fromRGBO(239, 108, 0, 1),
               ),
               hintText: 'Su correo es',
               hintStyle: kHintTextStyle,
@@ -457,7 +458,7 @@ class _Perfil extends State<ProfilePage> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.lock,
-                color: Colors.black,
+                color: Color.fromRGBO(239, 108, 0, 1),
               ),
               hintText: 'Su contraseña es',
               hintStyle: kHintTextStyle,
@@ -486,7 +487,7 @@ class _Perfil extends State<ProfilePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        color: Color.fromRGBO(248, 64, 0, 1),
+        color: Color.fromRGBO(239, 108, 0, 1),
         child: Text(
           'Guardar',
           style: TextStyle(
@@ -522,7 +523,7 @@ class _Perfil extends State<ProfilePage> {
                       child: Text(
                         "Editar información",
                         style: TextStyle(
-                          color: Color.fromRGBO(248, 64, 0, 1),
+                          color: Colors.black54,
                           letterSpacing: 1.0,
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
