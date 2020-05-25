@@ -92,7 +92,7 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
           key: _bottomNavigationKey,
           currentIndex: pageindex,
           unselectedItemColor: Colors.black38,
-          selectedItemColor: Color.fromARGB(255, 177, 145, 1),
+          selectedItemColor: Color.fromRGBO(239, 108, 0, 1),
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.fastfood),

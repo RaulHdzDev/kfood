@@ -27,7 +27,7 @@ class OrderPage extends StatelessWidget {
 
   Widget _headerFoodPage() {
     return Container(
-      color: Color.fromRGBO(248, 64, 0, 1),
+      color: Color.fromRGBO(230, 81, 0, 1),
       child: Column(
         children: <Widget>[
           Padding(
@@ -72,7 +72,7 @@ class OrderPage extends StatelessWidget {
         backgroundColor: Colors.white,
         appBar: AppBar(
             //backgroundColor: Color.fromRGBO(248, 64, 0, 1),
-            backgroundColor: Colors.white,
+            backgroundColor: Color.fromRGBO(230, 81, 0, 1),
             elevation: 0.0,
             title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -85,7 +85,7 @@ class OrderPage extends StatelessWidget {
                       fontSize: 15,
                       fontFamily: 'SFUIDisplay',
                       fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -96,7 +96,7 @@ class OrderPage extends StatelessWidget {
                     style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'SFUIDisplay',
-                      color: Colors.black45,
+                      color: Colors.white70,
                     ),
                   ),
                 ),
@@ -207,7 +207,7 @@ class OrderPage extends StatelessWidget {
                         child: Row(
                           children: <Widget>[
                             Icon(Icons.monetization_on,
-                                color: Colors.greenAccent),
+                                color: Color.fromRGBO(239, 108, 0, 1),),
                             Text(
                               "Total:",
                               style: TextStyle(
@@ -246,14 +246,14 @@ class OrderPage extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 15, fontWeight: FontWeight.w700),
                             ),
-                            color: Colors.redAccent,
+                            color: Color.fromRGBO(239, 108, 0, 1),
                             hoverColor: Colors.black26,
                             disabledTextColor: Colors.white30,
                             textColor: Colors.white,
                             shape: RoundedRectangleBorder(
                               side: BorderSide(
                                 style: BorderStyle.solid,
-                                color: Color.fromRGBO(248, 64, 0, 1),
+                                color: Color.fromRGBO(230, 81, 0, 1),
                               ),
                               borderRadius: BorderRadius.circular(5),
                             ),

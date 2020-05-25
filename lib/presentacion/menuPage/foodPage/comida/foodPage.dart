@@ -243,7 +243,7 @@ class _ItemFoodState extends State<ItemFood> {
                       child: Text(
                         comida,
                         style: TextStyle(
-                          color: Color.fromRGBO(248, 64, 0, 1),
+                          color: Color.fromRGBO(230, 81, 0, 1),
                           letterSpacing: 1.0,
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,
