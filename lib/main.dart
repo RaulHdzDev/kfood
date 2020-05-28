@@ -5,7 +5,7 @@ import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/notificaciones/BackgroundHandler.dart';
-import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
+import 'package:kfood_app/presentacion/bienvenida/inicio.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
@@ -76,7 +76,7 @@ class SplashScreen extends State<Splash> {
           Navigator.pushReplacement(
             this.context,
             MaterialPageRoute(
-              builder: (context) => Presentacion1(),
+              builder: (context) => BienvenidaApp(),
               //builder: (context) => HomePage(),
             ),
           );
