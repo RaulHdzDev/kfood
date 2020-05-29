@@ -17,13 +17,14 @@ description: A new Flutter project.
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 version: 1.0.0+1
 
+
+ 
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
 dependencies:
   font_awesome_flutter: ^8.5.0 #for facebook icon
   fancy_bottom_navigation: ^0.1.0
-  progress_dialog: ^1.2.0
   intl: 0.15.7
   fluttertoast: ^4.0.0
   flutter:
@@ -31,7 +32,11 @@ dependencies:
   firebase_database: ^3.0.7
   firebase_auth: ^0.15.5+3
   simple_animations: ^1.3.11
+  progress_dialog: ^1.2.0
   provider: ^2.0.1
+  firebase_messaging: ^6.0.13
+  flutter_local_notifications: ^1.4.3
+  permission_handler: ^5.0.0
   flutter_spinkit: "^4.1.2"
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

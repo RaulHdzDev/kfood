@@ -1,12 +1,16 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../datos/requests.dart';
+
 Future<bool> logIn(String user, String pass) async {
-  bool response = false;
-  if(! await existUser()){
+  bool response = await existUser();
+  if(! response){
     try{
-      //Todo: implementar el login con matricula en vez de email
+      String email = await getEmailFromMysql(user);
       await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: user,
+          email: email,
           password: pass);
       response = await existUser();
     } catch (error) {
@@ -21,6 +25,19 @@ Future<bool> logIn(String user, String pass) async {
   return response;
 }
 
+Future<String> getEmailFromMysql(String matricula) async {
+  print("Inicio la funcion getEmailFromMysql(String matricula=$matricula)");
+  Map<String,String> body = {
+    'matricula':'$matricula'
+  };
+  String response = await executeHttpRequest(urlFile: "/getEmailMatricula.php", requestBody: body);
+  print("el server respondio: $response");
+  final decodedData = json.decode(response);
+  String responseValue = decodedData['email'];
+  print(responseValue);
+  return responseValue;
+}
+
 Future<bool> existUser() async {
   bool response = false;
   var user = await FirebaseAuth.instance.currentUser();
@@ -33,7 +50,7 @@ Future<bool> existUser() async {
   return response;
 }
 
-signOut() async {
+logOut() async {
   await FirebaseAuth.instance.signOut();
 }
 

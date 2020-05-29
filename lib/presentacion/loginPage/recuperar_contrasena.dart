@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/presentacion/loginPage/utiles/constants.dart';
 
 import '../menuPage/menu_principal.dart';
@@ -121,11 +122,25 @@ class Login extends State<RecuperarContrasena> {
       child: RaisedButton(
         elevation: 10.0,
         onPressed: () {
-          Navigator.push(
+          restorePassword(emailController.text);
+          if (! emailController.text.isEmpty){
+          Navigator.pushReplacement(
               context,
               CupertinoPageRoute(
                 builder: (context) => HomePage(),
               ));
+          Fluttertoast.showToast(
+              msg: "Tu contraseña ha sido enviada",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+            );
+          }else{
+            Fluttertoast.showToast(
+              msg: "No deje campos vacios",
+              toastLength: Toast.LENGTH_SHORT,
+              gravity: ToastGravity.CENTER,
+            );
+          }
         },
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(

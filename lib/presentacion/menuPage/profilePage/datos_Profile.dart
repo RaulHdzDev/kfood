@@ -7,3 +7,9 @@ class DatosProfile {
   final String correo;
   DatosProfile(this.id_usuarios, this.matricula, this.nombre, this.apaterno, this.amaterno, this.correo);
 }
+
+class DatosActivity {
+  final String pedidos;
+  final String plato;
+  DatosActivity(this.pedidos, this.plato);
+}

@@ -4,6 +4,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
 import 'package:kfood_app/negocios/pedidoInicial.dart';
 import 'package:kfood_app/negocios/pedidos.dart';
+import 'package:kfood_app/negocios/pedidosIncompletos.dart';
+import 'package:kfood_app/negocios/providers/cafeterias.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
@@ -13,20 +15,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
-  
+
+import 'listaTiendas.dart';
+
 class ItemFood extends StatefulWidget {
   @override
   _ItemFoodState createState() => _ItemFoodState();
 }
 
 class _ItemFoodState extends State<ItemFood> {
-
   ContCantidad cantidad;
-  _abrirPagCantidad(BuildContext context) async{
-    cantidad = Provider.of<ContCantidad>(context);     
+  _abrirPagCantidad(BuildContext context) async {
+    cantidad = Provider.of<ContCantidad>(context);
   }
-  Ordenes ordenes;
 
+  Ordenes ordenes;
 
   final List<DatosComida> tripsList = [];
   static int vari = 0;
@@ -39,91 +42,44 @@ class _ItemFoodState extends State<ItemFood> {
   void imprimirLista(Comidas lista) {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
-        tripsList.add(
-            DatosComida(item.nombreComida, double.parse(item.precioUnitario), item.idComida));
+        tripsList.add(DatosComida(item.nombreComida,
+            double.parse(item.precioUnitario), item.idComida));
       }
     }
     setState(() {});
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-            backgroundColor: Color.fromRGBO(248, 64, 0, 1),
-            title: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "MENÚ PRINCIPAL",
-                    style: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'SFUIDisplay',
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Elige tu comida del dia",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontFamily: 'SFUIDisplay',
-                      color: Colors.white54,
-                    ),
-                  ),
-                ),
-              ],
-            )),
-        body: Padding(
-          padding: EdgeInsets.only(top: 16, left: 16, right: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: <Widget>[
-              Container(
-                alignment: Alignment.centerLeft,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
+    // _agregarPedInicial(context);
+    return Container(
+      child: Column(
+        children: <Widget>[
+          _headerFoodPage(),
+          Padding(
+              padding: EdgeInsets.only(left: 10, bottom: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Row(
                     children: <Widget>[
-                      Icon(
-                        Icons.room_service,
-                        color: Colors.black26,
-                        size: 15,
-                      ),
-                      SizedBox(
-                        width: 8,
-                      ),
-                      Text(
-                        "Categorías",
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'SFUIDisplay',
-                          color: Colors.black54,
-                        ),
-                      ),
+                      Icon(CupertinoIcons.play_arrow, color: Colors.black54),
+                      Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Tienda: ",
+                            style: TextStyle(
+                                fontSize: 15,
+                                fontFamily: 'SFUIDisplay',
+                                color: Colors.black54),
+                          )),
                     ],
                   ),
-                ),
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: Wrap(
-                  alignment: WrapAlignment.start,
-                  children: _categorias(),
-                ),
-              ),
-              _listaComida()
-            ],
-          ),
-        ),
+                  TiendasDropDown()
+                ],
+              )),
+          _listaComida()
+        ],
       ),
     );
   }
@@ -139,25 +95,41 @@ class _ItemFoodState extends State<ItemFood> {
     ));
   }
 
-  List<Widget> _categorias() {
-    final List<String> reportList = ["Comidas", "Platillos", "Bebidas"];
-    String selectedChoice = "";
-    List<Widget> choices = List();
-    reportList.forEach((item) {
-      choices.add(Container(
-        padding: const EdgeInsets.all(2.0),
-        child: ChoiceChip(
-          label: Text(item),
-          selected: selectedChoice == item,
-          onSelected: (selected) {
-            setState(() {
-              selectedChoice = item;
-            });
-          },
-        ),
-      ));
-    });
-    return choices;
+  Widget _headerFoodPage() {
+    return Container(
+      color: Color.fromRGBO(230, 81, 0, 1),
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 30),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                "Elige tu comida",
+                style: TextStyle(
+                  fontSize: 28,
+                  fontFamily: 'SFUIDisplay',
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(left: 10, top: 5, bottom: 10),
+            child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "El menú del día.",
+                  style: TextStyle(
+                      fontSize: 15,
+                      fontFamily: 'SFUIDisplay',
+                      color: Colors.white70),
+                )),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget buildTripCard(BuildContext context, int index) {
@@ -168,7 +140,7 @@ class _ItemFoodState extends State<ItemFood> {
       onTap: () {
         _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida);
       },
-    child: Card(
+      child: Card(
         color: Colors.white,
         borderOnForeground: true,
         child: Padding(
@@ -193,16 +165,16 @@ class _ItemFoodState extends State<ItemFood> {
                             child: Row(children: <Widget>[
                               Icon(
                                 Icons.fastfood,
-                                color: Color.fromRGBO(248, 64, 0, 1),
+                                color: Color.fromRGBO(230, 81, 0, 1),
                                 size: 15,
                               ),
                               Text(
                                 "  " + trip.comida,
                                 style: new TextStyle(
-                                    fontSize: 15.0,
+                                    fontSize: 20.0,
                                     fontFamily: "SFUIDisplay",
                                     fontWeight: FontWeight.bold,
-                                    color: Color.fromRGBO(248, 64, 0, 1)),
+                                    color: Color.fromRGBO(230, 81, 0, 1)),
                               )
                             ]),
                           )
@@ -215,14 +187,14 @@ class _ItemFoodState extends State<ItemFood> {
               Divider(),
               Padding(
                 padding:
-                    const EdgeInsets.only(top: 3.0, bottom: 3.0, right: 5),
+                    const EdgeInsets.only(top: 10.0, bottom: 8.0, right: 5),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
                     Text(
                       "\$${trip.precio.toStringAsFixed(2)}",
                       style: new TextStyle(
-                          fontSize: 20.0, fontFamily: "SFUIDisplay"),
+                          fontSize: 30.0, fontFamily: "SFUIDisplay"),
                     ),
                   ],
                 ),
@@ -236,8 +208,9 @@ class _ItemFoodState extends State<ItemFood> {
 
   _abrirPaginaComidas(BuildContext context) async {
     final Comidas comidas = Provider.of<Comidas>(context);
+    final Cafeterias cafeterias = Provider.of<Cafeterias>(context);
     comidas.limpiarLista();
-    await traerComida(comidas);
+    await traerComida(comidas, cafeterias.cafeterias);
     imprimirLista(comidas);
   }
 
@@ -247,226 +220,249 @@ class _ItemFoodState extends State<ItemFood> {
   }
 
   void _onPressComida(String comida, int precio, String idcomida) async {
-
+    ordenes = Provider.of<Ordenes>(context);
     showModalBottomSheet(
         context: context,
-        backgroundColor: Colors.transparent,
         builder: (context) {
-          return StatefulBuilder(
-          builder: (BuildContext context, StateSetter setState /*You can rename this!*/) {
-          return Container(
-            alignment: Alignment.topLeft,
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height - 90,
-            decoration: BoxDecoration(
-                color: Theme.of(context).canvasColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: const Radius.circular(20),
-                  topRight: const Radius.circular(20),
-                )),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 35, bottom: 20),
-                  child: Container(
-                    child: Text(
-                      comida,
-                      style: TextStyle(
-                        color: Color.fromRGBO(248, 64, 0, 1),
-                        letterSpacing: 1.0,
-                        fontSize: 28.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'OpenSans',
+          return StatefulBuilder(builder: (BuildContext context,
+              StateSetter setState /*You can rename this!*/) {
+            return Container(
+              alignment: Alignment.topLeft,
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height - 90,
+              decoration: BoxDecoration(
+                  color: Theme.of(context).canvasColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: const Radius.circular(10),
+                    topRight: const Radius.circular(10),
+                  )),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: <Widget>[
+                  Padding(
+                    padding: EdgeInsets.only(top: 35, bottom: 20),
+                    child: Container(
+                      child: Text(
+                        comida,
+                        style: TextStyle(
+                          color: Color.fromRGBO(230, 81, 0, 1),
+                          letterSpacing: 1.0,
+                          fontSize: 28.0,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'OpenSans',
+                        ),
                       ),
                     ),
                   ),
-                ),
-                Divider(
-                  thickness: 4,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    right: 15,
-                    left: 15,
+                  Divider(
+                    thickness: 4,
                   ),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(CupertinoIcons.info),
-                              Text(
-                                " Precio unitario",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black87,
-                                    fontFamily: "SFUIDisplay"),
-                              ),
-                            ],
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      right: 15,
+                      left: 15,
+                    ),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(CupertinoIcons.info),
+                                Text(
+                                  " Precio unitario",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black87,
+                                      fontFamily: "SFUIDisplay"),
+                                ),
+                              ],
+                            ),
                           ),
-                        ),
-                        Text(
-                          "\$${precio.toStringAsFixed(2)}",
+                          Text(
+                            "\$${precio.toStringAsFixed(2)}",
+                            style: TextStyle(
+                                fontSize: 19,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: "SFUIDisplay"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(
+                      top: 20,
+                      right: 15,
+                      left: 15,
+                    ),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(CupertinoIcons.forward),
+                                Text(
+                                  " Cantidad",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black87,
+                                      fontFamily: "SFUIDisplay"),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Contador()
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, right: 15, left: 15),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(CupertinoIcons.forward),
+                                Text(
+                                  " Guiso",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.black87,
+                                      fontFamily: "SFUIDisplay"),
+                                ),
+                              ],
+                            ),
+                          ),
+                          GuisosDropDown()
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 20, right: 15, left: 15),
+                    child: Container(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Container(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(CupertinoIcons.tag),
+                                Text(
+                                  " TOTAL",
+                                  style: TextStyle(
+                                      fontSize: 19,
+                                      color: Colors.black87,
+                                      fontFamily: "SFUIDisplay"),
+                                ),
+                              ],
+                            ),
+                          ),
+                          //NO agreges el TEXT
+                          //La clase PrecioTotal muestra ese TEXT
+                          PrecioTotal(
+                            precio: precio,
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 40),
+                    child: Center(
+                      child: MaterialButton(
+                        onPressed: ordenes.showButton
+                            ? null
+                            : () {
+                                ordenes = Provider.of<Ordenes>(context);
+                                if (ordenes.vacio()) {
+                                  getProfileData().then((value) {
+                                    MismoPedido.idusuario = value.id_usuarios;
+                                    registrarPedidoInicial(
+                                            MismoPedido.idusuario)
+                                        .then((valu) {
+                                      agregarOrden(
+                                          comida,
+                                          cantidad.cont,
+                                          GuisosDropDown.selectguiso,
+                                          precio * cantidad.cont,
+                                          MismoPedido.idpedido,
+                                          idcomida,
+                                          GuisosDropDown.selectidguiso);
+                                    });
+                                  });
+                                } else {
+                                  agregarOrden(
+                                      comida,
+                                      cantidad.cont,
+                                      GuisosDropDown.selectguiso,
+                                      precio * cantidad.cont,
+                                      MismoPedido.idpedido,
+                                      idcomida,
+                                      GuisosDropDown.selectidguiso);
+                                }
+                                Fluttertoast.showToast(
+                                    msg: "Se agregó a tu orden",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.BOTTOM,
+                                    timeInSecForIosWeb: 1);
+                                Navigator.pop(context);
+                              },
+                        textColor: Colors.black54,
+                        height: 55,
+                        minWidth: MediaQuery.of(context).size.width - 50,
+                        highlightColor: Color.fromRGBO(239, 108, 0, 1),
+                        splashColor: Color.fromRGBO(239, 108, 0, 1),
+                        colorBrightness: Brightness.dark,
+                        textTheme: ButtonTextTheme.accent,
+                        shape: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Color.fromRGBO(230, 81, 0, 1),)),
+                        child: Text(
+                          "Agregar a orden",
                           style: TextStyle(
-                              fontSize: 19,
-                              color: Colors.black87,
+                              fontSize: 15,
+                              color: Color.fromRGBO(230, 81, 0, 1),
                               fontWeight: FontWeight.bold,
                               fontFamily: "SFUIDisplay"),
                         ),
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    top: 20,
-                    right: 15,
-                    left: 15,
-                  ),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(CupertinoIcons.forward),
-                              Text(
-                                " Cantidad",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black87,
-                                    fontFamily: "SFUIDisplay"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Contador() 
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 15, left: 15),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(CupertinoIcons.forward),
-                              Text(
-                                " Guiso",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.black87,
-                                    fontFamily: "SFUIDisplay"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        GuisosDropDown()
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 20, right: 15, left: 15),
-                  child: Container(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Container(
-                          child: Row(
-                            children: <Widget>[
-                              Icon(CupertinoIcons.tag),
-                              Text(
-                                " TOTAL",
-                                style: TextStyle(
-                                    fontSize: 19,
-                                    color: Colors.black87,
-                                    fontFamily: "SFUIDisplay"),
-                              ),
-                            ],
-                          ),
-                        ),
-                        //NO agreges el TEXT
-                        //La clase PrecioTotal muestra ese TEXT
-                        PrecioTotal(precio: precio,)
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 40),
-                  child: Center(
-                    child: MaterialButton(
-                      onPressed: () {
-                        ordenes = Provider.of<Ordenes>(context);
-                        if(ordenes.vacio()){
-
-                          getProfileData().then((value){
-                             MismoPedido.idusuario = value.id_usuarios;
-                             registrarPedidoInicial(MismoPedido.idusuario).then((valu){
-                              agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );       
-                             });
-                          });
-                        }
-                        else{
-                          agregarOrden(comida, cantidad.cont, GuisosDropDown.selectguiso , precio * cantidad.cont, MismoPedido.idpedido, idcomida, GuisosDropDown.selectidguiso );
-                        }
-                        
-                        Fluttertoast.showToast(
-                            msg: "Se agregó a tu orden",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.BOTTOM,
-                            timeInSecForIosWeb: 1);
-                        Navigator.pop(context);
-                      },
-                      textColor: Colors.black54,
-                      height: 55,
-                      minWidth: MediaQuery.of(context).size.width - 50,
-                      highlightColor: Colors.red,
-                      splashColor: Colors.red,
-                      colorBrightness: Brightness.dark,
-                      textTheme: ButtonTextTheme.accent,
-                      shape: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                          borderSide: BorderSide(color: Colors.redAccent)),
-                      child: Text(
-                        "Agregar a orden",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.redAccent,
-                            fontWeight: FontWeight.bold,
-                            fontFamily: "SFUIDisplay"),
                       ),
                     ),
-                  ),
-                )
-              ],
-            ),
-          );
-          }
-          );
+                  )
+                ],
+              ),
+            );
+          });
         });
   }
-  agregarOrden(String nombre, int cantidad, String guiso, int total, String idpedido, String idcomida, String idguiso) async{
+
+  agregarOrden(String nombre, int cantidad, String guiso, int total,
+      String idpedido, String idcomida, String idguiso) async {
     ordenes = Provider.of<Ordenes>(context);
-    EsqueletoOrdenes pedir = new EsqueletoOrdenes(nombre: nombre, cantidad: cantidad, guiso: guiso, total: total, idpedido: idpedido, idcomidas: idcomida, idguisos: idguiso);
-    registrarPedido(idpedido, idcomida, idguiso, cantidad.toString()).then((value){
-      
+    ContCantidad cantidadActualizar = Provider.of<ContCantidad>(context);
+    EsqueletoOrdenes pedir = new EsqueletoOrdenes(
+        nombre: nombre,
+        cantidad: cantidad,
+        guiso: guiso,
+        total: total,
+        idpedido: idpedido,
+        idcomidas: idcomida,
+        idguisos: idguiso);
+    registrarPedido(idpedido, idcomida, idguiso, cantidad.toString())
+        .then((value) {
+      cantidadActualizar.reiniciarCont();
       ordenes.agregar(pedir, value);
     });
-    
   }
-
-
 }
 
 class PrecioTotal extends StatefulWidget {
@@ -477,18 +473,17 @@ class PrecioTotal extends StatefulWidget {
 }
 
 class _PrecioTotalState extends State<PrecioTotal> {
-  
   @override
   Widget build(BuildContext context) {
     ContCantidad cantidad = Provider.of<ContCantidad>(context);
     return Text(
-              "\$${(widget.precio * cantidad.cont).toStringAsFixed(2)}",
-              style: TextStyle(
-              fontSize: 25,
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-              fontFamily: "SFUIDisplay"),
-           );
+      "\$${(widget.precio * cantidad.cont).toStringAsFixed(2)}",
+      style: TextStyle(
+          fontSize: 25,
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          fontFamily: "SFUIDisplay"),
+    );
   }
 }
 
@@ -498,22 +493,21 @@ class Contador extends StatefulWidget {
 }
 
 class _ContadorState extends State {
-  
-  
   ContCantidad cantidad;
   _abrirPagCantidad(BuildContext context) {
-    cantidad = Provider.of<ContCantidad>(context);    
+    cantidad = Provider.of<ContCantidad>(context);
   }
+
   @override
-void initState() { 
-  // _abrirPagCantidad(context);
-  super.initState();
-  // Timer(new Duration(milliseconds: 1), _abrirCantidad);
-}
-@override
+  void initState() {
+    // _abrirPagCantidad(context);
+    super.initState();
+    // Timer(new Duration(milliseconds: 1), _abrirCantidad);
+  }
+
+  @override
   void dispose() {
     // TODO: implement dispose
-    cantidad.reiniciarCont();
     super.dispose();
   }
 
@@ -572,8 +566,7 @@ class GuisosDatos {
   String name;
 
   GuisosDatos(this.id, this.name);
-//agregar guisos de la bd
-  static Future<List<GuisosDatos>> getGuisos() async{
+  static Future<List<GuisosDatos>> getGuisos() async {
     List<GuisosDatos> guisos = new List<GuisosDatos>();
     guisos = await getGuisosList();
     return guisos;
@@ -581,22 +574,21 @@ class GuisosDatos {
 }
 
 class GuisosDropDownState extends State<GuisosDropDown> {
-  //
-  
-  obtenerGuisos() async{
+  obtenerGuisos() async {
     await getGuisosList().then((lista) {
       setState(() {
         _guisos = lista;
         _dropdownMenuItems = buildDropdownMenuItems(_guisos);
         _selectGuiso = _dropdownMenuItems[0].value;
       });
+      Ordenes ordenes = Provider.of<Ordenes>(context);
+      ordenes.showButton = true;
       GuisosDropDown.selectguiso = lista.first.name;
       GuisosDropDown.selectidguiso = lista.first.id.toString();
     });
-
   }
 
-  void obtener(){
+  void obtener() {
     obtenerGuisos();
   }
 
@@ -607,9 +599,8 @@ class GuisosDropDownState extends State<GuisosDropDown> {
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_guisos);
-    // _selectGuiso = _dropdownMenuItems[0].value;
     super.initState();
-    Timer(new Duration(milliseconds: 1),obtener);
+    Timer(new Duration(milliseconds: 1), obtener);
   }
 
   List<DropdownMenuItem<GuisosDatos>> buildDropdownMenuItems(List guisos) {
@@ -628,14 +619,15 @@ class GuisosDropDownState extends State<GuisosDropDown> {
   onChangeDropdownItem(GuisosDatos selectedGuisos) {
     setState(() {
       _selectGuiso = selectedGuisos;
-      
     });
-    GuisosDropDown.selectguiso = selectedGuisos.name; 
+    GuisosDropDown.selectguiso = selectedGuisos.name;
     GuisosDropDown.selectidguiso = selectedGuisos.id.toString();
   }
 
   @override
   Widget build(BuildContext context) {
+    Ordenes ordenes = Provider.of<Ordenes>(context);
+    ordenes.showButton = false;
     return Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,

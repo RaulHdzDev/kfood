@@ -15,24 +15,32 @@ class ProfilePage extends StatefulWidget {
 
 class _Perfil extends State<ProfilePage> {
   ProgressDialog pr;
-  String matricula = "0000F0000";
+  String matricula = "";
   String nombre = "";
   String correo = "";
-  changeText(String mat, String nom, String corr) {
+  String pedidos = "";
+  String favorito = "_";  
+  changeText(String mat, String nom, String corr, String pedidosN, String platoFav) {
     setState(() {
       matricula = "$mat";
       nombre = "$nom";
       correo = "$corr";
+      pedidos = "$pedidosN";
+      favorito = "$platoFav";
     });
   }
 
   getProfile() async {
     print("Running");
     DatosProfile datos = await getProfileData();
+    DatosActivity da = await getProfileActivity();
     changeText(
         "${datos.matricula}",
         "${datos.nombre} ${datos.apaterno} ${datos.amaterno}",
-        "${datos.correo}");
+        "${datos.correo}",
+        "${da.pedidos}",
+        "${da.plato}"
+    );
   }
 
   @override
@@ -47,22 +55,27 @@ class _Perfil extends State<ProfilePage> {
     pr.style(
           message: 'Por favor espere...',
           borderRadius: 10.0,
-          backgroundColor: Colors.black54,
-          progressWidget: CircularProgressIndicator(),
+          backgroundColor: Colors.white,
+          progressWidget: CircularProgressIndicator(
+            valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+          ),
           elevation: 10.0,
           insetAnimCurve: Curves.easeInOut,
           progress: 0.0,
           maxProgress: 100.0,
           progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+            color: Colors.black, fontSize: 13.0, /*fontWeight: FontWeight.w400*/),
           messageTextStyle: TextStyle(
-            color: Colors.white, fontSize: 15.0, fontWeight: FontWeight.w600)
+            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600)
     );
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
+        backgroundColor: Colors.white,
         appBar: AppBar(
-            backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+            //backgroundColor: Color.fromRGBO(248, 64, 0, 1),
+            backgroundColor: Color.fromRGBO(230, 81, 1, 1),
+            elevation: 0.0,
             title: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
@@ -85,12 +98,13 @@ class _Perfil extends State<ProfilePage> {
                     style: TextStyle(
                       fontSize: 12,
                       fontFamily: 'SFUIDisplay',
-                      color: Colors.white54,
+                      color: Colors.white70,
                     ),
                   ),
                 ),
               ],
             )),
+        
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -174,7 +188,7 @@ class _Perfil extends State<ProfilePage> {
                         fontSize: 15,
                         fontFamily: 'SFUIDisplay',
                         fontWeight: FontWeight.bold,
-                        color: Colors.red,
+                        color: Color.fromRGBO(239, 108, 0, 1),
                       ),
                     ),
                   ),
@@ -210,6 +224,7 @@ class _Perfil extends State<ProfilePage> {
               style: kLabelStyle,
             ),
           ),
+          
         ],
       ),
     );
@@ -303,21 +318,21 @@ class _Perfil extends State<ProfilePage> {
       width: (MediaQuery.of(context).size.width / 2) - 20,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        color: Colors.green,
+        color: Color.fromRGBO(239, 108, 0, 1),
         elevation: 5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.fastfood,
                 size: 30,
                 color: Colors.white54,
               ),
               title: Text(
-                "TACOS",
+                "$favorito",
                 style: TextStyle(
                   fontSize: 15,
                   fontFamily: 'SFUIDisplay',
@@ -344,21 +359,21 @@ class _Perfil extends State<ProfilePage> {
       width: (MediaQuery.of(context).size.width / 2) - 20,
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(10.0),
         ),
-        color: Colors.redAccent,
+        color: Color.fromRGBO(239, 108, 0, 1),
         elevation: 5,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const ListTile(
+            ListTile(
               leading: Icon(
                 Icons.insert_chart,
                 size: 40,
                 color: Colors.white54,
               ),
               title: Text(
-                "45",
+                "$pedidos",
                 style: TextStyle(
                   fontSize: 18,
                   fontFamily: 'SFUIDisplay',
@@ -407,7 +422,7 @@ class _Perfil extends State<ProfilePage> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.email,
-                color: Colors.black,
+                color: Color.fromRGBO(239, 108, 0, 1),
               ),
               hintText: 'Su correo es',
               hintStyle: kHintTextStyle,
@@ -443,7 +458,7 @@ class _Perfil extends State<ProfilePage> {
               contentPadding: EdgeInsets.only(top: 14.0),
               prefixIcon: Icon(
                 Icons.lock,
-                color: Colors.black,
+                color: Color.fromRGBO(239, 108, 0, 1),
               ),
               hintText: 'Su contraseña es',
               hintStyle: kHintTextStyle,
@@ -472,7 +487,7 @@ class _Perfil extends State<ProfilePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.0),
         ),
-        color: Color.fromRGBO(248, 64, 0, 1),
+        color: Color.fromRGBO(239, 108, 0, 1),
         child: Text(
           'Guardar',
           style: TextStyle(
@@ -508,7 +523,7 @@ class _Perfil extends State<ProfilePage> {
                       child: Text(
                         "Editar información",
                         style: TextStyle(
-                          color: Color.fromRGBO(248, 64, 0, 1),
+                          color: Colors.black54,
                           letterSpacing: 1.0,
                           fontSize: 28.0,
                           fontWeight: FontWeight.bold,

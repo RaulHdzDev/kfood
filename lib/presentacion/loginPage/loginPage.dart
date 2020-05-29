@@ -211,12 +211,22 @@ class Login extends State<HomePage> {
       child: RaisedButton(
         elevation: 5.0,
         onPressed: () async {
+          Fluttertoast.showToast(
+            msg: "Comprobando...",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+          );
           if (await logIn(userController.text, passwordController.text)) {
             Navigator.pushReplacement(
                 context,
                 CupertinoPageRoute(
                   builder: (context) => MenuPrincipal(),
                 ));
+            Fluttertoast.showToast(
+              msg: "Bienvenido :D",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.BOTTOM,
+            );
           } else {
             Fluttertoast.showToast(
               msg: "Usuario/Contraseña incorrecta",
@@ -229,7 +239,7 @@ class Login extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        color: Color.fromRGBO(248, 64, 0, 1),
+        color: Color.fromRGBO(230, 81, 0, 1),
         child: Text(
           'INICIAR SESIÓN',
           style: TextStyle(

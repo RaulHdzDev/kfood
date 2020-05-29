@@ -1,30 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:kfood_app/negocios/pedidosIncompletos.dart';
+import 'package:kfood_app/negocios/providers/cafeterias.dart';
+import 'package:kfood_app/negocios/providers/carritoIncompleto.dart';
 import 'package:kfood_app/negocios/providers/comidas.dart';
 import 'package:kfood_app/negocios/providers/contCantidad.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
-import 'package:kfood_app/presentacion/bienvenida/p_bienvenida1.dart';
+import 'package:kfood_app/notificaciones/BackgroundHandler.dart';
+import 'package:kfood_app/presentacion/bienvenida/inicio.dart';
 import 'package:kfood_app/presentacion/loginPage/loginLogic.dart';
-import 'package:kfood_app/presentacion/loginPage/loginPage.dart';
 import 'package:kfood_app/Animation/FadeAnimation.dart';
 import 'dart:async';
 
 import 'package:kfood_app/presentacion/menuPage/menu_principal.dart';
 import 'package:kfood_app/presentacion/menuPage/profilePage/profilePageLogic.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() => runApp(MyApp());
+
+Future<void> main() async {
+  runApp(MyApp());
+  await Permission.notification.request();
+  print("Tengo permiso?: ${await Permission.notification.isGranted}");
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  _firebaseMessaging.requestNotificationPermissions();
+  _firebaseMessaging.configure(
+      onMessage: bh
+      ,onBackgroundMessage: bh
+  );
+  _firebaseMessaging.getToken().then((String token){
+    print("TOKEN: $token");
+  });
+}
 
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(builder: (context) => Comidas(),),
         ChangeNotifierProvider(builder: (context) => ContCantidad(),),
         ChangeNotifierProvider(builder: (context) => Ordenes(),),
+        ChangeNotifierProvider(builder: (context) => CarritoIncompleto(),),
+        ChangeNotifierProvider(builder: (context) => Cafeterias(),),
       ],
           child: MaterialApp(
         home: Scaffold(
@@ -45,7 +66,6 @@ class Splash extends StatefulWidget {
 
 
 class SplashScreen extends State<Splash> {
-
     
  @override
   void initState() {
@@ -58,11 +78,12 @@ class SplashScreen extends State<Splash> {
           Navigator.pushReplacement(
             this.context,
             MaterialPageRoute(
-              builder: (context) => Presentacion1(),
+              builder: (context) => BienvenidaApp(),
               //builder: (context) => HomePage(),
             ),
           );
         }else{
+          _agregarPedInicial(context);
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
@@ -79,17 +100,13 @@ class SplashScreen extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    
-     getProfileData().then((value){
-      MismoPedido.idusuario = value.id_usuarios;
-      obtenerPedidosIncompletos(MismoPedido.idusuario);
-      });
-          
+//
+      
+//      
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
       	child: Container( 
-
 
 	        child: Column(
           
@@ -161,4 +178,15 @@ class SplashScreen extends State<Splash> {
       )
     );
   }
+  
+  _agregarPedInicial(BuildContext context){
+    Ordenes carrito;
+    carrito = Provider.of<Ordenes>(context);
+    getProfileData().then((value){
+      MismoPedido.idusuario = value.id_usuarios;
+      print(MismoPedido.idusuario);
+      obtenerPedidosIncompletos(MismoPedido.idusuario, carrito);
+    });
+  }
+   
 }
