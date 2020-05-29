@@ -5,6 +5,7 @@ import 'package:kfood_app/negocios/menuComida.dart';
 import 'package:kfood_app/negocios/pedidoInicial.dart';
 import 'package:kfood_app/negocios/pedidos.dart';
 import 'package:kfood_app/negocios/pedidosIncompletos.dart';
+import 'package:kfood_app/negocios/providers/cafeterias.dart';
 import 'package:kfood_app/presentacion/menuPage/foodPage/guiso/guisosLogic.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/class/comida.dart';
@@ -207,8 +208,9 @@ class _ItemFoodState extends State<ItemFood> {
 
   _abrirPaginaComidas(BuildContext context) async {
     final Comidas comidas = Provider.of<Comidas>(context);
+    final Cafeterias cafeterias = Provider.of<Cafeterias>(context);
     comidas.limpiarLista();
-    await traerComida(comidas);
+    await traerComida(comidas, cafeterias.cafeterias);
     imprimirLista(comidas);
   }
 

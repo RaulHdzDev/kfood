@@ -19,7 +19,7 @@ class _Perfil extends State<ProfilePage> {
   String nombre = "";
   String correo = "";
   String pedidos = "";
-  String favorito = "_";
+  String favorito = "_";  
   changeText(String mat, String nom, String corr, String pedidosN, String platoFav) {
     setState(() {
       matricula = "$mat";

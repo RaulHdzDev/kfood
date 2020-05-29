@@ -1,4 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:kfood_app/negocios/getCafeterias.dart';
+import 'package:kfood_app/negocios/providers/cafeterias.dart';
 
 class TiendasDropDown extends StatefulWidget {
   TiendasDropDown() : super();
@@ -7,25 +12,30 @@ class TiendasDropDown extends StatefulWidget {
   TiendasDropDownState createState() => TiendasDropDownState();
 
   static String tienda = '';
+  static String id = '';
 }
 
-class Tiendas {
-  int id;
-  String tienda;
-
-  Tiendas(this.id, this.tienda);
-  static List<Tiendas> getTiendas() {
-    return <Tiendas>[
-      Tiendas(2, 'Mas dulce que la miel'),
-      Tiendas(3, 'Doña Pili'),
-      Tiendas(4, 'El sason'),
-      Tiendas(5, 'La capital'),
-      Tiendas(6, 'El guzzi')
-    ];
-  }
-}
 
 class TiendasDropDownState extends State<TiendasDropDown> {
+  
+  obtenerCafeterias() async{
+    Cafeterias cafeterias = Provider.of<Cafeterias>(context);
+    await getTiendasList(cafeterias.datosCafeterias).then((lista){
+      setState(() {
+        _horarios = lista;
+        _dropdownMenuItems = buildDropdownMenuItems(_horarios);
+        _selectedTiendas = _dropdownMenuItems[0].value;
+      });
+      Cafeterias cafeterias = Provider.of<Cafeterias>(context);
+      cafeterias.cafeterias = _selectedTiendas.id;
+      TiendasDropDown.tienda = lista.first.tienda;
+    });
+  }
+
+  void obtener(){
+    obtenerCafeterias();
+  }
+
   List<Tiendas> _horarios = Tiendas.getTiendas();
   List<DropdownMenuItem<Tiendas>> _dropdownMenuItems;
   Tiendas _selectedTiendas;
@@ -33,9 +43,8 @@ class TiendasDropDownState extends State<TiendasDropDown> {
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_horarios);
-    _selectedTiendas = _dropdownMenuItems[0].value;
-    TiendasDropDown.tienda = _selectedTiendas.tienda;
     super.initState();
+    Timer(new Duration(milliseconds: 1), obtener);
   }
 
   List<DropdownMenuItem<Tiendas>> buildDropdownMenuItems(List tiendasKfood) {
@@ -56,6 +65,7 @@ class TiendasDropDownState extends State<TiendasDropDown> {
       _selectedTiendas = selectedTienda;
     });
     TiendasDropDown.tienda = _selectedTiendas.tienda;
+    TiendasDropDown.id = _selectedTiendas.id;
   }
 
   @override

@@ -15,6 +15,7 @@ Future<DatosProfile> getProfileData() async {
   };
   String response = await executeHttpRequest(urlFile: "/perfil.php", requestBody: body);
   final decodedData = json.decode(response);
+  print(response);
   return DatosProfile(decodedData['id_usuarios'], decodedData['matricula'], decodedData['nombre'],decodedData['ape_pat'],decodedData['ape_mat'],decodedData['email']);
   }
 }
