@@ -239,7 +239,7 @@ class Login extends State<HomePage> {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
-        color: Color.fromRGBO(248, 64, 0, 1),
+        color: Color.fromRGBO(230, 81, 0, 1),
         child: Text(
           'INICIAR SESIÓN',
           style: TextStyle(

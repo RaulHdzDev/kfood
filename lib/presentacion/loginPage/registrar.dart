@@ -29,9 +29,9 @@ class _HomeState extends State<Registrar> {
         width: double.infinity,
         decoration: BoxDecoration(
             gradient: LinearGradient(begin: Alignment.topCenter, colors: [
-          Color.fromRGBO(248, 64, 0, 1),
-          Color.fromRGBO(248, 64, 0, .8),
-          Color.fromRGBO(248, 64, 0, .7)
+          Color.fromRGBO(230, 81, 0, 1),
+          Color.fromRGBO(230, 81, 0, .8),
+          Color.fromRGBO(230, 81, 0, .5)
         ])),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -354,15 +354,15 @@ class _HomeState extends State<Registrar> {
                                   )
                                 ],
                               ),
-                              color: Colors.white,
+                              color: Color.fromRGBO(230,81,0,1),
                               elevation: 0,
                               minWidth: 350,
                               height: 60,
-                              textColor: Colors.red,
+                              textColor: Colors.white,
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(50),
                                 side: BorderSide(
-                                    color: Color.fromRGBO(248, 64, 0, 1),
+                                    color: Color.fromRGBO(230, 81, 0, 1),
                                     width: 2.0),
                               ),
                             ),

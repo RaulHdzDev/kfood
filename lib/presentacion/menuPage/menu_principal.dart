@@ -75,7 +75,7 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
         borderRadius: 10.0,
         backgroundColor: Colors.white,
         progressWidget: CircularProgressIndicator(
-          valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+          valueColor: new AlwaysStoppedAnimation<Color>(Color.fromRGBO(239, 108, 0, 1),),
         ),
         elevation: 10.0,
         insetAnimCurve: Curves.easeInOut,
@@ -92,7 +92,7 @@ class _KfoodNavigationBarState extends State<KfoodNavigationBar> {
           key: _bottomNavigationKey,
           currentIndex: pageindex,
           unselectedItemColor: Colors.black38,
-          selectedItemColor: Color.fromARGB(255, 177, 145, 1),
+          selectedItemColor: Color.fromRGBO(239, 108, 0, 1),
           items: [
             BottomNavigationBarItem(
                 icon: Icon(Icons.fastfood),
