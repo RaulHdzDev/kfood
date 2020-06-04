@@ -72,7 +72,7 @@ class _SaludoState extends State<Saludo> {
                        ),
         ),
 
-
+//ok
 
           height: MediaQuery.of(context).size.height,
           child: PageView(
