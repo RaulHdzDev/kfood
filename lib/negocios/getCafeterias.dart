@@ -6,6 +6,7 @@ import 'package:kfood_app/presentacion/menuPage/foodPage/comida/foodPage.dart';
 import 'package:kfood_app/datos/requests.dart';
 
 Future<List<Tiendas>> getTiendasList(List<Tiendas> cafeterias) async {
+  cafeterias?.clear();
   String response = await executeHttpRequest(urlFile: "/obtenerCafeterias.php", requestBody: null);
   final decodedData = json.decode(response);
   print(decodedData);
@@ -14,6 +15,5 @@ Future<List<Tiendas>> getTiendasList(List<Tiendas> cafeterias) async {
     cafeterias.add(Tiendas(item['idCafe'],item['nombreCafe']));
     // print(item['nombreGuiso']);
   }
-  // print("cantidad: ${tripsList.length}");
   return cafeterias;
 }
