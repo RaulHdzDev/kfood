@@ -52,7 +52,7 @@ class _ItemFoodState extends State<ItemFood> {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
         tripsList.add(DatosComida(item.nombreComida,
-            double.parse(item.precioUnitario), item.idComida));
+            double.parse(item.precioUnitario), item.idComida,item.isPlatillo));
       }
     }
     setState(() {});
@@ -147,7 +147,8 @@ class _ItemFoodState extends State<ItemFood> {
         child: InkWell(
       splashColor: Colors.black,
       onTap: () {
-        _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida);
+        print("${trip.comida}, es Platillo? ${trip.esPlatillo}");
+        _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida, trip.esPlatillo);
       },
       child: Card(
         color: Colors.white,
@@ -235,7 +236,7 @@ class _ItemFoodState extends State<ItemFood> {
     _abrirPagCantidad(context);
   }
 
-  void _onPressComida(String comida, int precio, String idcomida) async {
+  void _onPressComida(String comida, int precio, String idcomida, bool esPlatillo) async {
     ordenes = Provider.of<Ordenes>(context);
     showModalBottomSheet(
         context: context,
@@ -344,7 +345,7 @@ class _ItemFoodState extends State<ItemFood> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          Container(
+                          !esPlatillo ? Container(
                             child: Row(
                               children: <Widget>[
                                 Icon(CupertinoIcons.forward),
@@ -357,8 +358,8 @@ class _ItemFoodState extends State<ItemFood> {
                                 ),
                               ],
                             ),
-                          ),
-                          GuisosDropDown()
+                          ) : new Container(width: 0, height: 0),
+                          !esPlatillo ? GuisosDropDown() : new Container(width: 0, height: 0)
                         ],
                       ),
                     ),
