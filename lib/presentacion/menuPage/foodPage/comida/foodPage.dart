@@ -52,7 +52,7 @@ class _ItemFoodState extends State<ItemFood> {
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
         tripsList.add(DatosComida(item.nombreComida,
-            double.parse(item.precioUnitario), item.idComida,item.isPlatillo));
+            double.parse(item.precioUnitario), item.idComida,item.isPlatillo, item.idCafeteria));
       }
     }
     setState(() {});
@@ -148,7 +148,7 @@ class _ItemFoodState extends State<ItemFood> {
       splashColor: Colors.black,
       onTap: () {
         print("${trip.comida}, es Platillo? ${trip.esPlatillo}");
-        _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida, trip.esPlatillo);
+        _onPressComida(trip.comida, trip.precio.ceil(), trip.idcomida, trip.esPlatillo, trip.cafeteria);
       },
       child: Card(
         color: Colors.white,
@@ -236,7 +236,7 @@ class _ItemFoodState extends State<ItemFood> {
     _abrirPagCantidad(context);
   }
 
-  void _onPressComida(String comida, int precio, String idcomida, bool esPlatillo) async {
+  void _onPressComida(String comida, int precio, String idcomida, bool esPlatillo, String idCafeteria) async {
     ordenes = Provider.of<Ordenes>(context);
     showModalBottomSheet(
         context: context,
@@ -359,7 +359,7 @@ class _ItemFoodState extends State<ItemFood> {
                               ],
                             ),
                           ) : new Container(width: 0, height: 0),
-                          !esPlatillo ? GuisosDropDown() : new Container(width: 0, height: 0)
+                          !esPlatillo ? GuisosDropDown(idCafeteria) : new Container(width: 0, height: 0)
                         ],
                       ),
                     ),
@@ -569,13 +569,16 @@ class _ContadorState extends State {
 }
 
 class GuisosDropDown extends StatefulWidget {
-  GuisosDropDown() : super();
+  String id;
+  GuisosDropDown(String idCafeteria) {
+    this.id = idCafeteria;
+  }
   static String selectguiso = '';
   static String selectidguiso = '';
   final String title = "Guisos disp.";
 
   @override
-  GuisosDropDownState createState() => GuisosDropDownState();
+  GuisosDropDownState createState() => GuisosDropDownState(id);
 }
 
 class GuisosDatos {
@@ -583,16 +586,21 @@ class GuisosDatos {
   String name;
 
   GuisosDatos(this.id, this.name);
-  static Future<List<GuisosDatos>> getGuisos() async {
+  /*static Future<List<GuisosDatos>> getGuisos() async {
     List<GuisosDatos> guisos = new List<GuisosDatos>();
     guisos = await getGuisosList();
     return guisos;
-  }
+  }*/
 }
 
 class GuisosDropDownState extends State<GuisosDropDown> {
+  String idG;
+  GuisosDropDownState(String id){
+    idG = id;
+  }
+
   obtenerGuisos() async {
-    await getGuisosList().then((lista) {
+    await getGuisosList(idG).then((lista) {
       setState(() {
         _guisos = lista;
         _dropdownMenuItems = buildDropdownMenuItems(_guisos);

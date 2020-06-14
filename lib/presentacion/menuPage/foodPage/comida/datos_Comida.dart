@@ -3,5 +3,6 @@ class DatosComida {
   final double precio;
   final String idcomida;
   final bool esPlatillo;
-  DatosComida(this.comida, this.precio, this.idcomida, this.esPlatillo);
+  final String cafeteria;
+  DatosComida(this.comida, this.precio, this.idcomida, this.esPlatillo, this.cafeteria);
 }
