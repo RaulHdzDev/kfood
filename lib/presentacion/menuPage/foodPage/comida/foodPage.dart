@@ -33,13 +33,22 @@ class _ItemFoodState extends State<ItemFood> {
 
   final List<DatosComida> tripsList = [];
   static int vari = 0;
+  _ItemFoodState ifd;
   @override
   void initState() {
     super.initState();
     Timer(new Duration(milliseconds: 1), abrirPag);
+    ifd = this;
+  }
+  String idCafe;
+  void updateState(String id) {
+    idCafe = id;
+    abrirPag();
+    setState(() {});
   }
 
   void imprimirLista(Comidas lista) {
+    tripsList.clear();
     for (Comida item in lista.comidas) {
       if (item.estado == 'Disponible') {
         tripsList.add(DatosComida(item.nombreComida,
@@ -75,7 +84,7 @@ class _ItemFoodState extends State<ItemFood> {
                           )),
                     ],
                   ),
-                  TiendasDropDown()
+                  TiendasDropDown(ifd)
                 ],
               )),
           _listaComida()
@@ -210,7 +219,14 @@ class _ItemFoodState extends State<ItemFood> {
     final Comidas comidas = Provider.of<Comidas>(context);
     final Cafeterias cafeterias = Provider.of<Cafeterias>(context);
     comidas.limpiarLista();
-    await traerComida(comidas, cafeterias.cafeterias);
+    if (idCafe!=null){
+      print("cafeteria: $idCafe");
+      await traerComida(comidas, idCafe);
+    }else{
+      print("cafeteria: ${cafeterias.cafeterias}");
+      await traerComida(comidas, cafeterias.cafeterias);
+    }
+
     imprimirLista(comidas);
   }
 

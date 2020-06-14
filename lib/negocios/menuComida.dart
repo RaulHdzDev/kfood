@@ -14,11 +14,13 @@ Future<String> solicitarComida(String cafe) async{
 }
 
 Future<void> traerComida(Comidas innerComidas, String cafeterias) async{
-  
   return solicitarComida(cafeterias).then((value){
-    final decodedData = json.decode(value);
-    print(decodedData);
-    innerComidas.fromJsonList(decodedData['comida']);
+    print("VALUE: $value");
+    if (value != "[]"){
+      final decodedData = json.decode(value);
+      print("menuComida: $decodedData");
+      innerComidas.fromJsonList(decodedData['comida']);
+    }
     
   });
   

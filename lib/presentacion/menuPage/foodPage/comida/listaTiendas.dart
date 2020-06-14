@@ -5,8 +5,11 @@ import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/getCafeterias.dart';
 import 'package:kfood_app/negocios/providers/cafeterias.dart';
 
+var ifdn;
 class TiendasDropDown extends StatefulWidget {
-  TiendasDropDown() : super();
+  TiendasDropDown(ifd) {
+    ifdn = ifd;
+  }
 
   @override
   TiendasDropDownState createState() => TiendasDropDownState();
@@ -43,7 +46,6 @@ class TiendasDropDownState extends State<TiendasDropDown> {
   @override
   void initState() {
     _dropdownMenuItems = buildDropdownMenuItems(_horarios);
-    super.initState();
     Timer(new Duration(milliseconds: 1), obtener);
   }
 
@@ -64,8 +66,10 @@ class TiendasDropDownState extends State<TiendasDropDown> {
     setState(() {
       _selectedTiendas = selectedTienda;
     });
+    print(_selectedTiendas.tienda);
     TiendasDropDown.tienda = _selectedTiendas.tienda;
     TiendasDropDown.id = _selectedTiendas.id;
+    ifdn.updateState(_selectedTiendas.id);
   }
 
   @override
