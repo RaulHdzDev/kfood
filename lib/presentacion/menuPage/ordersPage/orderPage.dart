@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kfood_app/datos/requests.dart';
 import 'package:kfood_app/negocios/completarPedido.dart';
 import 'package:provider/provider.dart';
 import 'package:kfood_app/negocios/providers/ordenes.dart';
@@ -323,7 +324,23 @@ void _onPressComida(context) async {
                       padding: EdgeInsets.only(top: 40),
                       child: Center(
                         child: MaterialButton(
-                          onPressed: () {
+                          onPressed: () async {
+                            Future<String> getToken() async {
+                              Map<String, String> body = {
+                                'id_usuarios':'${MismoPedido.idusuario}'
+                              };
+                              String respuesta = await executeHttpRequest(urlFile: '/getTokenFromPedido.php', requestBody: body);
+                              print("orderPage.dart linea 333: $respuesta");
+                              return respuesta;
+                            }
+                            Map<String, String> bodyNotificacion = {
+                              'title':'Nuevo pedido',
+                              'body':'Miralo en tu pantalla Pedidos',
+                              'token':'${await getToken()}'
+                            };
+                            executeHttpRequest(urlFile: '/push.php', requestBody: bodyNotificacion).then((value){
+                              print("respuesta en orderPage.dart linea 342: $value");
+                            });
                             confirmarPedido(MismoPedido.idpedido, HorasDropDown.horas, ordenes.obtenerTotal(), ordenes).then((value){
                               Navigator.pop(context);                              
                             });

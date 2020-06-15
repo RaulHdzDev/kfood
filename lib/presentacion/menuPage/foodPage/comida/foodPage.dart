@@ -247,7 +247,7 @@ class _ItemFoodState extends State<ItemFood> {
 
   Future<String> getLastPedidoCafeteriaID() async {
     Map<String, String> body = {
-      'id_usuario':'1'
+      'id_usuario':'${MismoPedido.idusuario}'
     };
     String respuesta = await executeHttpRequest(urlFile: '/getCafeteriaFromIncompletos.php', requestBody: body);
     print("foodPage.dart linea 246: $respuesta");
