@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:kfood_app/datos/requests.dart';
 import 'package:kfood_app/negocios/menuComida.dart';
 import 'package:kfood_app/negocios/pedidoInicial.dart';
 import 'package:kfood_app/negocios/pedidos.dart';
@@ -40,10 +41,17 @@ class _ItemFoodState extends State<ItemFood> {
     Timer(new Duration(milliseconds: 1), abrirPag);
     ifd = this;
     idCafe = "1"; //Doña pilli id es 1, iniciemos con eso TODO: si queda tiempo tomar el id de la BD
+    getLastPedidoCafeteriaID().then((id){
+      inUseCafeteria = id;
+    });
   }
   String idCafe;
+  String inUseCafeteria;
   void updateState(String id) {
     idCafe = id;
+    getLastPedidoCafeteriaID().then((id){
+      inUseCafeteria = id;
+    });
     abrirPag();
     setState(() {});
   }
@@ -237,6 +245,15 @@ class _ItemFoodState extends State<ItemFood> {
     _abrirPagCantidad(context);
   }
 
+  Future<String> getLastPedidoCafeteriaID() async {
+    Map<String, String> body = {
+      'id_usuario':'1'
+    };
+    String respuesta = await executeHttpRequest(urlFile: '/getCafeteriaFromIncompletos.php', requestBody: body);
+    print("foodPage.dart linea 246: $respuesta");
+    return respuesta;
+  }
+
   void _onPressComida(String comida, int precio, String idcomida, bool esPlatillo, String idCafeteria) async {
     ordenes = Provider.of<Ordenes>(context);
     showModalBottomSheet(
@@ -398,44 +415,54 @@ class _ItemFoodState extends State<ItemFood> {
                     padding: EdgeInsets.only(top: 40),
                     child: Center(
                       child: MaterialButton(
-                        onPressed: ordenes.showButton
-                            ? null
+                        //TODO: no mostrar en otra cafeteria
+                        onPressed: idCafe == inUseCafeteria || inUseCafeteria=='null'
+                            ? () {
+                          print("idCafe:$idCafe==inUseCafeteria:$inUseCafeteria");
+                          ordenes = Provider.of<Ordenes>(context);
+                          if (ordenes.vacio()) {
+                            getProfileData().then((value) {
+                              MismoPedido.idusuario = value.id_usuarios;
+                              registrarPedidoInicial(
+                                  MismoPedido.idusuario, idCafe)
+                                  .then((valu) {
+                                agregarOrden(
+                                    comida,
+                                    cantidad.cont,
+                                    GuisosDropDown.selectguiso,
+                                    precio * cantidad.cont,
+                                    MismoPedido.idpedido,
+                                    idcomida,
+                                    GuisosDropDown?.selectidguiso,
+                                    esPlatillo);
+                              });
+                            });
+                          } else {
+                            agregarOrden(
+                                comida,
+                                cantidad.cont,
+                                GuisosDropDown.selectguiso,
+                                precio * cantidad.cont,
+                                MismoPedido.idpedido,
+                                idcomida,
+                                GuisosDropDown?.selectidguiso,
+                                esPlatillo);
+                          }
+                          Fluttertoast.showToast(
+                              msg: "Se agregó a tu orden",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.BOTTOM,
+                              timeInSecForIosWeb: 1);
+                          Navigator.pop(context);
+                        }
                             : () {
-                                ordenes = Provider.of<Ordenes>(context);
-                                if (ordenes.vacio()) {
-                                  getProfileData().then((value) {
-                                    MismoPedido.idusuario = value.id_usuarios;
-                                    registrarPedidoInicial(
-                                            MismoPedido.idusuario, idCafe)
-                                        .then((valu) {
-                                      agregarOrden(
-                                          comida,
-                                          cantidad.cont,
-                                          GuisosDropDown.selectguiso,
-                                          precio * cantidad.cont,
-                                          MismoPedido.idpedido,
-                                          idcomida,
-                                          GuisosDropDown?.selectidguiso,
-                                          esPlatillo);
-                                    });
-                                  });
-                                } else {
-                                  agregarOrden(
-                                      comida,
-                                      cantidad.cont,
-                                      GuisosDropDown.selectguiso,
-                                      precio * cantidad.cont,
-                                      MismoPedido.idpedido,
-                                      idcomida,
-                                      GuisosDropDown?.selectidguiso,
-                                      esPlatillo);
-                                }
-                                Fluttertoast.showToast(
-                                    msg: "Se agregó a tu orden",
-                                    toastLength: Toast.LENGTH_SHORT,
-                                    gravity: ToastGravity.BOTTOM,
-                                    timeInSecForIosWeb: 1);
-                                Navigator.pop(context);
+                          print("idCafe:$idCafe==inUseCafeteria:$inUseCafeteria");
+                          Fluttertoast.showToast(
+                              msg: "Termina tu pedido primero",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1);
+                          //Navigator.pop(context);
                               },
                         textColor: Colors.black54,
                         height: 55,
