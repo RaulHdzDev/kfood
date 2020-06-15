@@ -9,6 +9,7 @@ Future<void> confirmarPedido(String idpedido, String hora, int total, Ordenes or
     'hora' : hora,
     'total' : total.toString()
   };
+  print("el id del pedido es: $idpedido, $hora, $total");
   return await executeHttpRequest(urlFile: '/completarPedido.php', requestBody: inicial).then((value){
     print(value);
     if(value == 'exito'){

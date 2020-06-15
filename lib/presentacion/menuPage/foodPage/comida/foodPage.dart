@@ -39,6 +39,7 @@ class _ItemFoodState extends State<ItemFood> {
     super.initState();
     Timer(new Duration(milliseconds: 1), abrirPag);
     ifd = this;
+    idCafe = "1"; //Doña pilli id es 1, iniciemos con eso TODO: si queda tiempo tomar el id de la BD
   }
   String idCafe;
   void updateState(String id) {
@@ -405,7 +406,7 @@ class _ItemFoodState extends State<ItemFood> {
                                   getProfileData().then((value) {
                                     MismoPedido.idusuario = value.id_usuarios;
                                     registrarPedidoInicial(
-                                            MismoPedido.idusuario)
+                                            MismoPedido.idusuario, idCafe)
                                         .then((valu) {
                                       agregarOrden(
                                           comida,
@@ -414,7 +415,8 @@ class _ItemFoodState extends State<ItemFood> {
                                           precio * cantidad.cont,
                                           MismoPedido.idpedido,
                                           idcomida,
-                                          GuisosDropDown.selectidguiso);
+                                          GuisosDropDown?.selectidguiso,
+                                          esPlatillo);
                                     });
                                   });
                                 } else {
@@ -425,7 +427,8 @@ class _ItemFoodState extends State<ItemFood> {
                                       precio * cantidad.cont,
                                       MismoPedido.idpedido,
                                       idcomida,
-                                      GuisosDropDown.selectidguiso);
+                                      GuisosDropDown?.selectidguiso,
+                                      esPlatillo);
                                 }
                                 Fluttertoast.showToast(
                                     msg: "Se agregó a tu orden",
@@ -463,7 +466,7 @@ class _ItemFoodState extends State<ItemFood> {
   }
 
   agregarOrden(String nombre, int cantidad, String guiso, int total,
-      String idpedido, String idcomida, String idguiso) async {
+      String idpedido, String idcomida, String idguiso, bool esPlatillo) async {
     ordenes = Provider.of<Ordenes>(context);
     ContCantidad cantidadActualizar = Provider.of<ContCantidad>(context);
     EsqueletoOrdenes pedir = new EsqueletoOrdenes(
@@ -474,8 +477,9 @@ class _ItemFoodState extends State<ItemFood> {
         idpedido: idpedido,
         idcomidas: idcomida,
         idguisos: idguiso);
-    registrarPedido(idpedido, idcomida, idguiso, cantidad.toString())
+    registrarPedido(idpedido, idcomida, idguiso, cantidad.toString(), esPlatillo)
         .then((value) {
+          print("id insertado: $value, cuando es platillo? $esPlatillo");
       cantidadActualizar.reiniciarCont();
       ordenes.agregar(pedir, value);
     });
