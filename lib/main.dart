@@ -148,25 +148,6 @@ class SplashScreen extends State<Splash> {
 	                  ),
 
 
-                    
-                  Positioned(
-                    width: 130,
-                    bottom: 300,
-                    left: 130,
-                    top: 470,
-                    
-	                    child: FadeAnimation(1.5, Container(
-	                      decoration: BoxDecoration(
-	                        image: DecorationImage(
-	                          image: AssetImage('assets/images/nombreSplash.png'),                     
-	                        )
-	                      ),         
-	                    )
-
-                      ),
-	                  ),
-
-
 	                ],
 	              ),
 	            ),

@@ -19,8 +19,9 @@ class _Perfil extends State<ProfilePage> {
   String nombre = "";
   String correo = "";
   String pedidos = "";
-  String favorito = "_";  
-  changeText(String mat, String nom, String corr, String pedidosN, String platoFav) {
+  String favorito = "_";
+  changeText(
+      String mat, String nom, String corr, String pedidosN, String platoFav) {
     setState(() {
       matricula = "$mat";
       nombre = "$nom";
@@ -39,8 +40,7 @@ class _Perfil extends State<ProfilePage> {
         "${datos.nombre} ${datos.apaterno} ${datos.amaterno}",
         "${datos.correo}",
         "${da.pedidos}",
-        "${da.plato}"
-    );
+        "${da.plato}");
   }
 
   @override
@@ -53,21 +53,22 @@ class _Perfil extends State<ProfilePage> {
   Widget build(BuildContext context) {
     pr = new ProgressDialog(context);
     pr.style(
-          message: 'Por favor espere...',
-          borderRadius: 10.0,
-          backgroundColor: Colors.white,
-          progressWidget: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
-          ),
-          elevation: 10.0,
-          insetAnimCurve: Curves.easeInOut,
-          progress: 0.0,
-          maxProgress: 100.0,
-          progressTextStyle: TextStyle(
-            color: Colors.black, fontSize: 13.0, /*fontWeight: FontWeight.w400*/),
-          messageTextStyle: TextStyle(
-            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600)
-    );
+        message: 'Por favor espere...',
+        borderRadius: 10.0,
+        backgroundColor: Colors.white,
+        progressWidget: CircularProgressIndicator(
+          valueColor: new AlwaysStoppedAnimation<Color>(Colors.redAccent),
+        ),
+        elevation: 10.0,
+        insetAnimCurve: Curves.easeInOut,
+        progress: 0.0,
+        maxProgress: 100.0,
+        progressTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 13.0, /*fontWeight: FontWeight.w400*/
+        ),
+        messageTextStyle: TextStyle(
+            color: Colors.black, fontSize: 15.0, fontWeight: FontWeight.w600));
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
@@ -104,7 +105,6 @@ class _Perfil extends State<ProfilePage> {
                 ),
               ],
             )),
-        
         body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: SingleChildScrollView(
@@ -175,8 +175,10 @@ class _Perfil extends State<ProfilePage> {
                       pr.show();
                       Future.delayed(Duration(seconds: 3)).then((value) {
                         pr.hide().whenComplete(() {
-                          Navigator.of(context).pushReplacement(MaterialPageRoute(
-                              builder: (BuildContext context) => HomePage()));
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      HomePage()));
                         });
                       });
                       signOut();
@@ -214,17 +216,6 @@ class _Perfil extends State<ProfilePage> {
               color: Colors.black38,
             ),
           ),
-          FlatButton(
-            onPressed: () {
-              _abrirActualizar();
-            },
-            padding: EdgeInsets.only(right: 0.0),
-            child: Text(
-              'Editar',
-              style: kLabelStyle,
-            ),
-          ),
-          
         ],
       ),
     );
@@ -265,6 +256,7 @@ class _Perfil extends State<ProfilePage> {
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Icon(
               Icons.vpn_key,
@@ -282,6 +274,26 @@ class _Perfil extends State<ProfilePage> {
                 color: Colors.black87,
               ),
             ),
+            SizedBox(
+              width: 8,
+            ),
+            FlatButton(
+              onPressed: () {
+                _abrirActualizar();
+              },
+              padding: EdgeInsets.only(right: 0.0),
+              child: Text(
+                'Editar',
+                style: kLabelStyle,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(50),
+                side: BorderSide(
+                    color: Color.fromRGBO(230, 81, 0, 1), width: 2.0),
+              ),
+            ),
+
+            
           ],
         ),
       ),
@@ -518,10 +530,10 @@ class _Perfil extends State<ProfilePage> {
               child: Column(
                 children: <Widget>[
                   Padding(
-                    padding: EdgeInsets.only(top: 35, bottom: 20),
+                    padding: EdgeInsets.only(top: 5, bottom: 10),
                     child: Container(
                       child: Text(
-                        "Editar información",
+                        "Editar Contraseña",
                         style: TextStyle(
                           color: Colors.black54,
                           letterSpacing: 1.0,
@@ -531,13 +543,6 @@ class _Perfil extends State<ProfilePage> {
                         ),
                       ),
                     ),
-                  ),
-                  Divider(
-                    thickness: 2,
-                  ),
-                  _correo(),
-                  SizedBox(
-                    width: 20,
                   ),
                   _contrasena(),
                   SizedBox(
