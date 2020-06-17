@@ -389,33 +389,180 @@ class Horas {
   String hora;
 
   Horas(this.id, this.hora);
-  static List<Horas> getHoras() {
-    return <Horas>[
-      Horas(2, '07:55'),
-      Horas(3, '08:50'),
-      Horas(4, '09:45'),
-      Horas(5, '10:40'),
-      Horas(6, '11:35'),
-      Horas(7, '12:30'),
-      Horas(8, '13:25'),
-      Horas(9, '14:20'),
-      Horas(10, '15:15'),
-    ];
-  }
 }
 
 class HorasDropDownState extends State<HorasDropDown> {
-
-  List<Horas> _horarios = Horas.getHoras();
+  List<Horas> horas;
   List<DropdownMenuItem<Horas>> _dropdownMenuItems;
   Horas _selectedHoras;
 
   @override
   void initState() {
-    _dropdownMenuItems = buildDropdownMenuItems(_horarios);
-    _selectedHoras = _dropdownMenuItems[0].value;
-    HorasDropDown.horas = _selectedHoras.hora;  
+    var now = new DateTime.now();
+    var hora = now.hour;
+    var minutos = now.minute;
+    bool build = true;
+    print("HORARIO EN DROPDOWN: $hora:$minutos");
+    if(hora>15 || (hora==15 && minutos>15)) {
+      Navigator.pop(context);
+      Fluttertoast.showToast(msg: 'No hay horarios disponibles');
+      build = false;
+    }
+    if(build) initStateHelper(now);
     super.initState();
+  }
+
+  initStateHelper(DateTime now){
+    var hora = now.hour;
+    var minutos = now.minute;
+    if(hora == 14){
+    if (minutos>20){
+    horas = <Horas>[
+    Horas(10, '15:15')
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(9, '14:20'),
+    Horas(10, '15:15')
+    ];
+    }
+    }else if(hora == 13 ){
+    if (minutos>25){
+    horas = <Horas>[
+    Horas(9, '14:20'),
+    Horas(10, '15:15')
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15')
+    ];
+    }
+    }else if(hora == 12){
+    if(minutos>30){
+    horas = <Horas>[
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else if(hora == 11){
+    if(minutos>35){
+    horas = <Horas>[
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else if(hora == 10){
+    if(minutos>40){
+    horas = <Horas>[
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else if(hora == 9){
+    if(minutos>45){
+    horas = <Horas>[
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(4, '09:45'),
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else if(hora == 8){
+    if(minutos>50){
+    horas = <Horas>[
+    Horas(4, '09:45'),
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }else{
+    horas = <Horas>[
+    Horas(3, '08:50'),
+    Horas(4, '09:45'),
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else if(hora == 7){
+    if(minutos>55){
+    horas = <Horas>[
+    Horas(3, '08:50'),
+    Horas(4, '09:45'),
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    }else{
+    horas = <Horas>[
+    Horas(2, '07:55'),
+    Horas(3, '08:50'),
+    Horas(4, '09:45'),
+    Horas(5, '10:40'),
+    Horas(6, '11:35'),
+    Horas(7, '12:30'),
+    Horas(8, '13:25'),
+    Horas(9, '14:20'),
+    Horas(10, '15:15'),
+    ];
+    }
+    _dropdownMenuItems = buildDropdownMenuItems(horas);
+    _selectedHoras = _dropdownMenuItems[0].value;
+    HorasDropDown.horas = _selectedHoras.hora;
   }
 
   List<DropdownMenuItem<Horas>> buildDropdownMenuItems(List horariosKfood) {
@@ -432,6 +579,7 @@ class HorasDropDownState extends State<HorasDropDown> {
   }
 
   onChangeDropdownItem(Horas selectedCompany) {
+    if(!mounted) return;
     setState(() {
       _selectedHoras = selectedCompany;
     });

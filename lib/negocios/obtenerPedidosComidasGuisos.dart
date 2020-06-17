@@ -12,6 +12,7 @@ Future<String> solicitarPedidosComidasGuisos(String idpedido) async{
 
 Future<void> traerPedComGui(String idpedido, Ordenes innerPedComGui) async{ 
   return await solicitarPedidosComidasGuisos(idpedido).then((value){
+    print("obtenerPedComGui.php respondio: $value");
     final decodedData = json.decode(value);
     innerPedComGui.fromJsonList(decodedData['pedidos']);    
   });
