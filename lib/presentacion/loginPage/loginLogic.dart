@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../datos/requests.dart';
 
@@ -66,4 +67,25 @@ restorePassword(String email) async {
     }
   }
 
+}
+
+Future<String> getUserID() async {
+  FirebaseUser user = await FirebaseAuth.instance.currentUser();
+  Map<String,String> body = {
+    'correo':'${user.email}'
+  };
+  return await executeHttpRequest(urlFile: "/getUserID.php", requestBody: body);
+}
+
+updateToken() async {
+  final FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+  String token = await _firebaseMessaging.getToken();
+  String id = await getUserID();
+  Map<String, String> body = {
+    'id':'$id',
+    'token':'$token'
+  };
+  executeHttpRequest(urlFile: "/updateToken.php", requestBody: body).then((respuesta){
+    print("updateToken.php respondio: $respuesta, cuando id=$id al actualizar token:$token");
+  });
 }

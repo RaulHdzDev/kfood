@@ -217,6 +217,7 @@ class Login extends State<HomePage> {
             gravity: ToastGravity.CENTER,
           );
           if (await logIn(userController.text, passwordController.text)) {
+            updateToken();
             Navigator.pushReplacement(
                 context,
                 CupertinoPageRoute(
